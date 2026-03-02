@@ -1,0 +1,326 @@
+.kitchen-renovation-process {
+  position: relative;
+  padding: 12rem 10%;
+  background: radial-gradient(1200px 700px at 15% 10%, rgba(246, 124, 11, 0.14), rgba(0, 0, 0, 0) 60%),
+    radial-gradient(900px 600px at 85% 25%, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0) 55%),
+    #0b0b0c;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* subtle blobs */
+.kitchen-process-bg {
+  position: absolute;
+  filter: blur(60px);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.kitchen-process-bg--a {
+  width: 520px;
+  height: 520px;
+  left: -180px;
+  top: 140px;
+  background: radial-gradient(circle, rgba(246, 124, 11, 0.55), rgba(246, 124, 11, 0));
+}
+
+.kitchen-process-bg--b {
+  width: 640px;
+  height: 640px;
+  right: -260px;
+  bottom: -200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0));
+}
+
+.kitchen-process-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* header */
+.kitchen-process-header {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 8rem auto;
+}
+
+.kitchen-process-kicker {
+  display: inline-block;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 1.6rem;
+}
+
+.kitchen-process-header h2 {
+  font-size: 3.6rem;
+  font-family: var(--font-title);
+  line-height: 1.15;
+  margin-bottom: 2rem;
+}
+
+.kitchen-process-subtitle {
+  font-size: 1.6rem;
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.72);
+  margin-bottom: 3.2rem;
+}
+
+.kitchen-process-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.4rem 3.2rem;
+  background: linear-gradient(135deg, #f67c0b, #ff982f);
+  color: #111;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 999px;
+  box-shadow: 0 18px 50px rgba(246, 124, 11, 0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.kitchen-process-cta:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+  box-shadow: 0 22px 70px rgba(246, 124, 11, 0.32);
+}
+
+/* timeline wrapper */
+.kitchen-process-timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.2rem;
+  padding-left: 0;
+}
+
+/* center rail */
+.kitchen-timeline-rail {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.kitchen-timeline-progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: top;
+  background: linear-gradient(
+    180deg,
+    rgba(246, 124, 11, 1),
+    rgba(246, 124, 11, 0.15)
+  );
+  border-radius: 999px;
+  will-change: transform;
+}
+
+/* alternating cards */
+.kitchen-process-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 70px 1fr;
+  align-items: start;
+  z-index: 1;
+
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 600ms ease,
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--delay, 0ms);
+}
+
+.kitchen-process-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* node */
+.kitchen-process-node {
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.kitchen-process-number {
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(10px);
+  color: #f67c0b;
+  font-weight: 700;
+  letter-spacing: 1px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+}
+
+/* panel */
+.kitchen-process-panel {
+  max-width: 520px;
+  padding: 2.6rem 2.6rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+  transition: transform 250ms ease, border-color 250ms ease;
+}
+
+.kitchen-process-panel::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: radial-gradient(
+      500px 220px at 15% 10%,
+      rgba(246, 124, 11, 0.22),
+      rgba(0, 0, 0, 0) 60%
+    ),
+    radial-gradient(
+      420px 240px at 90% 70%,
+      rgba(255, 255, 255, 0.14),
+      rgba(0, 0, 0, 0) 55%
+    );
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.kitchen-process-panel h3 {
+  position: relative;
+  font-size: 2.05rem;
+  margin-bottom: 1.1rem;
+  line-height: 1.25;
+}
+
+.kitchen-process-panel p {
+  position: relative;
+  font-size: 1.5rem;
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* hover */
+.kitchen-process-card:hover .kitchen-process-panel {
+  transform: translateY(-2px);
+  border-color: rgba(246, 124, 11, 0.35);
+}
+
+/* alignment */
+.kitchen-process-card--left .kitchen-process-panel {
+  grid-column: 1;
+  justify-self: end;
+  text-align: left;
+}
+
+.kitchen-process-card--right .kitchen-process-panel {
+  grid-column: 3;
+  justify-self: start;
+  text-align: left;
+}
+
+.kitchen-process-card--left .kitchen-process-panel,
+.kitchen-process-card--right .kitchen-process-panel {
+  margin: 0 1.2rem;
+}
+
+/* RESPONSIVE */
+
+@media (min-width: 501px) and (max-width: 1024px) {
+  .kitchen-renovation-process {
+    padding: 9rem 7%;
+  }
+
+  .kitchen-process-header h2 {
+    font-size: 3rem;
+  }
+
+  .kitchen-timeline-rail {
+    left: 34px;
+    transform: none;
+  }
+
+  .kitchen-process-card {
+    grid-template-columns: 70px 1fr;
+  }
+
+  .kitchen-process-node {
+    grid-column: 1;
+  }
+
+  .kitchen-process-panel {
+    grid-column: 2 !important;
+    justify-self: start !important;
+    max-width: 100%;
+    margin: 0;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 500px) {
+  .kitchen-renovation-process {
+    padding: 7rem 5%;
+  }
+
+  .kitchen-process-header {
+    margin-bottom: 5rem;
+  }
+
+  .kitchen-process-header h2 {
+    font-size: 2.35rem;
+  }
+
+  .kitchen-process-subtitle {
+    font-size: 1.45rem;
+  }
+
+  .kitchen-timeline-rail {
+    left: 28px;
+    transform: none;
+  }
+
+  .kitchen-process-card {
+    grid-template-columns: 60px 1fr;
+    gap: 1.6rem;
+  }
+
+  .kitchen-process-node {
+    grid-column: 1;
+  }
+
+  .kitchen-process-panel {
+    grid-column: 2 !important;
+    max-width: 100%;
+    padding: 2.1rem 2rem;
+    margin: 0;
+  }
+
+  .kitchen-process-panel h3 {
+    font-size: 1.85rem;
+  }
+
+  .kitchen-process-panel p {
+    font-size: 1.45rem;
+  }
+}

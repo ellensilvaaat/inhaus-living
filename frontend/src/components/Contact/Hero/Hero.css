@@ -1,0 +1,132 @@
+/* =====================
+   HERO SECTION BASE
+===================== */
+.contact-hero {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  overflow: hidden;
+  background-color: #1a1a1a; /* ✅ Cor de fundo para evitar flash branco */
+}
+
+.contact-hero__background {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* ✅ Usa a imagem desktop por padrão via variável do JSX */
+  background-image: var(--bg-desktop); 
+  animation: zoomInOut 17s ease-in-out infinite;
+  z-index: 0;
+  will-change: transform; /* ✅ Melhora a performance da animação de zoom */
+}
+
+/* Zoom DESKTOP */
+@keyframes zoomInOut {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+/* =====================
+   OVERLAY
+===================== */
+.contact-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+/* =====================
+   CONTEÚDO
+===================== */
+.contact-hero__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  text-align: center;
+  color: white;
+}
+
+.contact-hero__title {
+  font-family: var(--font-primary);
+  font-size: 4rem;
+  font-weight: 700;
+}
+
+/* =====================
+   TEXTO INFERIOR
+===================== */
+.contact__bottom-text {
+  position: absolute;
+  bottom: 2rem;
+  right: 4rem;
+  font-family: var(--font-primary);
+  font-weight: 300;
+  font-size: 1.5rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  z-index: 2;
+}
+
+.contact__separator {
+  color: var(--color-accent);
+}
+
+/* =====================
+   📱 MOBILE (Ajustado para Performance)
+===================== */
+@media (max-width: 600px) {
+  .contact-hero {
+    height: 50vh;
+  }
+
+  .contact-hero__background {
+    /* ✅ Troca para a imagem leve (w-600) no mobile */
+    background-image: var(--bg-mobile) !important;
+    animation: zoomInOutMobile 17s ease-in-out infinite;
+  }
+
+  @keyframes zoomInOutMobile {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); } 
+    100% { transform: scale(1); }
+  }
+
+  .contact-hero__title {
+    font-size: 3rem;
+  }
+
+  .contact__bottom-text {
+    right: 1.5rem;
+    bottom: 1.5rem;
+    font-size: 1.2rem;
+    gap: 0.4rem;
+  }
+}
+
+/* =====================
+   🖥️ TELAS GIGANTES
+===================== */
+@media (min-width: 1500px) {
+  .contact-hero {
+    height: 90vh;
+  }
+
+  .contact-hero__title {
+    font-size: 5rem;
+  }
+
+  .contact__bottom-text {
+    font-size: 1.8rem;
+    right: 6rem;
+    bottom: 3rem;
+  }
+}

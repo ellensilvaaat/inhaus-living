@@ -1,0 +1,139 @@
+.bathroom-section {
+  padding: 8rem 10%;
+  max-width: 1400px;
+  margin: auto;
+}
+
+.bathroom-intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+.bathroom-intro-text h2 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-title);
+  line-height: 1.2;
+}
+
+.bathroom-intro-text p {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  margin-bottom: 1.8rem;
+}
+
+/* =============================
+   MASONRY
+============================= */
+
+.bathroom-gallery {
+  column-count: 2;
+  column-gap: 1.5rem;
+}
+
+.bathroom-gallery-item {
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.bathroom-gallery-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Visual rhythm */
+
+.bathroom-gallery-item:nth-child(2) .bathroom-gallery-image,
+.bathroom-gallery-item:nth-child(3) .bathroom-gallery-image {
+  aspect-ratio: 16 / 9;
+}
+
+.bathroom-gallery-item:hover .bathroom-gallery-image {
+  transform: scale(1.05);
+}
+
+/* =============================
+   MODAL
+============================= */
+
+.bathroom-image-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.bathroom-image-modal-content {
+  position: relative;
+  width: 80%;
+  height: 80%;
+  max-width: 1400px;
+}
+
+.bathroom-modal-image {
+  object-fit: contain;
+}
+
+.bathroom-modal-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  font-size: 5rem;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* =============================
+   RESPONSIVE
+============================= */
+
+@media (min-width: 501px) and (max-width: 1024px) {
+  .bathroom-intro-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bathroom-gallery {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 500px) {
+  .bathroom-section {
+    padding: 5rem 5%;
+  }
+
+  .bathroom-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .bathroom-gallery {
+    column-count: 1;
+  }
+
+  .bathroom-image-modal-content {
+    width: 95%;
+    height: 70%;
+  }
+
+  .bathroom-modal-close {
+    font-size: 2.5rem;
+    top: -35px;
+  }
+}

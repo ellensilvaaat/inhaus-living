@@ -1,0 +1,374 @@
+.cards-section {
+  padding: 7rem 0;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+/* HEADER */
+.cards-section__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  padding: 0 10rem;
+}
+
+.cards-section__title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  font-family: var(--font-primary);
+  color: #000;
+  line-height: 1.2;
+  max-width: 40rem;
+}
+
+.cards-section__subtitle {
+  padding-top: 0.5rem;
+  font-size: 1.8rem;
+  font-weight: 400;
+  font-family: var(--font-primary);
+  color: #444;
+  max-width: 500px;
+}
+
+/* SCROLL CONTAINER */
+.cards-section__scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  margin-left: 10rem; /* Ajustado para alinhar com o header */
+  gap: 2rem;
+  padding: 2rem 10rem 4rem 0; /* Padding lateral para o scroll não colar */
+  -webkit-overflow-scrolling: touch;
+}
+
+.cards-section__scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* CARD - ESTRUTURA FIXA (SEM PULO) */
+.cards-section__card {
+  position: relative;
+  flex: 0 0 auto;
+  width: 320px;
+  height: 440px;
+  background-color: #f5efe5;
+  border-radius: 16px;
+  overflow: hidden;
+  /* Retiramos o transform daqui para o card não "pular" */
+  transition: box-shadow 0.4s ease;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.cards-section__card:hover {
+  /* Apenas uma sombra mais profunda para dar foco, sem mover o card */
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* IMAGEM INTERNA (ZOOM CINEMA) */
+.cards-section__img-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  z-index: 1;
+  /* Transição mais lenta para o zoom ficar elegante */
+  transition: opacity 0.5s ease, transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.cards-section__card:hover .cards-section__img-bg {
+  opacity: 1;
+  transform: scale(1.1); /* A imagem amplia lá dentro suavemente */
+}
+
+/* CONTENT */
+.cards-section__content {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none; /* Garante que o hover seja no card */
+}
+
+.cards-section__white-box {
+  max-width: 50%;
+  background-color: white;
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  align-self: flex-start; /* Substitui o max-width fixo */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.cards-section__card-title {
+  margin: 0;
+  font-size: 1.5rem;
+  color: black;
+  font-family: var(--font-primary);
+  font-weight: 200;
+}
+
+.cards-section__description {
+  font-size: 1.4rem;
+  font-family: var(--font-primary);
+  color: #333;
+  line-height: 1.5;
+  margin-top: auto;
+  margin-bottom: 6rem;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.cards-section__card:hover .cards-section__description {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* BUTTON ARROW */
+.cards-section__btn {
+  background: white;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  position: absolute;
+  bottom: 2.5rem;
+  left: 2.5rem;
+  z-index: 4;
+  pointer-events: auto;
+  text-decoration: none;
+}
+
+.cards-section__btn img {
+  width: 18px;
+  height: 18px;
+}
+
+.cards-section__card:hover .cards-section__btn {
+  left: calc(100% - 73px); /* Move para a direita no hover */
+  background-color: #F67C0B;
+}
+
+.cards-section__card:hover .cards-section__btn img {
+  filter: brightness(0) invert(1); /* Seta fica branca no fundo laranja */
+}
+
+/* ========================== EXPLORE PROJECTS CTA (RETÂNGULO) ========================== */
+
+.cs-cta-main {
+  position: relative;
+  background: none;
+  border: none;
+  color: black;
+  font-size: 1.8rem;
+  padding: 1.2rem 2.5rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-family: var(--font-primary);
+  display: inline-block;
+  margin: 4rem 0 0 10rem;
+  text-decoration: none;
+  outline: none;
+}
+
+.cs-cta-main:hover {
+  color: #F67C0B;
+}
+
+.cs-cta-line {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #F67C0B;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cs-cta-line--tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+.cs-cta-line--bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+
+.cs-cta-main:hover .cs-cta-line {
+  width: 100%;
+  height: 100%;
+}
+
+/* ========================== RESPONSIVIDADE ========================== */
+
+@media (max-width: 768px) {
+  .cards-section__header { padding: 0 3rem; }
+  .cards-section__scroll { margin-left: 3rem; padding-right: 3rem; }
+  .cs-cta-main { margin-left: 3rem; }
+  .cards-section__title { font-size: 2.4rem; }
+}
+
+@media (max-width: 501px) {
+  .cards-section__card { width: 280px; height: 400px; }
+  .cards-section__description { padding-top: 150px; }
+}
+
+@media (max-width: 501px) {
+
+  .cards-section {
+    padding: 4rem 0;
+  }
+
+  .cards-section__header {
+    padding: 0 2rem;
+  }
+
+  .cards-section__title {
+    font-size: 2.4rem;
+    line-height: 1.3;
+  }
+
+  .cards-section__subtitle {
+    font-size: 1.4rem;
+    max-width: 100%;
+  }
+
+  .cards-section__scroll {
+    margin-left: 0;
+    padding: 1rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .cards-section__card {
+    width: 260px;
+    height: 360px;
+    border-radius: 14px;
+    transform: none;
+  }
+
+  /* overlay preto premium mobile */
+  .cards-section__card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 2;
+  }
+
+  .cards-section__img-bg {
+    opacity: 1 !important; /* Sempre visível no mobile */
+  }
+
+  .cards-section__description {
+    padding-top: 150px;
+    font-size: 1.3rem;
+    opacity: 1 !important;
+    color: white;
+  }
+
+  .cards-section__card-title {
+    color: white;
+  }
+
+  .cards-section__white-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 60% !important;
+  }
+
+  .cards-section__btn {
+    left: auto;
+    right: 1.5rem;
+  }
+
+  .sardssection__cta{
+    margin-left: 2rem;
+    font-size: 1.6rem;
+  }
+  .cards-section__card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+    z-index: 2;
+  }
+}
+
+/* ------------------------------------------------------- */
+/* 📲 TABLET — 501px até 768px */
+/* ------------------------------------------------------- */
+
+@media (min-width: 501px) and (max-width: 768px) {
+
+  .cards-section__header {
+    padding: 0 4rem;
+  }
+
+  .cards-section__scroll {
+    margin-left: 0;
+  }
+
+  .cards-section__card {
+    width: 300px;
+    height: 400px;
+  }
+
+  .cards-section__image {
+    opacity: 0.15;
+  }
+
+  .cards-section__description {
+    padding-top: 150px;
+    font-size: 1.4rem;
+  }
+
+  .cards-section__btn {
+    right: 1.5rem;
+  }
+}
+
+/* ------------------------------------------------------- */
+/* 🖥️ TELAS GIGANTES — +1500px */
+/* ------------------------------------------------------- */
+
+@media (min-width: 1500px) {
+
+  .cards-section__title {
+    font-size: 4rem;
+  }
+
+  .cards-section__subtitle {
+    font-size: 2.5rem;
+    max-width: 500px;
+  }
+
+  .cards-section__card {
+    width: 380px;
+    height: 520px;
+  }
+
+  .cards-section__card-title {
+    font-size: 1.8rem;
+  }
+
+  .cards-section__description {
+    font-size: 1.6rem;
+  }
+
+  .cards-section__btn {
+    width: 52px;
+    height: 52px;
+  }
+
+  .sardssection__cta {
+    font-size: 2rem;
+  }
+}

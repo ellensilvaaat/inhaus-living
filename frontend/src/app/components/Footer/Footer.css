@@ -1,0 +1,273 @@
+/* =====================================================
+   FOOTER — PREMIUM DARK MINIMAL
+===================================================== */
+
+.foooter {
+  background: linear-gradient(to top, #000000, #1a1a1a);
+  color: #fff;
+  padding: 60px 60px 30px;
+  font-family: var(--font-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle glow */
+.foooter::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle at 20% 30%, rgba(246,124,11,0.15), transparent 60%);
+  filter: blur(80px);
+  opacity: 0.6;
+  z-index: 0;
+}
+
+/* ========================
+   COLUMNS LAYOUT
+======================== */
+
+.foooter__columns {
+  display: flex;
+  justify-content: space-between; /* força extremos */
+  align-items: flex-start;
+  gap: 40px;
+  position: relative;
+  z-index: 1;
+}
+.footoer__contact-title{
+    color: #ffffffd9;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 30px;
+    margin-bottom: 12px;
+    font-size: 1.7rem; 
+}
+
+/* impede colunas de expandirem igualmente */
+.foooter__column {
+  flex: 0 0 auto;
+  max-width: 520px;
+}
+
+/* esquerda alinhada */
+.foooter__typewriter {
+  text-align: left;
+}
+
+/* direita alinhada */
+.foooter__contact {
+  text-align: right;
+  margin-left: auto;
+}
+
+/* ========================
+   TYPEWRITER
+======================== */
+
+.foooter__typewriter-text {
+  font-size: 4.5rem;
+  font-weight: 200;
+  margin-bottom: 25px;
+  line-height: 1.05;
+  color: #fff;
+  font-family: var(--font-primary);
+}
+
+.foooter__we {
+  font-weight: 600;
+  font-size: 5rem;
+}
+
+.foooter__animated-word {
+  display: inline-block;
+  color: #fff;
+  font-weight: 400;
+}
+
+.foooter__logo {
+  margin-top: 10px;
+}
+
+/* ========================
+   CONTACT
+======================== */
+
+.foooter__contact-title {
+  font-weight: 400;
+  font-size: 1.9rem;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+}
+
+.foooter__contact-email {
+  margin-bottom: 15px;
+  font-size: 1.6rem;
+  color: #fff;
+  transition: color .3s ease;
+}
+
+.foooter__contact-email:hover {
+  color: var(--color-accent);
+}
+
+.foooter__address-title {
+  margin-top: 30px;
+  font-size: 1.7rem;
+  margin-bottom: 12px;
+  color: rgba(255,255,255,0.85);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.foooter__address {
+  font-size: 1.5rem;
+  margin-bottom: 6px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.6;
+}
+
+/* ========================
+   SOCIAL
+======================== */
+
+.foooter__social {
+  padding-top: 2.5rem;
+  display: flex;
+  gap: 18px;
+  justify-content: flex-end; /* força direita */
+}
+
+.footer__social a {
+  font-size: 2.4rem;
+  color: rgba(255,255,255,0.8);
+  transition: all .3s ease;
+}
+
+.foooter__social a:hover {
+  color: var(--color-accent);
+  transform: translateY(-4px);
+}
+
+/* ========================
+   BOTTOM
+======================== */
+
+.foooter__bottom {
+  text-align: center;
+  margin-top: 70px;
+  font-size: 1.2rem;
+  opacity: 0.6;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+/* MOBILE */
+@media (max-width: 500px) {
+
+  .footer {
+    padding: 50px 25px 25px;
+  }
+
+  .foooter__columns {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .foooter__contact {
+    text-align: left;
+    margin-left: 0;
+  }
+
+  .footer__social {
+    justify-content: flex-start;
+  }
+
+  .foooter__typewriter-text {
+    font-size: 2.8rem;
+  }
+
+  .foooter__we {
+    font-size: 3.2rem;
+  }
+
+  .foooter__contact-title,
+  .foooter__address-title {
+    font-size: 1.6rem;
+  }
+
+  .foooter__contact-email,
+  .foooter__address {
+    font-size: 1.4rem;
+  }
+
+  .foooter__social a {
+    font-size: 2.2rem;
+  }
+
+  .foooter__bottom {
+    margin-top: 40px;
+    font-size: 1rem;
+  }
+}
+
+/* TABLET */
+@media (min-width: 501px) and (max-width: 1024px) {
+
+  .foooter {
+    padding: 60px 40px 30px;
+  }
+
+  .foooter__columns {
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .foooter__contact {
+    text-align: left;
+    margin-left: 0;
+  }
+
+  .foooter__social {
+    justify-content: flex-start;
+  }
+
+  .foooter__typewriter-text {
+    font-size: 3.5rem;
+  }
+
+  .foooter__we {
+    font-size: 4rem;
+  }
+}
+
+/* ULTRA WIDE */
+@media (min-width: 1600px) {
+
+  .foooter {
+    padding: 90px 140px 60px;
+  }
+
+  .foooter__typewriter-text {
+    font-size: 5.8rem;
+  }
+
+  .foooter__we {
+    font-size: 6.5rem;
+  }
+
+  .foooter__contact-email,
+  .foooter__address {
+    font-size: 1.7rem;
+  }
+
+  .footer__social a {
+    font-size: 2.8rem;
+  }
+}

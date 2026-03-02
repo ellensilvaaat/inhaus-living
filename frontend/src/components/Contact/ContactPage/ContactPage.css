@@ -1,0 +1,200 @@
+.contact-page {
+  padding: 6rem 6rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.contact-page__title {
+  font-family: var(--font-title);
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+
+.contact-page__title .highlight {
+  color: var(--color-accent);
+}
+
+.contact-page__wrapper {
+  display: flex;
+  gap: 4rem;
+  flex-wrap: wrap;
+}
+
+.contact-page__info {
+  flex: 1 1 40%;
+  font-family: var(--font-primary);
+}
+
+.contact-page__info p {
+  font-size: 1.7rem;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+.contact-page__visit h3,
+.contact-page__email h3 {
+  font-size: 1.6rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.9rem;
+}
+
+.location {
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+}
+
+.location a {
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+}
+
+.contact-page__visit a,
+.contact-page__email a {
+  color: black;
+  text-decoration: underline;
+}
+
+.location_name{
+font-size: 1.4rem;
+font-family: var(--font-primary);
+}
+
+.location_namee{
+font-size: 1.4rem;
+font-family: var(--font-primary);
+font-weight: 100;
+}
+
+.contact-page__form {
+  flex: 1 1 55%;
+  font-family: var(--font-primary);
+}
+
+.contact-page__email{
+  margin-top: 4rem;
+}
+
+.contact__emaill{
+  font-size: 1.3rem;
+}
+
+.two-columns {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.8rem;
+  flex: 1 1 48%;
+}
+
+.form-group label {
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+.contact-page__form{
+  margin-top: 7rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  font-family: var(--font-primary);
+  padding: 0.8rem 1rem;
+  font-size: 1.3rem;
+  border: 2px solid var(--color-accent);
+  border-radius: 6px;
+  outline: none;
+}
+
+.form-group select {
+  appearance: none;
+  background: white;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.form-submit {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+.submit-btn {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-family: var(--font-title);
+  border: 2px solid var(--color-accent);
+  background: none;
+  color: var(--color-accent);
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: var(--color-accent);
+  color: white;
+}
+
+@media (max-width: 1024px) {
+  .contact-page{
+    padding: 4rem 1.5rem;
+  }
+
+  .contact-page__wrapper {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .contact-page__visit h3, .contact-page__email h3{
+    font-size: 2rem;
+  }
+
+  .location{
+    font-size: 1.6rem;
+  }
+
+  .two‑columns {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .location_name{
+    font-size: 1.6rem;
+  }
+
+  .location_namee {
+    font-size: 1.6rem;
+  }
+
+  .contact__emaill{
+    font-size: 1.6rem;
+  }
+
+  .contact-page__form{
+    margin-top: 5rem;
+  }
+
+  .form-group {
+    flex: 1 1 100%;
+  }
+
+  .form-group label{
+    font-size: 1.6rem;
+  }
+
+  .form-group input, .form-group select, .form-group textarea{
+    font-size: 1.6rem;
+  }
+
+.submit-btn{
+  font-size: 1.6rem;
+}
+}

@@ -1,0 +1,94 @@
+.review-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.review-modal {
+  background: white;
+  max-width: 600px;
+  width: 90%;
+  padding: 3rem;
+  border-radius: 16px;
+  position: relative;
+  animation: fadeUp 0.35s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.review-modal__close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  border: none;
+  background: none;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.review-modal__close:hover {
+  color: #000;
+  transform: rotate(90deg);
+} 
+
+.review-modal__name {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 0.8rem;
+}
+
+.review-modal__stars {
+  text-align: center;
+  color: var(--color-accent);
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.review-modal__date {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #777;
+  margin-bottom: 1.5rem;
+}
+
+/* 🔥 AQUI ESTÁ A CORREÇÃO REAL */
+.review-modal__text {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: #333;
+  text-align: center;
+
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  display: block;
+  max-height: none;
+  line-clamp: unset;
+  -webkit-box-orient: unset;
+}
+
+@media (max-width: 480px) {
+  .review-modal {
+    padding: 2.4rem 2rem;
+  }
+
+  .review-modal__text {
+    font-size: 1.5rem;
+  }
+}
+

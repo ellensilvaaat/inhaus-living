@@ -1,0 +1,139 @@
+.kitchen-section {
+  padding: 8rem 10%;
+  max-width: 1400px;
+  margin: auto;
+}
+
+.kitchen-intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+.kitchen-intro-text h2 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-title);
+  line-height: 1.2;
+}
+
+.kitchen-intro-text p {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  margin-bottom: 1.8rem;
+}
+
+/* =============================
+   MASONRY
+============================= */
+
+.kitchen-gallery {
+  column-count: 2;
+  column-gap: 1.5rem;
+}
+
+.kitchen-gallery-item {
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.kitchen-gallery-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Algumas menores para ritmo visual */
+
+.kitchen-gallery-item:nth-child(2) .kitchen-gallery-image,
+.kitchen-gallery-item:nth-child(3) .kitchen-gallery-image {
+  aspect-ratio: 16 / 9;
+}
+
+.kitchen-gallery-item:hover .kitchen-gallery-image {
+  transform: scale(1.05);
+}
+
+/* =============================
+   MODAL
+============================= */
+
+.kitchen-image-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.kitchen-image-modal-content {
+  position: relative;
+  width: 80%;
+  height: 80%;
+  max-width: 1400px;
+}
+
+.kitchen-modal-image {
+  object-fit: contain;
+}
+
+.kitchen-modal-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  font-size: 5rem;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* =============================
+   RESPONSIVE
+============================= */
+
+@media (min-width: 501px) and (max-width: 1024px) {
+  .kitchen-intro-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .kitchen-gallery {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 500px) {
+  .kitchen-section {
+    padding: 5rem 5%;
+  }
+
+  .kitchen-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .kitchen-gallery {
+    column-count: 1;
+  }
+
+  .kitchen-image-modal-content {
+    width: 95%;
+    height: 70%;
+  }
+
+  .kitchen-modal-close {
+    font-size: 2.5rem;
+    top: -35px;
+  }
+}

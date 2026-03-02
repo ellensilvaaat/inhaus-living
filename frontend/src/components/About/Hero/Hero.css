@@ -1,0 +1,133 @@
+/* ===========================
+   BASE
+=========================== */
+.about-hero {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  overflow: hidden;
+  background-color: #1a1a1a;
+}
+
+.about-hero__background {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* ✅ Usa a variável desktop por padrão */
+  background-image: var(--bg-desktop);
+  animation: zoomInOut 20s ease-in-out infinite;
+  z-index: 0;
+  will-change: transform;
+}
+
+/* --- ANIMAÇÕES --- */
+@keyframes zoomInOut {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* ===========================
+   OVERLAY
+=========================== */
+.about-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+/* ===========================
+   CONTEÚDO
+=========================== */
+.about-hero__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  text-align: center;
+  color: white;
+}
+
+.about-hero__title {
+  font-family: var(--font-primary);
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* ===========================
+   TEXTO INFERIOR
+=========================== */
+.blog__bottom-text {
+  position: absolute;
+  bottom: 2rem;
+  right: 4rem;
+  font-family: var(--font-primary);
+  font-weight: 300;
+  font-size: 1.5rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  z-index: 2;
+}
+
+.blog__separator {
+  color: var(--color-accent);
+}
+
+/* ===========================
+   📱 MOBILE
+=========================== */
+@media (max-width: 501px) {
+  .about-hero {
+    height: 50vh;
+  }
+
+  .about-hero__background {
+    /* ✅ Força a imagem otimizada no mobile */
+    background-image: var(--bg-mobile) !important;
+    animation: zoomInOutMobile 20s ease-in-out infinite;
+  }
+
+  @keyframes zoomInOutMobile {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.09); }
+    100% { transform: scale(1); }
+  }
+
+  .about-hero__title {
+    font-size: 3rem;
+  }
+
+  /* Ajustado o seletor para blog__bottom-text */
+  .blog__bottom-text {
+    bottom: 1.5rem;
+    right: 2rem;
+    font-size: 1.3rem;
+  }
+}
+
+/* ===========================
+   🖥️ TELAS GRANDES
+=========================== */
+@media (min-width: 1500px) {
+  .about-hero {
+    height: 95vh;
+  }
+
+  .about-hero__title {
+    font-size: 5rem;
+  }
+
+  .blog__bottom-text {
+    font-size: 2rem;
+    right: 6rem;
+    bottom: 3rem;
+  }
+}

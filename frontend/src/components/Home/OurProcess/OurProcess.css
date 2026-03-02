@@ -1,0 +1,216 @@
+.our-process {
+  background-color: #ffffff;
+  padding: 80px 20px;
+}
+
+.container {
+  max-width: 1050px;
+  margin: 0 auto;
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+.process-intro {
+  max-width: 720px;
+  margin: 0 auto 6rem auto;
+  text-align: center;
+  font-size: 1.7rem;
+  line-height: 1.8;
+  color: #555;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .process-intro {
+    font-size: 1.5rem;
+    padding: 0 1.5rem;
+    margin: 1.5rem auto 3rem auto;
+  }
+}
+.our-process h2 {
+  text-align: center;
+  font-family: 'the seasons', serif; /* Mantendo sua fonte premium */
+  font-size: 32px;
+  font-weight: 500;
+  margin-bottom: 15px;
+  color: #000;
+}
+
+.underline {
+  width: 80px;
+  height: 2px;
+  background-color: #F67C0B;
+  margin: 0 auto 1rem auto;
+  border-radius: 2px;
+}
+
+/* STEPS STRUCTURE */
+.process-step {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  margin-bottom: 80px;
+  flex-wrap: wrap;
+}
+
+/* Inversão de lado (Step 02) */
+.process-step.flip {
+  flex-direction: row-reverse;
+}
+
+/* IMAGES OTIMIZADAS */
+.process-step__image {
+  flex: 1;
+  min-width: 300px;
+  max-width: 450px;
+}
+
+.process-step__image img {
+  width: 100%;
+  height: auto; 
+  aspect-ratio: 1 / 1;
+  object-fit: cover; 
+  /* Sombra suave para destacar a foto sem poluir */
+  filter: drop-shadow(0px 15px 30px rgba(0, 0, 0, 0.12)); 
+  border-radius: 4px;
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.process-step__image img:hover {
+  transform: scale(1.02); /* Zoom sutil de interatividade */
+}
+
+/* TEXT CONTENT */
+.process-step__text {
+  flex: 1.2;
+  min-width: 280px;
+  max-width: 520px;
+}
+
+.process-step.flip .process-step__text {
+  text-align: right;
+}
+
+.step-number {
+  font-size: 2.5rem;
+  color: #adacac;
+  font-weight: 700;
+  display: block;
+}
+
+.process-step h3 {
+  font-size: 2.2rem;
+  margin: 10px 0 25px 0;
+  font-weight: 300;
+  font-family: var(--font-primary);
+  line-height: 1.2;
+  color: #1a1a1a;
+}
+
+.process-step h3 strong {
+  font-weight: 700;
+  color: #000;
+}
+
+.process-step p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #444;
+  font-weight: 400;
+}
+
+/* =====================  📱 MOBILE (ATÉ 501PX)  ===================== */
+
+@media (max-width: 501px) {
+  .our-process {
+    padding: 50px 20px;
+  }
+
+  .our-process h2 {
+    font-size: 28px;
+  }
+
+  .underline {
+    margin-bottom: 40px;
+  }
+
+  .process-step {
+    flex-direction: column !important; /* Força empilhamento */
+    text-align: center !important;
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+
+  .process-step.flip .process-step__text {
+    text-align: center;
+  }
+
+  .process-step__image {
+    max-width: 100%;
+  }
+
+  .step-number {
+    font-size: 2.2rem;
+  }
+
+  .process-step h3 {
+    font-size: 1.8rem;
+  }
+
+  .process-step p {
+    font-size: 1.3rem; /* Ajustado para leitura confortável no celular */
+    line-height: 1.6;
+  }
+}
+
+/* =====================  📲 TABLET (501PX – 900PX)  ===================== */
+
+@media (min-width: 501px) and (max-width: 900px) {
+  .process-step {
+    gap: 35px;
+  }
+
+  .process-step__text {
+    padding: 0 10px;
+  }
+
+  .process-step h3 {
+    font-size: 2rem;
+  }
+}
+
+/* =====================  🖥️ TELAS GIGANTES (+1500PX)  ===================== */
+
+@media (min-width: 1500px) {
+  .container {
+    max-width: 1300px;
+  }
+
+  .our-process h2 {
+    font-size: 42px;
+  }
+
+  .process-step {
+    gap: 80px;
+    margin-bottom: 120px;
+  }
+
+  .process-step__image img {
+    max-width: 580px;
+  }
+
+  .step-number {
+    font-size: 3.2rem;
+  }
+
+  .process-step h3 {
+    font-size: 2.8rem;
+  }
+
+  .process-step p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+  }
+}

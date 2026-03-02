@@ -1,0 +1,139 @@
+.house-section {
+  padding: 8rem 10%;
+  max-width: 1400px;
+  margin: auto;
+}
+
+.house-intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+.house-intro-text h2 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-title);
+  line-height: 1.2;
+}
+
+.house-intro-text p {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  margin-bottom: 1.8rem;
+}
+
+/* =============================
+   MASONRY
+============================= */
+
+.house-gallery {
+  column-count: 2;
+  column-gap: 1.5rem;
+}
+
+.house-gallery-item {
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.house-gallery-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Algumas menores para ritmo visual */
+
+.house-gallery-item:nth-child(2) .house-gallery-image,
+.house-gallery-item:nth-child(3) .house-gallery-image {
+  aspect-ratio: 16 / 9;
+}
+
+.house-gallery-item:hover .house-gallery-image {
+  transform: scale(1.05);
+}
+
+/* =============================
+   MODAL
+============================= */
+
+.house-image-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.house-image-modal-content {
+  position: relative;
+  width: 80%;
+  height: 80%;
+  max-width: 1400px;
+}
+
+.house-modal-image {
+  object-fit: contain;
+}
+
+.house-modal-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  font-size: 5rem;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* =============================
+   RESPONSIVE
+============================= */
+
+@media (min-width: 501px) and (max-width: 1024px) {
+  .house-intro-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .house-gallery {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 500px) {
+  .house-section {
+    padding: 5rem 5%;
+  }
+
+  .house-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .house-gallery {
+    column-count: 1;
+  }
+
+  .house-image-modal-content {
+    width: 95%;
+    height: 70%;
+  }
+
+  .house-modal-close {
+    font-size: 2.5rem;
+    top: -35px;
+  }
+}

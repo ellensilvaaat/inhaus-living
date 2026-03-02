@@ -1,0 +1,185 @@
+/* ============================= */
+/* SECTION WRAPPER */
+/* ============================= */
+
+.aboutus-section-wrapper {
+  width: 100%;
+  background: #ffffff;
+  padding: 6rem 4rem;
+  box-sizing: border-box;
+}
+
+/* Container principal (texto + vídeo) */
+.aboutus-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+/* ============================= */
+/* LEFT SIDE - TEXT */
+/* ============================= */
+
+.aboutus-section-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  color: #000;
+}
+
+.aboutus-heading {
+  font-size: 2.5rem;
+  font-weight: 400;
+}
+
+.aboutus-heading em {
+  font-weight: 700;
+  font-style: italic;
+}
+
+.aboutus-subheading {
+  font-size: 2.3rem;
+  font-weight: 400;
+  margin-bottom: 3rem;
+}
+
+.aboutus-mission-vision {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6rem;
+  margin-bottom: 3rem;
+  max-width: 850px;
+}
+
+.aboutus-block {
+  flex: 1 1 45%;
+}
+
+.aboutus-block h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.aboutus-block p {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.highlight-orange {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* Button */
+.aboutus-button {
+  margin-top: 1rem;
+}
+
+.aboutus-button button {
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 10px 24px;
+  background: transparent;
+  border: 2px solid var(--color-accent);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.aboutus-button button:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+/* ============================= */
+/* RIGHT SIDE - VIDEO */
+/* ============================= */
+
+.aboutus-video-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aboutus-video {
+  width: 25%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+
+@media (max-width: 900px) {
+  .aboutus-container {
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .aboutus-section-content {
+    width: 100%;
+  }
+
+  .aboutus-heading {
+    font-size: 2.2rem;
+  }
+
+  .aboutus-subheading {
+    font-size: 2rem;
+  }
+
+  .aboutus-mission-vision {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .aboutus-block {
+    flex: 1 1 100%;
+  }
+
+  .aboutus-block h3 {
+    font-size: 1.8rem;
+  }
+
+  .aboutus-block p {
+    font-size: 1.5rem;
+  }
+
+  .aboutus-video {
+    max-height: 400px;
+  }
+}
+
+/* ============================= */
+/* LARGE SCREENS */
+/* ============================= */
+
+@media (min-width: 1500px) {
+  .aboutus-heading {
+    font-size: 3.8rem;
+  }
+
+  .aboutus-subheading {
+    font-size: 3rem;
+  }
+
+  .aboutus-block h3 {
+    font-size: 2.4rem;
+  }
+
+  .aboutus-block p {
+    font-size: 1.9rem;
+  }
+
+  .aboutus-button button {
+    font-size: 1.8rem;
+    padding: 14px 32px;
+  }
+}

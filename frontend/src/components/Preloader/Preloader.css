@@ -1,0 +1,79 @@
+.preloader {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: opacity 0.8s ease,
+              visibility 0.8s ease;
+}
+
+.preloader--fade {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.preloader__content {
+  text-align: center;
+}
+
+/* Logo */
+.preloader__logo-container {
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preloader__logo-img {
+  width: 220px;
+  height: auto;
+  display: block;
+
+  animation: logoFadeIn 1s ease-out forwards;
+}
+
+/* Barra */
+.preloader__bar-container {
+  width: 180px;
+  height: 2px;
+  background-color: #f3f3f3;
+  margin: 0 auto 1.5rem auto;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.preloader__bar {
+  height: 100%;
+  width: 0%;
+  background-color: #F67C0B;
+
+  transition: width 0.6s cubic-bezier(.22,1,.36,1);
+}
+
+/* Texto percentual */
+.preloader__text {
+  font-family: var(--font-primary);
+  font-size: 1.1rem;
+  color: #999;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  transition: opacity 0.3s ease;
+}
+
+/* Logo Animation */
+@keyframes logoFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

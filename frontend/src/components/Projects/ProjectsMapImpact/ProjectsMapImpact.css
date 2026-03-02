@@ -1,0 +1,98 @@
+.map-impact-section {
+  width: 100%;
+  padding: 4rem 0;
+  background: white;
+}
+
+.map-impact-stage {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  height: auto;
+}
+
+.map-layer {
+  width: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.map-label {
+  position: absolute;
+  font-family: var(--font-primary);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  opacity: 0;
+  line-height: 1.4;
+  text-align: center;
+  text-shadow: none;
+}
+
+/* POSIÇÕES ORIGINAIS – desktop */
+.northern-beaches { top: 12%; left: 80%; }
+.sydney-city { top: 50%; left: 70%; }
+.eastern-suburbs { top: 60%; right: 12%; }
+.sutherland-shire { bottom: 17%; right: 37%; }
+.inner-west { top: 57%; left: 52%; }
+.parramatta { top: 42%; left: 45%; }
+.outer-west { top: 30%; left: 30%; }
+.lower-north-shore { top: 40%; left: 68%; }
+.south-west { bottom: 35%; right: 54%; }
+.south-sydney { bottom: 30%; right: 28%; }
+.upper-north-shore { top: 28%; left: 62%; }
+.north-west { top: 30%; left: 47%; }
+
+/* MOBILE RESPONSIVO */
+@media (max-width: 500px) {
+  .map-impact-section {
+    padding: 0;
+  }
+
+  .map-impact-stage {
+    max-width: 100%;
+    padding: 0;
+    position: relative;
+  }
+
+  .map-layer {
+    width: 120%;
+    transform: translateX(-10%);
+  }
+
+  .map-labels-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .map-label {
+    position: static !important;
+    opacity: 1 !important;
+    transform: none !important;
+    margin: 0;
+    line-height: 0.8;
+    font-size: 1.2rem;
+  }
+
+  .map-label span:first-child {
+    font-weight: 700;
+    display: block;
+  }
+
+  .map-label span:last-child {
+    font-size: 1rem;
+    color: #666;
+    font-weight: 400;
+  }
+}
+

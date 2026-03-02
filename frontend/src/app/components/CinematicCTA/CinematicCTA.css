@@ -1,0 +1,144 @@
+/* =====================================================
+   CINEMATIC CTA — PARALLAX SECTION
+===================================================== */
+
+.cinematic-cta {
+  position: relative;
+  height: 85vh;
+  min-height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  padding: 0 10%;
+
+  background-image: url("https://ik.imagekit.io/ijsd2xvnc/Inhaus/backbone-L4iRkKL5dng-unsplash.jpg?updatedAt=1772086502850?tr=w-2400,f-webp,q-85");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  color: white;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Dark cinematic overlay */
+.cinematic-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,0.75) 0%,
+      rgba(0,0,0,0.6) 40%,
+      rgba(0,0,0,0.85) 100%
+    );
+  z-index: -1;
+}
+
+/* Content */
+.cinematic-content {
+  max-width: 900px;
+  animation: cinematicFade 1.2s cubic-bezier(.16,1,.3,1) both;
+}
+
+@keyframes cinematicFade {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cinematic-kicker {
+  display: inline-block;
+  margin-bottom: 1.8rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  color: #f67c0b;
+}
+
+.cinematic-content h2 {
+  font-family: var(--font-title);
+  font-size: 4.2rem;
+  line-height: 1.15;
+  margin-bottom: 2rem;
+
+  text-shadow: 0 25px 80px rgba(0,0,0,0.6);
+}
+
+.cinematic-content p {
+  font-size: 1.7rem;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 3rem;
+}
+
+/* Button */
+.cinematic-button {
+  position: relative;
+  padding: 1.2rem 2.4rem;
+  border-radius: 12px;
+  border: none;
+
+  font-weight: 800;
+  font-size: 1.3rem;
+
+  background: linear-gradient(135deg, #f67c0b, #ffb46a);
+  color: #0b0b0c;
+
+  cursor: pointer;
+  overflow: hidden;
+
+  box-shadow: 0 30px 90px rgba(246,124,11,0.3);
+  transition: all 0.4s cubic-bezier(.16,1,.3,1);
+}
+
+.cinematic-button:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 45px 140px rgba(246,124,11,0.4);
+}
+
+.cinematic-button-glow {
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(
+    circle,
+    rgba(255,255,255,0.5),
+    transparent 60%
+  );
+  opacity: 0.4;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 500px) {
+  .cinematic-cta {
+    height: 75vh;
+    padding: 0 6%;
+  }
+
+  .cinematic-content h2 {
+    font-size: 2.6rem;
+  }
+
+  .cinematic-content p {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1500px) {
+  .cinematic-content h2 {
+    font-size: 4.8rem;
+  }
+}

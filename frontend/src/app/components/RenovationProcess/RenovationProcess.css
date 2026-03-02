@@ -1,0 +1,203 @@
+/* =====================================================
+   BATHROOM PROCESS — ARCHITECTURAL EDITION (2 COLUMNS)
+===================================================== */
+
+.bathroom-renovation-process {
+  padding: 8rem 10%;
+  background: #f8f8f8;
+  color: #111;
+  position: relative;
+}
+
+.bathroom-process-container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* =============================
+   HEADER
+============================= */
+
+.bathroom-process-header {
+  max-width: 800px;
+  margin-bottom: 10rem;
+}
+
+.bathroom-process-kicker {
+  font-size: 1rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #f67c0b;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.bathroom-process-header h2 {
+  font-family: var(--font-title);
+  font-size: 4rem;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+}
+
+.bathroom-process-subtitle {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 3rem;
+}
+
+.bathroom-process-cta {
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #111;
+  border-bottom: 2px solid #f67c0b;
+  padding-bottom: 6px;
+  transition: all 0.3s ease;
+}
+
+.bathroom-process-cta:hover {
+  color: #f67c0b;
+}
+
+/* =============================
+   GRID STRUCTURE (2 COLUNAS)
+============================= */
+
+.bathroom-process-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8rem 6rem;
+}
+
+/* Alternância automática */
+
+.bathroom-process-card.left {
+  grid-column: 1;
+}
+
+.bathroom-process-card.right {
+  grid-column: 2;
+}
+
+/* Último centralizado se for ímpar */
+
+.bathroom-process-card.center {
+  grid-column: 1 / -1;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* =============================
+   STEP CARD
+============================= */
+
+.bathroom-process-card {
+  position: relative;
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 800ms ease,
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--delay, 0ms);
+}
+
+.bathroom-process-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =============================
+   HUGE BACKGROUND NUMBER
+============================= */
+
+.bathroom-process-node {
+  position: absolute;
+  left: -4rem;
+  top: -2rem;
+  pointer-events: none;
+}
+
+.bathroom-process-number {
+  font-size: 10rem;
+  font-weight: 800;
+  color: rgba(0,0,0,0.04);
+  line-height: 1;
+}
+
+/* =============================
+   PANEL (EDITORIAL STYLE)
+============================= */
+
+.bathroom-process-panel {
+  max-width: 700px;
+}
+
+.bathroom-process-panel h3 {
+  font-size: 2.4rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  transition: color 0.3s ease;
+}
+
+.bathroom-process-panel p {
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: #555;
+}
+
+/* Subtle hover sophistication */
+
+.bathroom-process-card:hover h3 {
+  color: #f67c0b;
+}
+
+/* =============================
+   RESPONSIVE
+============================= */
+
+@media (max-width: 900px) {
+
+  .bathroom-renovation-process {
+    padding: 9rem 7%;
+  }
+
+  .bathroom-process-header h2 {
+    font-size: 2.8rem;
+  }
+
+  .bathroom-process-grid {
+    grid-template-columns: 1fr;
+    gap: 5rem;
+  }
+
+  .bathroom-process-card {
+    grid-column: 1 !important;
+  }
+
+  .bathroom-process-number {
+    font-size: 6rem;
+  }
+
+  .bathroom-process-panel h3 {
+    font-size: 2rem;
+  }
+
+  .bathroom-process-panel p {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1600px) {
+
+  .bathroom-process-header h2 {
+    font-size: 4.8rem;
+  }
+
+  .bathroom-process-number {
+    font-size: 12rem;
+  }
+}

@@ -1,0 +1,124 @@
+.blog-hero {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  overflow: hidden;
+  background-color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blog-hero__background-container {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.blog-hero__background {
+  width: 100%;
+  height: 100%;
+  background-image: var(--bg-desktop);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: zoomInOut 20s ease-in-out infinite;
+}
+
+@media (max-width: 600px) {
+  .blog-hero__background {
+    background-image: var(--bg-mobile);
+  }
+}
+
+/* ✅ Overlay - O segredo do contraste */
+.blog-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); /* Ajuste o 0.5 para mais ou menos escuro */
+  z-index: 1;
+}
+
+/* ✅ Container do Título */
+.blog-hero__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+}
+
+.blog-hero__title {
+  font-family: var(--font-primary);
+  font-size: 4rem;
+  font-weight: 700;
+  color: white;
+}
+
+.blog__bottom-text {
+  position: absolute;
+  bottom: 2rem;
+  right: 4rem;
+  font-family: var(--font-primary);
+  font-weight: 300;
+  font-size: 1.5rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  z-index: 2;
+}
+
+.blog__separator {
+  color: var(--color-accent);
+}
+
+@keyframes zoomInOut {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+
+/* =====================
+📲 TABLET 501–900px
+===================== */
+@media (min-width: 501px) and (max-width: 900px) {
+  .blog-hero__background {
+    animation: zoomInOut 17s ease-in-out infinite;
+  }
+}
+
+/* =====================
+🖥 TELAS GIGANTES 1500px+
+===================== */
+@media (min-width: 1500px) {
+  .blog-hero {
+    height: 90vh;
+  }
+
+  .blog-hero__title {
+    font-size: 6rem;
+  }
+
+  .blog__bottom-text {
+    font-size: 2rem;
+    right: 6rem;
+    bottom: 3rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .blog-hero {
+  height: 50vh;
+}
+
+  .blog-hero__title {
+    font-size: 3rem;
+  }
+
+  .blog__bottom-text {
+    bottom: 1.8rem;
+    right: 2rem;
+    font-size: 1.3rem;
+  }
+}

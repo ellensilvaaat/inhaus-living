@@ -1,0 +1,172 @@
+.how-it-works {
+  position: relative;
+  background: url('https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/alexey-aladashvili-gGFTh32UoMg-unsplash.jpg?updatedAt=1767758311762')
+    center/cover no-repeat;
+  color: white;
+  padding: 10rem 2rem 15rem;
+  overflow: hidden;
+}
+
+/* 🎩 OVERLAY PREMIUM PARA TODAS AS TELAS */
+.how-it-works::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 0;
+}
+
+.how-it-works__overlay {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.how-it-works__title {
+  font-family: var(--font-primary);
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.how-it-works__subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+/* TIMELINE DESKTOP ORIGINAL */
+.how-it-works__timeline {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.how-it-works__line {
+  position: absolute;
+  top: 35px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: var(--color-accent);
+  z-index: 1;
+}
+
+.how-it-works__step {
+  position: relative;
+  width: 18%;
+  z-index: 2;
+  text-align: left;
+}
+
+.how-it-works__dot {
+  width: 16px;
+  height: 16px;
+  background-color: var(--color-accent);
+  border-radius: 50%;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+.how-it-works__number {
+  font-size: 1.5rem;
+  font-weight: bold;
+  opacity: 0.7;
+  margin-top: 0.5rem;
+  margin-bottom: 3rem;
+  font-family: var(--font-primary);
+  text-align: center;
+}
+
+.how-it-works__step-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: white;
+  font-family: var(--font-primary);
+}
+
+.how-it-works__step-desc {
+  font-family: var(--font-primary);
+  font-size: 1.4rem; /* Ajustado para ficar elegante */
+  margin-bottom: 3rem;
+  color: white;
+  text-align: center;
+}
+
+/* =======================================
+   📱 MOBILE — AJUSTES PREMIUM SOMENTE AQUI
+   ======================================= */
+
+@media (max-width: 1024px) {
+  .how-it-works__timeline {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .how-it-works__line {
+    display: none;
+  }
+
+  .how-it-works__step {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 1.5rem;
+  }
+
+  .how-it-works__dot {
+    position: relative;
+    margin: 0 auto 1rem auto;
+    display: none;
+  }
+
+  /* 🔥 NOMES E TEXTOS PREMIUM */
+  .how-it-works__number {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .how-it-works__step-title {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .how-it-works__step-desc {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+  }
+}
+
+/* ==========================
+   🖥 TELAS GIGANTES +1500PX
+   ========================== */
+
+@media (min-width: 1500px) {
+  .how-it-works__title {
+    font-size: 4rem;
+  }
+
+  .how-it-works__subtitle {
+    font-size: 2rem;
+  }
+
+  .how-it-works__number {
+    font-size: 2rem;
+    margin-top: 0;
+  }
+
+  .how-it-works__step-title {
+    font-size: 1.9rem;
+  }
+
+  .how-it-works__step-desc {
+    font-size: 1.7rem;
+  }
+}

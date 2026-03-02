@@ -1,0 +1,112 @@
+/* =====================================================
+   MOORE PARK INTRO — ARCHITECTURAL EDITORIAL
+===================================================== */
+
+.mp-intro {
+  padding: 12rem 10%;
+  background: #ffffff;
+  position: relative;
+}
+
+.mp-intro__container {
+  max-width: 1400px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+/* LEFT SIDE */
+
+.mp-intro__kicker {
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #f67c0b;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 1.8rem;
+}
+
+.mp-intro__title {
+  font-family: var(--font-title);
+  font-size: 3.8rem;
+  line-height: 1.1;
+  color: #111;
+  margin: 0 0 2.5rem 0;
+}
+
+.mp-intro__divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #f67c0b, transparent);
+}
+
+/* RIGHT SIDE */
+
+.mp-intro__right p {
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: #333;
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+/* Highlights */
+
+.mp-intro__highlights {
+  margin-top: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.mp-intro__highlights span {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #f67c0b;
+  position: relative;
+  padding-left: 18px;
+}
+
+.mp-intro__highlights span::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f67c0b;
+}
+
+/* ==============================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 900px) {
+  .mp-intro__container {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .mp-intro__title {
+    font-size: 2.6rem;
+  }
+
+  .mp-intro__right p {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1600px) {
+  .mp-intro__title {
+    font-size: 4.5rem;
+  }
+
+  .mp-intro__right p {
+    font-size: 1.7rem;
+  }
+}

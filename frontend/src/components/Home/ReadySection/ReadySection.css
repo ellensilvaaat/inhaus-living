@@ -1,0 +1,94 @@
+.ready-section {
+  padding: 6rem 2rem;
+  text-align: center;
+}
+
+.ready-section__inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.ready-section__title {
+  font-family: var(--font-title);
+  font-size: 3.5rem;
+  margin-bottom: 4rem;
+  text-transform: uppercase;
+}
+
+.ready-section__text {
+  font-family: var(--font-primary);
+  font-size: 1.6rem; /* Ajustado para ficar elegante */
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  color: #333;
+}
+
+.ready-section__btn-container {
+  margin: 50px auto 0;
+  width: fit-content;
+}
+
+/* O BOTÃO CINEMA */
+.ready-cta {
+  position: relative;
+  display: inline-block;
+  padding: 1rem 3rem;
+  color: #000;
+  text-decoration: none;
+  font-family: var(--font-primary);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: color 0.4s ease;
+}
+
+/* Cantos em L */
+.ready-corner {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  transition: all 0.4s ease;
+}
+
+/* Canto Superior Direito */
+.ready-corner--tr {
+  top: 0;
+  right: 0;
+  border-top: 2px solid #F67C0B;
+  border-right: 2px solid #F67C0B;
+}
+
+/* Canto Inferior Esquerdo */
+.ready-corner--bl {
+  bottom: 0;
+  left: 0;
+  border-bottom: 2px solid #F67C0B;
+  border-left: 2px solid #F67C0B;
+}
+
+/* HOVER - O efeito de virar retângulo */
+.ready-cta:hover {
+  color: var(--color-accent);
+}
+
+.ready-cta:hover .ready-corner {
+  width: 100%;
+  height: 100%;
+  border-color: var(--color-accent);
+}
+
+/* Mobile */
+@media (max-width: 501px) {
+  .ready-section__title {
+    font-size: 2.5rem;
+  }
+  
+  .ready-section__text {
+    font-size: 1.3rem;
+  }
+
+  .ready-cta {
+    font-size: 1rem;
+    padding: 0.8rem 2rem;
+  }
+}

@@ -1,0 +1,163 @@
+.counter-section {
+  padding: 8rem 4rem;
+  text-align: center;
+}
+
+/* INTRO */
+.counter-section__intro {
+  margin: 3rem 5rem 6rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 5rem;
+}
+
+.counter-section__title {
+  font-family: var(--font-primary);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  max-width: 300px;
+  text-align: left;
+}
+
+.counter-section__title em {
+  font-style: italic;
+}
+
+.counter-section__subtitle {
+  font-family: var(--font-primary);
+  font-size: 1.4rem;
+  color: #333;
+  max-width: 670px;
+  text-align: right;
+}
+
+/* STATS GRID */
+.counter-section__stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 0 160px;
+  flex-wrap: wrap;
+}
+
+.counter-section__stat {
+  margin-bottom: 3rem;
+}
+
+.counter-section__value {
+  font-family: var(--font-primary);
+  font-size: 5rem;
+  color: #010101;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  font-weight: bold;
+}
+
+.counter-section__plus {
+  color: var(--color-accent);
+  font-size: 2rem;
+  margin-right: 0.4rem;
+}
+
+.counter-section__label {
+  font-family: var(--font-primary);
+  font-size: 1.5rem;
+  color: #666;
+  margin-left: 0;
+}
+
+/* ========================================================== */
+/* 📱📱📱 MOBILE — até 501px */
+/* ========================================================== */
+
+@media (max-width: 601px) {
+
+  .counter-section {
+    padding: 8rem 2rem 5rem;
+  }
+
+  .counter-section__intro {
+    margin: 0 0 3rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .counter-section__title {
+    font-size: 2rem;
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .counter-section__subtitle {
+    font-size: 1.6rem;
+    text-align: center;
+    line-height: 1.5;
+    padding: 0 1rem;
+  }
+
+  .counter-section__stats {
+    flex-direction: column;
+    margin: 0;
+    gap: 2rem;
+  }
+
+  .counter-section__value {
+    font-size: 4rem; /* menor para caber no mobile */
+    margin-bottom: 0;
+  }
+
+  .counter-section__plus {
+    font-size: 3rem;
+    font-weight: 400;
+  }
+
+  .counter-section__label {
+    font-size: 1.6rem;
+  }
+}
+
+/* ========================================================== */
+/* 🖥️🖥️🖥️ TELAS GIGANTES — +1500px */
+/* ========================================================== */
+
+@media (min-width: 1500px) {
+
+  .counter-section {
+    padding: 12rem 8rem;
+  }
+
+  .counter-section__intro {
+    margin: 5rem 18rem 8rem;
+    gap: 10rem;
+  }
+
+  .counter-section__title {
+    font-size: 3.6rem;
+    max-width: 450px;
+  }
+
+  .counter-section__subtitle {
+    font-size: 2rem;
+    max-width: 550px;
+  }
+
+  .counter-section__stats {
+    margin: 0 260px;
+    gap: 5rem;
+  }
+
+  .counter-section__value {
+    font-size: 7rem;
+  }
+
+  .counter-section__plus {
+    font-size: 3rem;
+  }
+
+  .counter-section__label {
+    font-size: 2rem;
+  }
+}

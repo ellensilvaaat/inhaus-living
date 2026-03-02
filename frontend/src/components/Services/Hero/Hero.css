@@ -1,0 +1,133 @@
+/* ===========================
+   BASE
+=========================== */
+.services-hero {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  overflow: hidden;
+  background-color: #1a1a1a; /* Evita flash branco */
+}
+
+/* ===========================
+   IMAGEM + ZOOM
+=========================== */
+.services-hero__background {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Usa imagem de desktop por padrão */
+  background-image: var(--bg-desktop);
+  animation: zoomInOut 18s ease-in-out infinite;
+  z-index: 0;
+  will-change: transform;
+}
+
+/* Zoom desktop */
+@keyframes zoomInOut {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* ===========================
+   OVERLAY
+=========================== */
+.services-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+/* ===========================
+   CONTEÚDO
+=========================== */
+.services-hero__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  text-align: center;
+  color: white;
+}
+
+.services-hero__title {
+  font-family: var(--font-primary);
+  font-size: 4rem;
+  font-weight: 700;
+}
+
+/* ===========================
+   TEXTO INFERIOR
+=========================== */
+.services__bottom-text {
+  position: absolute;
+  bottom: 2rem;
+  right: 4rem;
+  font-family: var(--font-primary);
+  font-weight: 300;
+  font-size: 1.5rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  z-index: 2;
+}
+
+.services__separator {
+  color: var(--color-accent);
+}
+
+/* ===========================
+   📱 MOBILE (ZOOM + PERFORMANCE)
+=========================== */
+@media (max-width: 500px) {
+  .services-hero {
+    height: 50vh;
+  }
+
+  .services-hero__background {
+    /* Troca para imagem leve no mobile */
+    background-image: var(--bg-mobile) !important;
+    animation: zoomInOutMobile 18s ease-in-out infinite;
+  }
+
+  @keyframes zoomInOutMobile {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.09); }
+    100% { transform: scale(1); }
+  }
+
+  .services-hero__title {
+    font-size: 3rem;
+  }
+
+  .services__bottom-text {
+    font-size: 1.3rem;
+    right: 2rem;
+    bottom: 1.5rem;
+  }
+}
+
+/* ===========================
+   🖥 TELAS GIGANTES
+=========================== */
+@media (min-width: 1500px) {
+  .services-hero {
+    height: 75vh;
+  }
+
+  .services-hero__title {
+    font-size: 5rem;
+  }
+
+  .services__bottom-text {
+    font-size: 1.8rem;
+    right: 5rem;
+  }
+}
