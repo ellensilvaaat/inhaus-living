@@ -62,7 +62,7 @@ export default function CardsSection() {
        Design–Build Renovation & Construction Services
       </h2>
       <p className="cards-section__subtitle">
-      Spaces that welcome you home, delivered by a Class 2 (NCC)
+      Spaces that welcome you home, delivered by a
       licensed team across Sydney and Canberra.
      </p>
     </div>

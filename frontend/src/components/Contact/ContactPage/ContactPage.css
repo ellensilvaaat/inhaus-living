@@ -18,9 +18,11 @@
 .contact-page__wrapper {
   display: flex;
   gap: 4rem;
+  align-items: flex-start;
   flex-wrap: wrap;
 }
 
+/* LEFT SIDE */
 .contact-page__info {
   flex: 1 1 40%;
   font-family: var(--font-primary);
@@ -30,112 +32,131 @@
   font-size: 1.7rem;
   line-height: 1.5;
   margin-bottom: 2rem;
+  font-family: var(--font-primary);
 }
 
 .contact-page__visit h3,
 .contact-page__email h3 {
   font-size: 1.6rem;
   margin-top: 1.5rem;
-  margin-bottom: 0.9rem;
+  margin-bottom: 1rem;
+  font-family: var(--font-primary);
 }
 
 .location {
   margin-bottom: 1.5rem;
   font-size: 1.4rem;
+  font-family: var(--font-primary);
 }
 
 .location a {
-  margin-bottom: 1.5rem;
   font-size: 1.4rem;
+  font-family: var(--font-primary);
 }
 
 .contact-page__visit a,
 .contact-page__email a {
   color: black;
   text-decoration: underline;
-}
-
-.location_name{
-font-size: 1.4rem;
-font-family: var(--font-primary);
-}
-
-.location_namee{
-font-size: 1.4rem;
-font-family: var(--font-primary);
-font-weight: 100;
-}
-
-.contact-page__form {
-  flex: 1 1 55%;
   font-family: var(--font-primary);
 }
 
-.contact-page__email{
+.location_name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  font-family: var(--font-primary);
+}
+
+.location_namee {
+  font-size: 1.4rem;
+  font-weight: 400;
+  font-family: var(--font-primary);
+}
+
+/* RIGHT SIDE FORM */
+.contact-page__form {
+  flex: 1 1 55%;
+  font-family: var(--font-primary);
   margin-top: 4rem;
 }
 
-.contact__emaill{
-  font-size: 1.3rem;
-}
-
+/* GRID */
 .two-columns {
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
 }
 
+/* FORM GROUP */
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.6rem;
   flex: 1 1 48%;
 }
 
+/* FIX LABEL BUG */
 .form-group label {
   margin-bottom: 0.6rem;
   font-weight: 600;
   font-size: 1.4rem;
+  background: transparent !important;
+  color: black;
+  padding: 0;
 }
 
-.contact-page__form{
-  margin-top: 7rem;
-}
-
+/* INPUTS */
 .form-group input,
 .form-group select,
 .form-group textarea {
   font-family: var(--font-primary);
-  padding: 0.8rem 1rem;
+  padding: 0.7rem 1rem;
   font-size: 1.3rem;
   border: 2px solid var(--color-accent);
   border-radius: 6px;
   outline: none;
+  background: white;
+  transition: border 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #000;
 }
 
 .form-group select {
   appearance: none;
-  background: white;
 }
 
 .form-group textarea {
   resize: vertical;
+  min-height: 120px;
 }
 
+/* TURNSTILE */
+.turnstile-wrapper {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* BUTTON */
 .form-submit {
   text-align: center;
   margin-top: 2.5rem;
 }
 
 .submit-btn {
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
+  padding: 1.2rem 3rem;
+  font-size: 1.3rem;
   font-family: var(--font-title);
   border: 2px solid var(--color-accent);
-  background: none;
+  background: transparent;
   color: var(--color-accent);
+  border-radius: 50px; /* pill */
   cursor: pointer;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: all 0.3s ease;
+  letter-spacing: 2px;
 }
 
 .submit-btn:hover {
@@ -143,58 +164,27 @@ font-weight: 100;
   color: white;
 }
 
+/* MOBILE */
 @media (max-width: 1024px) {
-  .contact-page{
+  .contact-page {
     padding: 4rem 1.5rem;
   }
 
   .contact-page__wrapper {
     flex-direction: column;
-    gap: 0;
+    gap: 3rem;
   }
 
-  .contact-page__visit h3, .contact-page__email h3{
-    font-size: 2rem;
-  }
-
-  .location{
-    font-size: 1.6rem;
-  }
-
-  .two‑columns {
+  .two-columns {
     flex-direction: column;
     gap: 1rem;
-  }
-
-  .location_name{
-    font-size: 1.6rem;
-  }
-
-  .location_namee {
-    font-size: 1.6rem;
-  }
-
-  .contact__emaill{
-    font-size: 1.6rem;
-  }
-
-  .contact-page__form{
-    margin-top: 5rem;
   }
 
   .form-group {
     flex: 1 1 100%;
   }
 
-  .form-group label{
-    font-size: 1.6rem;
+  .submit-btn {
+    width: 100%;
   }
-
-  .form-group input, .form-group select, .form-group textarea{
-    font-size: 1.6rem;
-  }
-
-.submit-btn{
-  font-size: 1.6rem;
-}
 }

@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import "./BlogPage.css";
 import postsMeta from "@/content/posts/postsMeta.json";
 
@@ -22,7 +23,7 @@ export default function BlogPage() {
           setRecentComments(data.comments.slice(0, 5));
         }
       } catch (err) {
-        console.error("❌ Error loading recent comments:", err);
+        console.error("Error loading recent comments:", err);
       }
     };
 
@@ -59,8 +60,22 @@ export default function BlogPage() {
 
   return (
     <section className="blog-page">
+      <div className="blog-page__header">
+        <h1 className="blog-page__title">
+          Inhaus Living Journal
+        </h1>
+        <p className="blog-page__subtitle">
+          Design insights, renovation expertise and refined living inspiration.
+        </p>
+      </div>
+
       <div className="blog-page__container">
-        <div className="blog-page__grid">
+        <motion.div
+          className="blog-page__grid"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
           {currentPosts.map((post) => (
             <Link
               key={post.slug}
@@ -69,24 +84,30 @@ export default function BlogPage() {
             >
               <div className="blog-card__image-wrapper">
                 <img
-                  src={`${post.heroImage}?tr=w-600,q-75,f-webp`}
+                  src={`${post.heroImage}?tr=w-900,q-85,f-webp`}
                   alt={post.title}
                   className="blog-card__image"
                   loading="lazy"
                 />
+                <div className="blog-card__image-overlay" />
               </div>
 
               <div className="blog-card__text">
+                <span className="blog-card__date">
+                  {new Date(post.date).toLocaleDateString("en-AU", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </span>
+
                 <h3 className="blog-card__title">
                   {post.title}
                 </h3>
-                <p className="blog-card__excerpt">
-                  {post.date}
-                </p>
               </div>
             </Link>
           ))}
-        </div>
+        </motion.div>
 
         <aside className="blog-page__sidebar">
           <div className="sidebar__search">
@@ -101,7 +122,7 @@ export default function BlogPage() {
             />
           </div>
 
-          <div className="sidebar__recent">
+          <div className="sidebar__block">
             <h3>Recent Posts</h3>
             <ul>
               {sortedPosts.slice(0, 5).map((post) => (
@@ -114,35 +135,20 @@ export default function BlogPage() {
             </ul>
           </div>
 
-          <div className="sidebar__comments">
+          <div className="sidebar__block">
             <h3>Recent Comments</h3>
-
             {recentComments.length === 0 ? (
-              <p>
-                <strong>No comments yet.</strong>
-              </p>
+              <p>No comments yet.</p>
             ) : (
               <ul>
                 {recentComments.map((c, i) => (
                   <li key={c.id || i}>
-                    <div className="sidebar__comment-meta">
-                      <strong>{c.name}</strong>{" "}
-                      <span>
-                        (
-                        {new Date(
-                          c.created_at || c.date
-                        ).toLocaleDateString()}
-                        )
-                      </span>
-                    </div>
-
-                    <div className="sidebar__comment-text">
-                      "
-                      {c.text?.length > 80
-                        ? `${c.text.slice(0, 80)}…`
+                    <strong>{c.name}</strong>
+                    <p>
+                      {c.text?.length > 70
+                        ? `${c.text.slice(0, 70)}…`
                         : c.text}
-                      "
-                    </div>
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -157,9 +163,7 @@ export default function BlogPage() {
             <button
               key={i}
               className={`page-btn ${
-                currentPage === i + 1
-                  ? "active"
-                  : ""
+                currentPage === i + 1 ? "active" : ""
               }`}
               onClick={() =>
                 setCurrentPage(i + 1)

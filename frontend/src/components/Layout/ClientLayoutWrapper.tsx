@@ -18,13 +18,13 @@ export default function ClientLayoutWrapper({
     pathname && pathname !== "/" ? pathname.replace(/\/$/, "") : pathname;
 
   const isServicePage =
-    normalizedPath?.startsWith("/bathroom-renovations/") ||
-    normalizedPath?.startsWith("/apartment-renovation-") ||
-    normalizedPath?.startsWith("/flooring-") ||
-    normalizedPath?.startsWith("/kitchen-renovation-") ||
-    normalizedPath?.startsWith("/home-construction-") ||
-    normalizedPath?.startsWith("/thank-you") ||
-    normalizedPath?.startsWith("/home-renovation-");
+  normalizedPath?.startsWith("/bathroom-renovations") ||
+  normalizedPath?.startsWith("/apartment-renovation") ||
+  normalizedPath?.startsWith("/apartment-renovations") ||
+  normalizedPath?.startsWith("/flooring") ||
+  normalizedPath?.startsWith("/kitchen-renovation") ||
+  normalizedPath?.startsWith("/home-construction") ||
+  normalizedPath?.startsWith("/home-renovation");
 
   return (
     <>

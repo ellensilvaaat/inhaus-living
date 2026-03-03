@@ -132,7 +132,7 @@ export default function ConstructionProcess() {
           </p>
 
           <h2 id="construction-process-heading">
-            Our Construction & Home Extension Process in Sydney
+            Our Construction and Home Extension Process in Sydney
           </h2>
 
           <p className="construction-process-subtitle">

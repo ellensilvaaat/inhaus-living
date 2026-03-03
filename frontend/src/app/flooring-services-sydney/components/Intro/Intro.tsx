@@ -48,7 +48,7 @@ export default function Intro() {
             <p>
               At Inhaus Living, we specialise in high-quality timber,
               engineered and hybrid flooring installations across Sydney.
-              Flooring is the foundation of your interior — it defines warmth,
+              Flooring is the foundation of your interior, it defines warmth,
               texture and architectural flow.
             </p>
             <p>

@@ -16,7 +16,7 @@ const steps = [
     title: "Site Visit",
     text: `Our team conducts a detailed on-site assessment to take precise measurements, review conditions and identify any structural or compliance considerations.`,
     image:
-      "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/process-step2.png?tr=w-500,f-webp,q-95",
+      "https://ik.imagekit.io/ijsd2xvnc/Inhaus/pixasquare-4ojhpgKpS68-unsplash.jpg?tr=w-500,f-webp,q-95",
     alt: "On-site renovation assessment by licensed builder",
     flip: true,
   },
@@ -25,7 +25,7 @@ const steps = [
     title: "Plans & Kickoff",
     text: `We finalise layouts, specifications and documentation before commencing works. With clear timelines and dedicated project management, your renovation begins with confidence.`,
     image:
-      "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/process-step3.png?tr=w-500,f-webp,q-95",
+      "https://ik.imagekit.io/ijsd2xvnc/Inhaus/portrait-engineers-job-site-work-hours.jpg?tr=w-500,f-webp,q-95",
     alt: "Renovation plans and project kickoff meeting",
     flip: false,
   },

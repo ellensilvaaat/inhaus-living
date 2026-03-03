@@ -346,7 +346,7 @@ export default function ContactUsPage() {
             />
           </div>
 
-          <div style={{ marginTop: "14px", marginBottom: "6px" }}>
+          <div className="turnstile-wrapper">
             <Turnstile
               siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY as string}
               onSuccess={(token) => {

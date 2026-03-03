@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 
+import Navbar from "@/components/Navbar/Navbar";
+import Footer from "@/components/Footer/Footer";
 import Hero from "./components/Hero/Hero";
 import Intro from "./components/Intro/Intro";
 import Features from "./components/Features/Features";
@@ -157,11 +159,13 @@ export default function FlooringServicesSydneyPage() {
       />
 
       <div className="flooring-page">
+        <Navbar />
         <Hero />
         <Intro />
         <Features />
         <RenovationProcess />
         <ContactForm />
+        <Footer />
       </div>
     </>
   );

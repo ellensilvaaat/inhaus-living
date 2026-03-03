@@ -18,7 +18,7 @@ export default function Hero() {
         <h1>Bathroom Renovations Sydney</h1>
         <p>
           Transform your space with Sydney’s trusted bathroom renovation
-          specialists — delivering luxury finishes, precision craftsmanship and
+          specialists. Delivering luxury finishes, precision craftsmanship and
           design-led bathroom transformations built to last.
         </p>
       </div>

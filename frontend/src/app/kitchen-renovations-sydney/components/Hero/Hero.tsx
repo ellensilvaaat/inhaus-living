@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section className="kitchen-hero">
       <Image
-        src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/prydumano-design-So4OCymi_c4-unsplash.jpg"
+        src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/lisa-anna-2g6aRZE9S8s-unsplash%20(1).jpg?updatedAt=1772085186047"
         alt="Luxury kitchen renovations Sydney by licensed kitchen renovators"
         fill
         priority

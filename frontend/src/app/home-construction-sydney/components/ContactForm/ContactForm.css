@@ -2,7 +2,7 @@
    SECTION BASE
 ===================================================== */
 
-.construction-form {
+.premium-form {
   padding: 12rem 10%;
   background: #0b0b0c;
   color: white;
@@ -10,7 +10,7 @@
   overflow: hidden;
 }
 
-.construction-form__container {
+.premium-form__container {
   max-width: 1400px;
   margin: auto;
   display: grid;
@@ -23,25 +23,25 @@
    LEFT SIDE
 ===================================================== */
 
-.construction-form__info h2 {
+.premium-form__info h2 {
   font-size: 3.5rem;
   font-family: var(--font-title);
   margin-bottom: 2rem;
   line-height: 1.15;
 }
 
-.construction-form__info span {
+.premium-form__info span {
   color: #f67c0b;
 }
 
-.construction-form__info p {
+.premium-form__info p {
   font-size: 1.6rem;
   line-height: 1.8;
   margin-bottom: 3rem;
   color: rgba(255, 255, 255, 0.75);
 }
 
-.construction-form__contact a {
+.premium-form__contact a {
   display: block;
   margin-bottom: 1rem;
   color: white;
@@ -51,15 +51,13 @@
   transition: opacity 0.3s ease;
 }
 
-.construction-form__contact a:hover {
+.premium-form__contact a:hover {
   opacity: 0.75;
 }
 
-/* =====================================================
-   STEP INDICATORS
-===================================================== */
+/* STEP INDICATORS */
 
-.construction-form__steps {
+.premium-form__steps {
   margin-top: 3.5rem;
   display: flex;
   gap: 1rem;
@@ -88,7 +86,7 @@
    FORM CONTAINER
 ===================================================== */
 
-.construction-form__form {
+.premium-form__form {
   background: rgba(255, 255, 255, 0.05);
   padding: 4rem;
   border-radius: 20px;
@@ -315,22 +313,22 @@
 ===================================================== */
 
 @media (max-width: 1024px) {
-  .construction-form__container {
+  .premium-form__container {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 500px) {
-  .construction-form {
+  .premium-form {
     padding: 7rem 5%;
   }
 
-  .construction-form__container {
+  .premium-form__container {
     grid-template-columns: 1fr;
     gap: 4rem;
   }
 
-  .construction-form__form {
+  .premium-form__form {
     padding: 3rem 2.2rem;
   }
 

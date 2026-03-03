@@ -44,7 +44,7 @@ export default function Intro() {
       <section className="construction-section">
         <div className="construction-intro-grid">
           <div className="construction-intro-text">
-            <h2>Expand Your Home with Expert Construction & Additions in Sydney</h2>
+            <h2>Expand Your Home with Expert Construction and Additions in Sydney</h2>
             <p>
               Inhaus Living delivers premium home extensions, second-storey
               additions and structural renovations across Sydney. Whether you
@@ -54,7 +54,7 @@ export default function Intro() {
             <p>
               With over 20 years of construction experience, our licensed
               builders manage everything from structural engineering to council
-              compliance — ensuring your home addition increases both lifestyle
+              compliance, ensuring your home addition increases both lifestyle
               functionality and long-term property value.
             </p>
           </div>

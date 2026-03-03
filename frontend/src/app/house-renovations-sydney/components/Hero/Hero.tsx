@@ -18,7 +18,7 @@ export default function Hero() {
         <h1>House Renovators Sydney</h1>
         <p>
           Transform your home with Sydney’s trusted house renovation
-          specialists — delivering design-led, high-quality renovations
+          specialists. Delivering design-led, high-quality renovations
           tailored to your lifestyle.
         </p>
       </div>

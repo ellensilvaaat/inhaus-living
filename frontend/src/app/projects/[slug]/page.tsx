@@ -8,7 +8,7 @@ import ProjectDetail from "@/components/Projects/projectDetail/projectDetail";
 const siteUrl = "https://inhausliving.com.au";
 
 type PageProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 /* ================= STATIC PARAMS ================= */
@@ -54,8 +54,10 @@ function buildDescription(title: string, slug: string, content: string) {
 
 /* ================= METADATA ================= */
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = params;
+export async function generateMetadata(
+  { params }: PageProps
+): Promise<Metadata> {
+  const { slug } = await params;
 
   const project = projectsData.find((p) => p.slug === slug);
 
@@ -68,7 +70,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const service = detectServiceType(slug);
   const location = detectLocation(slug);
-  const description = buildDescription(project.title, slug, project.content);
+  const description = buildDescription(
+    project.title,
+    slug,
+    project.content
+  );
 
   const pagePath = `/projects/${slug}`;
   const url = `${siteUrl}${pagePath}`;
@@ -80,7 +86,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     description,
 
-    alternates: { canonical: pagePath },
+    alternates: {
+      canonical: pagePath,
+    },
 
     robots: {
       index: true,
@@ -122,8 +130,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 /* ================= PAGE ================= */
 
-export default function ProjectPage({ params }: PageProps) {
-  const { slug } = params;
+export default async function ProjectPage({ params }: PageProps) {
+  const { slug } = await params;
 
   const project = projectsData.find((p) => p.slug === slug);
   if (!project) notFound();
@@ -132,12 +140,15 @@ export default function ProjectPage({ params }: PageProps) {
   const location = detectLocation(slug);
 
   const pageUrl = `${siteUrl}/projects/${slug}`;
-  const plainDescription = buildDescription(project.title, slug, project.content);
+  const plainDescription = buildDescription(
+    project.title,
+    slug,
+    project.content
+  );
 
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
-      /* Article (project story) */
       {
         "@type": "Article",
         "@id": `${pageUrl}#article`,
@@ -155,8 +166,6 @@ export default function ProjectPage({ params }: PageProps) {
           "@id": `${siteUrl}/#organization`,
         },
       },
-
-      /* WebPage (ties the URL to website entity) */
       {
         "@type": "WebPage",
         "@id": `${pageUrl}#webpage`,
@@ -167,8 +176,6 @@ export default function ProjectPage({ params }: PageProps) {
         },
         inLanguage: "en-AU",
       },
-
-      /* Service (context: what type of project/service this is) */
       {
         "@type": "Service",
         "@id": `${pageUrl}#service`,
@@ -182,8 +189,6 @@ export default function ProjectPage({ params }: PageProps) {
           name: location,
         },
       },
-
-      /* Breadcrumb */
       {
         "@type": "BreadcrumbList",
         "@id": `${pageUrl}#breadcrumb`,
