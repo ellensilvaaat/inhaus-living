@@ -29,11 +29,13 @@ function formatSuburbName(slug: string) {
     .join(" ");
 }
 
+/* ================= STATIC PARAMS ================= */
+
 export async function generateStaticParams() {
   const params: { serviceSlug: string }[] = [];
 
   Object.entries(services).forEach(([serviceKey, config]) => {
-    config.suburbs.forEach((suburb) => {
+    config.suburbs.forEach((suburb: string) => {
       params.push({
         serviceSlug: `${serviceKey}-${suburb}`,
       });
@@ -42,6 +44,8 @@ export async function generateStaticParams() {
 
   return params;
 }
+
+/* ================= METADATA ================= */
 
 export async function generateMetadata({
   params,
@@ -52,16 +56,50 @@ export async function generateMetadata({
   if (!parsed) return {};
 
   const suburbName = formatSuburbName(parsed.suburb);
-  const pageUrl = `${siteUrl}/${serviceSlug}/`;
+  const pagePath = `/${serviceSlug}/`;
+  const pageUrl = `${siteUrl}${pagePath}`;
 
   return {
     title: `${parsed.config.label} ${suburbName} | ${parsed.config.businessName}`,
-    description: `Premium ${parsed.config.label.toLowerCase()} in ${suburbName}.`,
+
+    description: `Premium ${parsed.config.label.toLowerCase()} in ${suburbName}. Licensed renovation specialists delivering high-quality craftsmanship.`,
+
     alternates: {
-      canonical: pageUrl,
+      canonical: pagePath,
+    },
+
+    robots: {
+      index: true,
+      follow: true,
+    },
+
+    openGraph: {
+      type: "article",
+      url: pageUrl,
+      title: `${parsed.config.label} ${suburbName}`,
+      description: `Professional ${parsed.config.label.toLowerCase()} in ${suburbName}.`,
+      siteName: parsed.config.businessName,
+      locale: "en_AU",
+      images: [
+        {
+          url: parsed.config.heroImage,
+          width: 1200,
+          height: 630,
+          alt: `${parsed.config.label} ${suburbName}`,
+        },
+      ],
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: `${parsed.config.label} ${suburbName}`,
+      description: `Premium ${parsed.config.label.toLowerCase()} in ${suburbName}.`,
+      images: [parsed.config.heroImage],
     },
   };
 }
+
+/* ================= PAGE ================= */
 
 export default async function ServicePage({ params }: PageProps) {
   const { serviceSlug } = await params;
@@ -70,7 +108,9 @@ export default async function ServicePage({ params }: PageProps) {
   if (!parsed) notFound();
 
   const suburbName = formatSuburbName(parsed.suburb);
-  const pageUrl = `${siteUrl}/${serviceSlug}/`;
+
+  const pagePath = `/${serviceSlug}/`;
+  const pageUrl = `${siteUrl}${pagePath}`;
 
   const isCanberra = parsed.suburb === "canberra";
 
@@ -82,31 +122,62 @@ export default async function ServicePage({ params }: PageProps) {
     ? "+61261762807"
     : "+61296623509";
 
+  /* ================= STRUCTURED DATA ================= */
+
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Service",
-    name: `${parsed.config.label} ${suburbName}`,
-    serviceType: parsed.config.label,
-    areaServed: {
-      "@type": "AdministrativeArea",
-      name: suburbName,
-    },
-    provider: {
-      "@type": "Organization",
-      name: parsed.config.businessName,
-      telephone: phoneRaw,
-      address: isCanberra
-        ? {
-            "@type": "PostalAddress",
-            streetAddress: "Unit 2/58 Wollongong St",
-            addressLocality: "Fyshwick",
-            addressRegion: "ACT",
-            postalCode: "2609",
-            addressCountry: "AU",
-          }
-        : undefined,
-    },
-    url: pageUrl,
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: `${parsed.config.label} ${suburbName}`,
+        isPartOf: {
+          "@id": `${siteUrl}/#website`,
+        },
+        inLanguage: "en-AU",
+      },
+
+      {
+        "@type": "Service",
+        "@id": `${pageUrl}#service`,
+        name: `${parsed.config.label} ${suburbName}`,
+        serviceType: parsed.config.label,
+        areaServed: {
+          "@type": "AdministrativeArea",
+          name: suburbName,
+        },
+        provider: {
+          "@id": `${siteUrl}/#organization`,
+        },
+        url: pageUrl,
+      },
+
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: parsed.config.label,
+            item: `${siteUrl}/${parsed.serviceKey}/`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: suburbName,
+            item: pageUrl,
+          },
+        ],
+      },
+    ],
   };
 
   return (
@@ -120,65 +191,57 @@ export default async function ServicePage({ params }: PageProps) {
       />
 
       <main>
-  <Hero
-    suburbName={suburbName}
-    renovationLabel={parsed.config.label}
-    businessName={parsed.config.businessName}
-    phoneLabel={phone}
-    heroImage={parsed.config.heroImage}
-  />
+        <Hero
+          suburbName={suburbName}
+          renovationLabel={parsed.config.label}
+          businessName={parsed.config.businessName}
+          phoneLabel={phone}
+          heroImage={parsed.config.heroImage}
+        />
 
-  <Intro
-    suburbName={suburbName}
-    renovationLabel={parsed.config.label}
-    businessName={parsed.config.businessName}
-  />
+        <Intro
+          suburbName={suburbName}
+          renovationLabel={parsed.config.label}
+          businessName={parsed.config.businessName}
+        />
 
-  <Features
-    suburbName={suburbName}
-    renovationLabel={parsed.config.label}
-    businessName={parsed.config.businessName}
-  />
+        <Features
+          suburbName={suburbName}
+          renovationLabel={parsed.config.label}
+          businessName={parsed.config.businessName}
+        />
 
-  <WhyChoose
-    suburbName={suburbName}
-    renovationLabel={parsed.config.label}
-    businessName={parsed.config.businessName}
-  />
+        <WhyChoose
+          suburbName={suburbName}
+          renovationLabel={parsed.config.label}
+          businessName={parsed.config.businessName}
+        />
 
-  <RenovationProcess
-    suburbName={suburbName}
-    renovationLabel={parsed.config.label}
-    businessName={parsed.config.businessName}
-  />
+        <RenovationProcess
+          suburbName={suburbName}
+          renovationLabel={parsed.config.label}
+          businessName={parsed.config.businessName}
+        />
 
-  <CinematicCTA
-    suburbName={suburbName}
-    renovationLabel={parsed.config.label}
-    businessName={parsed.config.businessName}
-  />
+        <CinematicCTA
+          suburbName={suburbName}
+          renovationLabel={parsed.config.label}
+          businessName={parsed.config.businessName}
+        />
 
-  <ProjectsCarousel />
-  <FeedbackSection />
+        <ProjectsCarousel />
+        <FeedbackSection />
 
-  <ContactForm
-  renovationLabel={parsed.config.label}
-  businessName={parsed.config.businessName}
-  phoneLabel={phone}
-  email={
-    parsed.suburb === "canberra"
-      ? "info@inhausliving.com.au"
-      : "info@inhausliving.com.au"
-  }
-  locationLabel={
-    parsed.suburb === "canberra"
-      ? "Fyshwick ACT"
-      : suburbName
-  }
-/>
+        <ContactForm
+          renovationLabel={parsed.config.label}
+          businessName={parsed.config.businessName}
+          phoneLabel={phone}
+          email="info@inhausliving.com.au"
+          locationLabel={isCanberra ? "Fyshwick ACT" : suburbName}
+        />
 
-  <Footer region={parsed.suburb === "canberra" ? "canberra" : "sydney"} />
-</main>
+        <Footer region={isCanberra ? "canberra" : "sydney"} />
+      </main>
     </>
   );
 }

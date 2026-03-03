@@ -8,7 +8,8 @@ import WhyChooseUs from "@/components/About/DifferentialSection/DifferentialSect
 import TrustedPartners from "@/components/About/TrustedPartners/TrustedPartners";
 
 const siteUrl = "https://inhausliving.com.au";
-const pageUrl = `${siteUrl}/about`;
+const pagePath = "/about";
+const pageUrl = `${siteUrl}${pagePath}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -19,17 +20,8 @@ export const metadata: Metadata = {
   description:
     "For over 20 years, Inhaus Living has delivered premium home, kitchen and bathroom renovations across Sydney and Canberra. Discover our story, expertise and commitment to craftsmanship.",
 
-  keywords: [
-    "About Inhaus Living",
-    "Luxury Renovations Sydney",
-    "Home Renovation Canberra",
-    "Kitchen Renovation Experts",
-    "Bathroom Renovation Specialists",
-    "Construction Company Sydney",
-  ],
-
   alternates: {
-    canonical: pageUrl,
+    canonical: pagePath,
   },
 
   robots: {
@@ -65,7 +57,8 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "About Inhaus Living | Luxury Renovation Specialists",
+    title:
+      "About Inhaus Living | Luxury Renovation Specialists",
     description:
       "Over 20 years delivering premium renovations across Sydney and Canberra.",
     images: [
@@ -77,47 +70,75 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  const structuredData = [
-    // 🔥 ABOUT PAGE
-    {
-      "@context": "https://schema.org",
-      "@type": "AboutPage",
-      name: "About Inhaus Living",
-      url: pageUrl,
-      description:
-        "Learn about Inhaus Living, a leading renovation and construction company serving Sydney and Canberra.",
-      mainEntity: {
-        "@id": `${siteUrl}/#organization`,
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      /* About Page */
+      {
+        "@type": "AboutPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: "About Inhaus Living",
+        description:
+          "Learn about Inhaus Living, a leading renovation and construction company serving Sydney and Canberra.",
+        isPartOf: {
+          "@id": `${siteUrl}/#website`,
+        },
+        mainEntity: {
+          "@id": `${siteUrl}/#organization`,
+        },
+        inLanguage: "en-AU",
       },
-    },
 
-    // 🔥 BREADCRUMB
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: siteUrl,
+      /* Organization Reinforcement */
+      {
+        "@type": "Organization",
+        "@id": `${siteUrl}/#organization`,
+        name: "Inhaus Living",
+        url: siteUrl,
+        logo: {
+          "@type": "ImageObject",
+          url: `${siteUrl}/logo.png`,
         },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "About",
-          item: pageUrl,
-        },
-      ],
-    },
-  ];
+        areaServed: [
+          {
+            "@type": "City",
+            name: "Sydney",
+          },
+          {
+            "@type": "City",
+            name: "Canberra",
+          },
+        ],
+      },
+
+      /* Breadcrumb */
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "About",
+            item: pageUrl,
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <>
       <Script
         id="about-structured-data"
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(structuredData),
         }}

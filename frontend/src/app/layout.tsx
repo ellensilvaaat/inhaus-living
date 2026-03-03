@@ -39,24 +39,20 @@ export const metadata: Metadata = {
   description:
     "Inhaus Living specializes in luxury home, kitchen and bathroom renovations, flooring and construction services across Sydney and Canberra.",
 
-  keywords: [
-    "luxury renovations sydney",
-    "kitchen renovation sydney",
-    "bathroom renovation sydney",
-    "apartment renovation sydney",
-    "construction company canberra",
-    "flooring installation sydney",
-    "inhaus living",
-  ],
+  alternates: {
+    canonical: siteUrl,
+  },
+
+  applicationName: "Inhaus Living",
 
   authors: [{ name: "Inhaus Living" }],
   creator: "Inhaus Living",
   publisher: "Inhaus Living",
 
   icons: {
-    icon: "https://ik.imagekit.io/ijsd2xvnc/Inhaus/favicon.png",
-    shortcut: "https://ik.imagekit.io/ijsd2xvnc/Inhaus/favicon.png",
-    apple: "https://ik.imagekit.io/ijsd2xvnc/Inhaus/favicon.png",
+    icon: `${siteUrl}/favicon.png`,
+    shortcut: `${siteUrl}/favicon.png`,
+    apple: `${siteUrl}/favicon.png`,
   },
 
   robots: {
@@ -96,6 +92,10 @@ export const metadata: Metadata = {
       "Luxury renovation specialists in Sydney and Canberra.",
     images: [`${siteUrl}/og-image.jpg`],
   },
+
+  verification: {
+    google: "COLE_SEU_CODIGO_AQUI", // 🔥 coloque o código do Search Console
+  },
 };
 
 export default function RootLayout({
@@ -117,11 +117,11 @@ export default function RootLayout({
         },
         foundingDate: "2001",
         description:
-          "Design-led luxury renovation and construction company operating across Sydney and Canberra for over 20 years.",
+          "Design-led luxury renovation and construction company operating across Sydney and Canberra.",
         sameAs: [
           "https://www.instagram.com/inhaus_living/",
           "https://www.facebook.com/inhausliving.com.au/",
-        ], 
+        ],
       },
       {
         "@type": "WebSite",
@@ -131,26 +131,10 @@ export default function RootLayout({
         publisher: {
           "@id": `${siteUrl}/#organization`,
         },
-      },
-      {
-        "@type": "LocalBusiness",
-        "@id": `${siteUrl}/#business`,
-        name: "Inhaus Living",
-        image: `${siteUrl}/og-image.jpg`,
-        url: siteUrl,
-        telephone: "+61296623509",
-        priceRange: "$$$",
-        areaServed: [
-          { "@type": "City", name: "Sydney" },
-          { "@type": "City", name: "Canberra" },
-        ],
-        parentOrganization: {
-          "@id": `${siteUrl}/#organization`,
-        },
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "4.9",
-          reviewCount: "50",
+        potentialAction: {
+          "@type": "SearchAction",
+          target: `${siteUrl}/search?q={search_term_string}`,
+          "query-input": "required name=search_term_string",
         },
       },
       {
@@ -215,8 +199,11 @@ export default function RootLayout({
             __html: JSON.stringify(schemaData),
           }}
         />
+
         <ClientLayoutWrapper>
+          <Navbar />
           <main>{children}</main>
+          <Footer />
         </ClientLayoutWrapper>
       </body>
     </html>

@@ -7,46 +7,31 @@ import HowItWorks from "@/components/Services/HowItWorks/HowItWorks";
 import ReadySection from "@/components/Home/ReadySection/ReadySection";
 
 const siteUrl = "https://inhausliving.com.au";
-const pageUrl = `${siteUrl}/services/`;
+const pageUrl = `${siteUrl}/services`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title:
-    "Home Renovation And Construction Services Sydney & Canberra | Luxury Specialists",
+    "Home Renovation & Construction Services Sydney & Canberra | Inhaus Living",
 
   description:
     "Premium home renovation services in Sydney and Canberra. Kitchen renovations, bathroom remodels, flooring installation and full home transformations delivered with expert craftsmanship.",
 
-  keywords: [
-    "home renovation sydney",
-    "kitchen renovation sydney",
-    "bathroom renovation sydney",
-    "home renovation canberra",
-    "flooring installation sydney",
-    "luxury renovations australia",
-  ],
-
   alternates: {
-    canonical: pageUrl,
+    canonical: "/services",
   },
 
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
   },
 
   openGraph: {
     type: "website",
     url: pageUrl,
-    title: "Luxury Renovation Services | Inhaus Living",
+    title:
+      "Luxury Home Renovation Services Sydney & Canberra | Inhaus Living",
     description:
       "Explore our complete renovation and construction services across Sydney and Canberra.",
     siteName: "Inhaus Living",
@@ -63,7 +48,8 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Home Renovation Services | Inhaus Living",
+    title:
+      "Home Renovation Services Sydney & Canberra | Inhaus Living",
     description:
       "Kitchen, bathroom and full home renovations across Sydney and Canberra.",
     images: [
@@ -78,96 +64,85 @@ export default function ServicesPage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
-      /* COLLECTION PAGE (HUB) */
+      /* COLLECTION PAGE */
       {
         "@type": "CollectionPage",
         "@id": `${pageUrl}#webpage`,
         url: pageUrl,
-        name: "Home Renovation Services",
+        name: "Home Renovation & Construction Services",
         isPartOf: {
-          "@type": "WebSite",
           "@id": `${siteUrl}/#website`,
-        },
-        about: {
-          "@type": "Thing",
-          name: "Home Renovation Services in Sydney and Canberra",
         },
         inLanguage: "en-AU",
       },
 
-      /* SERVICE PROVIDER */
+      /* PRIMARY SERVICE ENTITY */
       {
         "@type": "Service",
-        "@id": `${pageUrl}#service`,
-        serviceType: "Home Renovation and Construction",
+        "@id": `${pageUrl}#primaryservice`,
+        name: "Home Renovation and Construction Services",
         provider: {
-          "@type": "Organization",
           "@id": `${siteUrl}/#organization`,
         },
         areaServed: [
-          {
-            "@type": "City",
-            name: "Sydney",
-          },
-          {
-            "@type": "City",
-            name: "Canberra",
-          },
+          { "@type": "City", name: "Sydney" },
+          { "@type": "City", name: "Canberra" }
         ],
+        serviceType: "Residential Renovation & Construction",
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "Renovation Services",
+          name: "Inhaus Living Services",
           itemListElement: [
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
                 name: "Apartment Renovations Sydney",
-                url: `${siteUrl}/apartment-renovations-sydney/`,
-              },
+                url: `${siteUrl}/apartment-renovations-sydney`
+              }
             },
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
                 name: "Home Renovations Sydney",
-                url: `${siteUrl}/house-renovations-sydney/`,
-              },
+                url: `${siteUrl}/house-renovations-sydney`
+              }
             },
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
                 name: "Kitchen Renovations Sydney",
-                url: `${siteUrl}/kitchen-renovations-sydney/`,
-              },
+                url: `${siteUrl}/kitchen-renovations-sydney`
+              }
             },
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
                 name: "Bathroom Renovations Sydney",
-                url: `${siteUrl}/bathroom-renovations-sydney/`,
-              },
+                url: `${siteUrl}/bathroom-renovations-sydney`
+              }
             },
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
                 name: "Flooring Services Sydney",
-                url: `${siteUrl}/flooring-services-sydney/`,
-              },
+                url: `${siteUrl}/flooring-services-sydney`
+              }
             },
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
                 name: "Home Construction Sydney",
-                url: `${siteUrl}/home-construction-sydney/`,
-              },
-            },
-          ],
-        },
+                url: `${siteUrl}/home-construction-sydney`
+              }
+            }
+          ]
+        }
       },
 
       /* BREADCRUMB */
@@ -179,17 +154,17 @@ export default function ServicesPage() {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: `${siteUrl}/`,
+            item: siteUrl
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Services",
-            item: pageUrl,
-          },
-        ],
-      },
-    ],
+            item: pageUrl
+          }
+        ]
+      }
+    ]
   };
 
   return (

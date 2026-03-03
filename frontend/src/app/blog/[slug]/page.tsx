@@ -54,20 +54,12 @@ export async function generateMetadata(
   return {
     metadataBase: new URL(siteUrl),
 
-    title: `${post.title} | Renovation Insights Sydney | Inhaus Living`,
+    title: `${post.title} | Inhaus Living Blog`,
 
     description: post.description,
 
-    keywords: [
-      "Luxury Renovation Sydney",
-      "Home Renovation Tips Australia",
-      "Kitchen Renovation Guide",
-      "Bathroom Renovation Advice",
-      post.title,
-    ],
-
     alternates: {
-      canonical: url,
+      canonical: `/blog/${slug}`,
     },
 
     robots: {
@@ -138,58 +130,66 @@ export default async function BlogSlugPage({
 
   const url = `${siteUrl}/blog/${slug}`;
 
-  const structuredData = [
-    {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      headline: post.title,
-      description: post.description,
-      image: post.heroImage,
-      datePublished: post.date,
-      dateModified: post.date,
-      author: {
-        "@type": "Organization",
-        name: "Inhaus Living",
-      },
-      publisher: {
-        "@type": "Organization",
-        name: "Inhaus Living",
-        logo: {
-          "@type": "ImageObject",
-          url: `${siteUrl}/logo.png`,
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": `${url}#article`,
+        headline: post.title,
+        description: post.description,
+        image: post.heroImage,
+        datePublished: post.date,
+        dateModified: post.date,
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": `${url}#webpage`,
+        },
+        author: {
+          "@type": "Organization",
+          "@id": `${siteUrl}/#organization`,
+        },
+        publisher: {
+          "@type": "Organization",
+          "@id": `${siteUrl}/#organization`,
         },
       },
-      mainEntityOfPage: {
+      {
         "@type": "WebPage",
-        "@id": url,
+        "@id": `${url}#webpage`,
+        url,
+        name: post.title,
+        isPartOf: {
+          "@id": `${siteUrl}/#website`,
+        },
+        inLanguage: "en-AU",
       },
-    },
-
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: siteUrl,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Blog",
-          item: `${siteUrl}/blog`,
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: post.title,
-          item: url,
-        },
-      ],
-    },
-  ];
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Blog",
+            item: `${siteUrl}/blog`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: post.title,
+            item: url,
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <>

@@ -5,7 +5,8 @@ import Hero from "@/components/Blog/Hero/Hero";
 import BlogPage from "@/components/Blog/BlogPage/BlogPage";
 
 const siteUrl = "https://inhausliving.com.au";
-const pageUrl = `${siteUrl}/blog`;
+const pagePath = "/blog";
+const pageUrl = `${siteUrl}${pagePath}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -16,17 +17,8 @@ export const metadata: Metadata = {
   description:
     "Expert renovation insights for Sydney and Canberra homeowners. Discover renovation costs, kitchen design trends, bathroom upgrades and construction advice from industry professionals.",
 
-  keywords: [
-    "home renovation blog australia",
-    "kitchen renovation sydney",
-    "bathroom renovation canberra",
-    "renovation cost australia",
-    "construction blog australia",
-    "luxury renovation ideas",
-  ],
-
   alternates: {
-    canonical: pageUrl,
+    canonical: pagePath,
   },
 
   robots: {
@@ -74,64 +66,56 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPageRoute() {
-  const structuredData = [
-    // 🔥 BLOG HUB STRUCTURE
-    {
-      "@context": "https://schema.org",
-      "@type": "Blog",
-      name: "Inhaus Living Renovation Blog",
-      description:
-        "Expert renovation insights for Sydney and Canberra homeowners.",
-      url: pageUrl,
-      publisher: {
-        "@id": `${siteUrl}/#organization`,
-      },
-    },
-
-    // 🔥 COLLECTION PAGE
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      name: "Home Renovation Blog",
-      url: pageUrl,
-      isPartOf: {
-        "@type": "WebSite",
-        name: "Inhaus Living",
-        url: siteUrl,
-      },
-      about: {
-        "@type": "Thing",
-        name: "Home Renovation",
-      },
-    },
-
-    // 🔥 BREADCRUMB
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: siteUrl,
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Blog",
+        "@id": `${pageUrl}#blog`,
+        url: pageUrl,
+        name: "Inhaus Living Renovation Blog",
+        description:
+          "Expert renovation insights for Sydney and Canberra homeowners.",
+        publisher: {
+          "@id": `${siteUrl}/#organization`,
         },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Blog",
-          item: pageUrl,
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: "Home Renovation Blog",
+        isPartOf: {
+          "@id": `${siteUrl}/#website`,
         },
-      ],
-    },
-  ];
+        inLanguage: "en-AU",
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Blog",
+            item: pageUrl,
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <>
       <Script
         id="blog-structured-data"
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(structuredData),
         }}

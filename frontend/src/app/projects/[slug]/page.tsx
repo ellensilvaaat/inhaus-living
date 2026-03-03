@@ -1,16 +1,15 @@
 import { notFound } from "next/navigation";
-import { projectsData } from "@/content/projects";
 import type { Metadata } from "next";
 import Script from "next/script";
+
+import { projectsData } from "@/content/projects";
 import ProjectDetail from "@/components/Projects/projectDetail/projectDetail";
 
-interface PageProps {
-  params: Promise<{
-    slug: string;
-  }>;
-}
-
 const siteUrl = "https://inhausliving.com.au";
+
+type PageProps = {
+  params: { slug: string };
+};
 
 /* ================= STATIC PARAMS ================= */
 
@@ -35,41 +34,30 @@ function detectServiceType(slug: string) {
 
 function detectLocation(slug: string) {
   const parts = slug.split("-");
-  const last = parts[parts.length - 1];
+  const last = parts[parts.length - 1] || "Sydney";
   return last.charAt(0).toUpperCase() + last.slice(1);
 }
 
 function cleanContent(raw = "") {
-  return raw.replace(/<[^>]+>/g, "").trim();
+  return raw.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
 }
 
-function buildDescription(
-  title: string,
-  slug: string,
-  content: string
-) {
+function buildDescription(title: string, slug: string, content: string) {
   const service = detectServiceType(slug);
   const location = detectLocation(slug);
 
-  const base =
-    `${service} in ${location}, Sydney. ` +
-    cleanContent(content).slice(0, 120);
+  const snippet = cleanContent(content).slice(0, 140);
+  const base = `${service} project in ${location}. ${snippet}`;
 
-  return base.length > 155
-    ? base.slice(0, 152) + "..."
-    : base;
+  return base.length > 155 ? base.slice(0, 152) + "..." : base;
 }
 
 /* ================= METADATA ================= */
 
-export async function generateMetadata(
-  { params }: PageProps
-): Promise<Metadata> {
-  const { slug } = await params;
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = params;
 
-  const project = projectsData.find(
-    (p) => p.slug === slug
-  );
+  const project = projectsData.find((p) => p.slug === slug);
 
   if (!project) {
     return {
@@ -80,30 +68,19 @@ export async function generateMetadata(
 
   const service = detectServiceType(slug);
   const location = detectLocation(slug);
-  const description = buildDescription(
-    project.title,
-    slug,
-    project.content
-  );
+  const description = buildDescription(project.title, slug, project.content);
 
-  const url = `${siteUrl}/projects/${slug}`;
+  const pagePath = `/projects/${slug}`;
+  const url = `${siteUrl}${pagePath}`;
 
   return {
     metadataBase: new URL(siteUrl),
 
-    title: `${project.title} | Luxury ${service} in ${location} | Inhaus Living`,
+    title: `${project.title} | ${service} in ${location} | Inhaus Living`,
 
     description,
 
-    keywords: [
-      `${service} ${location}`,
-      `Luxury ${service} Sydney`,
-      "High End Renovation Sydney",
-      "Premium Home Renovation Australia",
-      project.title,
-    ],
-
-    alternates: { canonical: url },
+    alternates: { canonical: pagePath },
 
     robots: {
       index: true,
@@ -145,91 +122,101 @@ export async function generateMetadata(
 
 /* ================= PAGE ================= */
 
-export default async function ProjectPage({
-  params,
-}: PageProps) {
-  const { slug } = await params;
+export default function ProjectPage({ params }: PageProps) {
+  const { slug } = params;
 
-  const project = projectsData.find(
-    (p) => p.slug === slug
-  );
-
-  if (!project) {
-    notFound();
-  }
+  const project = projectsData.find((p) => p.slug === slug);
+  if (!project) notFound();
 
   const service = detectServiceType(slug);
   const location = detectLocation(slug);
-  const url = `${siteUrl}/projects/${slug}`;
 
-  const structuredData = [
-    {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      headline: project.title,
-      description: cleanContent(project.content).slice(0, 160),
-      image: project.heroImage,
-      mainEntityOfPage: url,
-      author: {
-        "@type": "Organization",
-        name: "Inhaus Living",
-      },
-      publisher: {
-        "@type": "Organization",
-        name: "Inhaus Living",
-        logo: {
-          "@type": "ImageObject",
-          url: `${siteUrl}/logo.png`,
-        },
-      },
-    },
+  const pageUrl = `${siteUrl}/projects/${slug}`;
+  const plainDescription = buildDescription(project.title, slug, project.content);
 
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      name: service,
-      areaServed: {
-        "@type": "Place",
-        name: location,
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      /* Article (project story) */
+      {
+        "@type": "Article",
+        "@id": `${pageUrl}#article`,
+        headline: project.title,
+        description: plainDescription,
+        image: [project.heroImage],
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": `${pageUrl}#webpage`,
+        },
+        author: {
+          "@id": `${siteUrl}/#organization`,
+        },
+        publisher: {
+          "@id": `${siteUrl}/#organization`,
+        },
       },
-      provider: {
-        "@type": "Organization",
-        name: "Inhaus Living",
-        url: siteUrl,
-      },
-    },
 
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: siteUrl,
+      /* WebPage (ties the URL to website entity) */
+      {
+        "@type": "WebPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: project.title,
+        isPartOf: {
+          "@id": `${siteUrl}/#website`,
         },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Projects",
-          item: `${siteUrl}/projects`,
+        inLanguage: "en-AU",
+      },
+
+      /* Service (context: what type of project/service this is) */
+      {
+        "@type": "Service",
+        "@id": `${pageUrl}#service`,
+        name: service,
+        serviceType: service,
+        provider: {
+          "@id": `${siteUrl}/#organization`,
         },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: project.title,
-          item: url,
+        areaServed: {
+          "@type": "Place",
+          name: location,
         },
-      ],
-    },
-  ];
+      },
+
+      /* Breadcrumb */
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Projects",
+            item: `${siteUrl}/projects`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: project.title,
+            item: pageUrl,
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <>
       <Script
         id="project-jsonld"
         type="application/ld+json"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(structuredData),
         }}

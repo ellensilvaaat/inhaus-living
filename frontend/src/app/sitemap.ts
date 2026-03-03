@@ -2,33 +2,66 @@ import type { MetadataRoute } from "next";
 
 const siteUrl = "https://www.inhausliving.com.au";
 
-type ChangeFreq = NonNullable<
-  MetadataRoute.Sitemap[number]["changeFrequency"]
->;
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const now = new Date();
+  const now = new Date("2026-01-01");
 
-  const staticRoutes = [
-    "",
-    "/about",
-    "/services",
-    "/projects",
-    "/blog",
-    "/contact",
-    "/privacy-policy",
-  ];
+  const build = (
+    paths: string[],
+    priority: number,
+    changeFrequency:
+      | "weekly"
+      | "monthly"
+      | "yearly"
+  ) =>
+    paths.map((path) => ({
+      url: `${siteUrl}${path}`,
+      lastModified: now,
+      changeFrequency,
+      priority,
+    }));
 
-  const servicePages = [
-    "/services/house-renovations-sydney",
-    "/services/kitchen-renovations-sydney",
-    "/services/bathroom-renovations-sydney",
-    "/services/apartment-renovations-sydney",
-    "/services/flooring-services-sydney",
-    "/services/construction-additions-sydney",
-  ];
+  /* =========================
+     CORE PAGES
+  ========================== */
 
-  const bathroomLPs = [
+  const home = build(["/"], 1.0, "weekly");
+
+  const coreServices = build(
+    [
+      "/house-renovations-sydney/",
+      "/kitchen-renovations-sydney/",
+      "/bathroom-renovations-sydney/",
+      "/apartment-renovations-sydney/",
+      "/flooring-services-sydney/",
+      "/home-construction-sydney/",
+    ],
+    0.95,
+    "monthly"
+  );
+
+  const mainPages = build(
+    [
+      "/about/",
+      "/services/",
+      "/projects/",
+      "/contact/",
+      "/blog/",
+    ],
+    0.9,
+    "monthly"
+  );
+
+  const privacy = build(
+    ["/privacy-policy/"],
+    0.3,
+    "yearly"
+  );
+
+  /* =========================
+     BATHROOM LPs
+  ========================== */
+
+  const bathroomSuburbs = [
     "rushcutters-bay","arncliffe","matraville","botany","hillsdale",
     "eastgardens","rosebery","surry-hills","banksmeadow","waverley",
     "clovelly","chippendale","daceyville","paddington","camperdown",
@@ -42,12 +75,37 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "bondi-junction","moore-park"
   ];
 
-  const apartmentLPs = [
+  const bathroomLPs = build(
+    bathroomSuburbs.map(
+      (s) =>
+        `/bathroom-renovations/bathroom-renovations-${s}/`
+    ),
+    0.8,
+    "monthly"
+  );
+
+  /* =========================
+     APARTMENT LPs
+  ========================== */
+
+  const apartmentSuburbs = [
     "jannali","kangaroo-point","grays-point","como","kirrawee",
     "oyster-bay","port-hacking","dolans-bay","burraneer","cronulla",
     "sylvania-waters","sylvania","gymea-bay","gymea","caringbah-south",
     "yowie-bay","woolooware","narrabundah","kingston","campbell"
   ];
+
+  const apartmentLPs = build(
+    apartmentSuburbs.map(
+      (s) => `/apartment-renovation-${s}/`
+    ),
+    0.8,
+    "monthly"
+  );
+
+  /* =========================
+     PROJECTS (NOVO PADRÃO)
+  ========================== */
 
   const projects = [
     "bathroom-and-kitchen-renovation-sagars-road-dural",
@@ -62,6 +120,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "brompton-road-kensington",
     "full-apartment-renovation-sutherland-cr-darling-point",
     "bathroom-and-kitchen-renovation-new-beach-road-darling-point",
+    "bathroom-and-kitchen-renovation-rockwall-cr-potts-point",
     "full-home-renovation-newport-beach",
     "clareville-ave-duplex-2-sandringham",
     "bathroom-and-kitchen-renovation-rosehill-street-redfern",
@@ -72,6 +131,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "full-home-renovation-mermaid-avenue-maroubra",
     "venetia-street-sylvania",
   ];
+
+  const projectPages = build(
+    projects.map((p) => `/projects/${p}/`),
+    0.85,
+    "yearly"
+  );
+
+  /* =========================
+     BLOG POSTS
+  ========================== */
 
   const blogPosts = [
     "why-should-you-work-with-a-fully-licensed-class-2-builder",
@@ -111,6 +180,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "what-role-does-a-dedicated-project-manager-play-in-a-successful-renovation",
     "7-small-terrace-design-tips-we-recommend",
     "cracking-the-code-how-to-budget-for-a-sydney-home-renovation",
+    "boost-your-propertys-worth-with-the-right-renovation-company-in-sydney",
     "why-inhaus-living-is-your-ideal-choice-for-home-renovations-in-sydney",
     "simple-renovation-tips-for-a-brighter-home",
     "7-interior-design-trends-fyshwick-homeowners-are-embracing-in-2025",
@@ -121,50 +191,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "professional-vs-diy-renovations-which-ones-right-for-you",
     "how-to-soundproof-your-home-a-comprehensive-guide",
     "why-inhaus-living-is-fyshwicks-go-to-team-for-kitchen-renovations",
+    "why-your-canberra-home-deserves-professional-renovation"
   ];
 
+  const blogPages = build(
+    blogPosts.map((b) => `/blog/${b}/`),
+    0.7,
+    "yearly"
+  );
+
   return [
-    ...staticRoutes.map((route) => ({
-      url: `${siteUrl}${route}`,
-      lastModified: now,
-      changeFrequency:
-        (route === "" ? "weekly" : "monthly") as ChangeFreq,
-      priority: route === "" ? 1 : 0.8,
-    })),
-
-    ...servicePages.map((route) => ({
-      url: `${siteUrl}${route}`,
-      lastModified: now,
-      changeFrequency: "monthly" as ChangeFreq,
-      priority: 0.95,
-    })),
-
-    ...bathroomLPs.map((city) => ({
-      url: `${siteUrl}/bathroom-renovations/bathroom-renovations-${city}`,
-      lastModified: now,
-      changeFrequency: "monthly" as ChangeFreq,
-      priority: 0.75,
-    })),
-
-    ...apartmentLPs.map((city) => ({
-      url: `${siteUrl}/apartment-renovation-${city}`,
-      lastModified: now,
-      changeFrequency: "monthly" as ChangeFreq,
-      priority: 0.75,
-    })),
-
-    ...projects.map((slug) => ({
-      url: `${siteUrl}/projects/${slug}`,
-      lastModified: now,
-      changeFrequency: "monthly" as ChangeFreq,
-      priority: 0.85,
-    })),
-
-    ...blogPosts.map((slug) => ({
-      url: `${siteUrl}/blog/${slug}`,
-      lastModified: now,
-      changeFrequency: "monthly" as ChangeFreq,
-      priority: 0.7,
-    })),
+    ...home,
+    ...coreServices,
+    ...mainPages,
+    ...privacy,
+    ...bathroomLPs,
+    ...apartmentLPs,
+    ...projectPages,
+    ...blogPages,
   ];
 }

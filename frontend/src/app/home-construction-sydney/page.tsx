@@ -8,29 +8,20 @@ import RenovationProcess from "./components/RenovationProcess/RenovationProcess"
 import ContactForm from "./components/ContactForm/ContactForm";
 
 const siteUrl = "https://inhausliving.com.au";
-const pageUrl = `${siteUrl}construction-additions-sydney`;
+const pagePath = "/construction-additions-sydney";
+const pageUrl = `${siteUrl}${pagePath}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title:
-    "Home Extensions Sydney | Construction & Additions Specialists NSW",
+    "Home Extensions Sydney | Construction & Additions Specialists | Inhaus Living",
 
   description:
     "Premium home extensions and construction services in Sydney. Licensed builders delivering second storey additions, ground floor extensions and structural renovations across NSW.",
 
-  keywords: [
-    "Home Extensions Sydney",
-    "Construction Services Sydney",
-    "Second Storey Additions Sydney",
-    "Home Additions NSW",
-    "Ground Floor Extensions Sydney",
-    "Structural Renovations Sydney",
-    "Licensed Builders Sydney",
-  ],
-
   alternates: {
-    canonical: pageUrl,
+    canonical: pagePath,
   },
 
   robots: {
@@ -77,69 +68,81 @@ export const metadata: Metadata = {
 };
 
 export default function ConstructionAdditionsPage() {
-  const structuredData = [
-    // 🔥 PRIMARY SERVICE ENTITY
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      name: "Home Extensions Sydney",
-      serviceType: "Home Extensions & Construction",
-      url: pageUrl,
-      provider: {
-        "@id": `${siteUrl}/#organization`,
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      /* WebPage */
+      {
+        "@type": "WebPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: "Home Extensions Sydney",
+        description:
+          "Second storey additions, ground floor extensions and structural construction services across Sydney.",
+        isPartOf: {
+          "@id": `${siteUrl}/#website`,
+        },
+        inLanguage: "en-AU",
       },
-      areaServed: {
-        "@type": "City",
-        name: "Sydney",
-      },
-      description:
-        "Premium home extensions, second storey additions and structural construction services across Sydney, NSW. Fully licensed and compliant with local building regulations.",
-    },
 
-    // 🔥 LOCAL SEO REINFORCEMENT
-    {
-      "@context": "https://schema.org",
-      "@type": "HomeAndConstructionBusiness",
-      "@id": `${pageUrl}/#localbusiness`,
-      name: "Inhaus Living",
-      url: siteUrl,
-      telephone: "+61296623509",
-      priceRange: "$$$$",
-      areaServed: {
-        "@type": "City",
-        name: "Sydney",
+      /* Primary Service */
+      {
+        "@type": "Service",
+        "@id": `${pageUrl}#service`,
+        name: "Home Extensions Sydney",
+        serviceType: "Home Extensions & Construction",
+        provider: {
+          "@id": `${siteUrl}/#organization`,
+        },
+        areaServed: {
+          "@type": "City",
+          name: "Sydney",
+        },
+        description:
+          "Premium home extensions including second storey additions, structural renovations and council-compliant construction services across NSW.",
       },
-      parentOrganization: {
-        "@id": `${siteUrl}/#organization`,
-      },
-    },
 
-    // 🔥 BREADCRUMB
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: siteUrl,
+      /* Local Business Reinforcement */
+      {
+        "@type": "HomeAndConstructionBusiness",
+        "@id": `${siteUrl}/#organization`,
+        name: "Inhaus Living",
+        url: siteUrl,
+        telephone: "+61296623509",
+        priceRange: "$$$$",
+        areaServed: {
+          "@type": "City",
+          name: "Sydney",
         },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Services",
-          item: `${siteUrl}/services`,
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "Home Extensions Sydney",
-          item: pageUrl,
-        },
-      ],
-    },
-  ];
+      },
+
+      /* Breadcrumb */
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Services",
+            item: `${siteUrl}/services`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Home Extensions Sydney",
+            item: pageUrl,
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <>

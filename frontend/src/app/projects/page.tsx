@@ -1,34 +1,25 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+
 import Hero from "@/components/Projects/Hero/Hero";
 import ProjectsPage from "@/components/Projects/ProjectsPage/ProjectsPage";
 import ReadySection from "@/components/Home/ReadySection/ReadySection";
+import { projectsData } from "@/content/projects";
 
 const siteUrl = "https://inhausliving.com.au";
+const pagePath = "/projects";
+const pageUrl = `${siteUrl}${pagePath}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
-  title: {
-    default:
-      "Luxury Renovation Projects in Sydney & Canberra | Inhaus Living Portfolio",
-    template: "%s | Inhaus Living",
-  },
+  title: "Luxury Renovation Projects in Sydney & Canberra | Inhaus Living Portfolio",
 
   description:
     "Discover award-worthy luxury renovations across Sydney and Canberra. Explore our kitchen renovations, bathroom remodels, home extensions and full home transformations crafted by Inhaus Living.",
 
-  keywords: [
-    "luxury renovation sydney",
-    "kitchen renovation sydney",
-    "bathroom renovation canberra",
-    "high end home renovation australia",
-    "home extension sydney",
-    "custom renovation projects",
-  ],
-
   alternates: {
-    canonical: "/projects",
+    canonical: pagePath,
   },
 
   robots: {
@@ -45,9 +36,8 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    url: `${siteUrl}/projects`,
-    title:
-      "Luxury Renovation Portfolio | Sydney & Canberra Projects",
+    url: pageUrl,
+    title: "Luxury Renovation Portfolio | Sydney & Canberra Projects",
     description:
       "Browse our completed high-end renovation and construction projects across Sydney and Canberra. See the craftsmanship of Inhaus Living.",
     siteName: "Inhaus Living",
@@ -64,8 +54,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title:
-      "Luxury Renovation Projects | Inhaus Living",
+    title: "Luxury Renovation Projects | Inhaus Living",
     description:
       "Explore premium kitchen, bathroom and full home renovation projects across Sydney and Canberra.",
     images: [
@@ -77,31 +66,74 @@ export const metadata: Metadata = {
 };
 
 export default function Projects() {
+  const itemList = projectsData.map((p, idx) => ({
+    "@type": "ListItem",
+    position: idx + 1,
+    url: `${siteUrl}/projects/${p.slug}`,
+    name: p.title,
+  }));
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      /* CollectionPage */
+      {
+        "@type": "CollectionPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: "Inhaus Living Renovation Projects",
+        description:
+          "Portfolio of luxury renovation projects across Sydney and Canberra.",
+        isPartOf: {
+          "@id": `${siteUrl}/#website`,
+        },
+        about: {
+          "@type": "Thing",
+          name: "Luxury Home Renovations",
+        },
+        inLanguage: "en-AU",
+      },
+
+      /* ItemList (helps Google understand it’s a portfolio list) */
+      {
+        "@type": "ItemList",
+        "@id": `${pageUrl}#itemlist`,
+        name: "Renovation Projects",
+        itemListOrder: "https://schema.org/ItemListOrderAscending",
+        numberOfItems: projectsData.length,
+        itemListElement: itemList,
+      },
+
+      /* Breadcrumb */
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Projects",
+            item: pageUrl,
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <>
-      {/* 🔥 STRUCTURED DATA - COLLECTION PAGE */}
       <Script
         id="projects-jsonld"
         type="application/ld+json"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            name: "Inhaus Living Renovation Projects",
-            url: `${siteUrl}/projects`,
-            description:
-              "Portfolio of luxury renovation projects across Sydney and Canberra.",
-            isPartOf: {
-              "@type": "WebSite",
-              name: "Inhaus Living",
-              url: siteUrl,
-            },
-            about: {
-              "@type": "Thing",
-              name: "Luxury Home Renovations",
-            },
-          }),
+          __html: JSON.stringify(structuredData),
         }}
       />
 

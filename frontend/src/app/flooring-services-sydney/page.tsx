@@ -8,29 +8,20 @@ import RenovationProcess from "./components/RenovationProcess/RenovationProcess"
 import ContactForm from "./components/ContactForm/ContactForm";
 
 const siteUrl = "https://inhausliving.com.au";
-const pageUrl = `${siteUrl}flooring-services-sydney`;
+const pagePath = "/flooring-services-sydney";
+const pageUrl = `${siteUrl}${pagePath}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title:
-    "Flooring Installation Sydney | Timber, Engineered & Hybrid Flooring Specialists",
+    "Flooring Installation Sydney | Timber, Engineered & Hybrid Flooring Specialists | Inhaus Living",
 
   description:
     "Premium flooring installation in Sydney, NSW. Timber, engineered and hybrid flooring installed by licensed specialists delivering precision craftsmanship and long-lasting durability.",
 
-  keywords: [
-    "Flooring Installation Sydney",
-    "Timber Flooring Sydney",
-    "Hybrid Flooring Sydney",
-    "Engineered Timber Flooring Sydney",
-    "Flooring Specialists Sydney",
-    "Professional Floor Installers Sydney",
-    "Timber Floor Installation NSW",
-  ],
-
   alternates: {
-    canonical: pageUrl,
+    canonical: pagePath,
   },
 
   robots: {
@@ -77,69 +68,82 @@ export const metadata: Metadata = {
 };
 
 export default function FlooringServicesSydneyPage() {
-  const structuredData = [
-    // 🔥 SERVICE ENTITY (Primary Ranking Signal)
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      name: "Flooring Installation Sydney",
-      serviceType: "Timber, Engineered and Hybrid Flooring Installation",
-      url: pageUrl,
-      provider: {
-        "@id": `${siteUrl}/#organization`,
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      /* WebPage */
+      {
+        "@type": "WebPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: "Flooring Installation Sydney",
+        description:
+          "Professional timber, engineered and hybrid flooring installation across Sydney.",
+        isPartOf: {
+          "@id": `${siteUrl}/#website`,
+        },
+        inLanguage: "en-AU",
       },
-      areaServed: {
-        "@type": "City",
-        name: "Sydney",
-      },
-      description:
-        "Professional timber, engineered and hybrid flooring installation across Sydney, NSW including subfloor preparation and premium finishes.",
-    },
 
-    // 🔥 LOCAL SEO REINFORCEMENT
-    {
-      "@context": "https://schema.org",
-      "@type": "HomeAndConstructionBusiness",
-      "@id": `${pageUrl}/#localbusiness`,
-      name: "Inhaus Living",
-      url: siteUrl,
-      telephone: "+61296623509",
-      priceRange: "$$$",
-      areaServed: {
-        "@type": "City",
-        name: "Sydney",
+      /* Primary Service */
+      {
+        "@type": "Service",
+        "@id": `${pageUrl}#service`,
+        name: "Flooring Installation Sydney",
+        serviceType:
+          "Timber, Engineered and Hybrid Flooring Installation",
+        provider: {
+          "@id": `${siteUrl}/#organization`,
+        },
+        areaServed: {
+          "@type": "City",
+          name: "Sydney",
+        },
+        description:
+          "Professional timber, engineered and hybrid flooring installation including subfloor preparation and premium finishes across Sydney, NSW.",
       },
-      parentOrganization: {
-        "@id": `${siteUrl}/#organization`,
-      },
-    },
 
-    // 🔥 BREADCRUMB
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: siteUrl,
+      /* Local Business Reinforcement */
+      {
+        "@type": "HomeAndConstructionBusiness",
+        "@id": `${siteUrl}/#organization`,
+        name: "Inhaus Living",
+        url: siteUrl,
+        telephone: "+61296623509",
+        priceRange: "$$$",
+        areaServed: {
+          "@type": "City",
+          name: "Sydney",
         },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Services",
-          item: `${siteUrl}/services`,
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "Flooring Installation Sydney",
-          item: pageUrl,
-        },
-      ],
-    },
-  ];
+      },
+
+      /* Breadcrumb */
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Services",
+            item: `${siteUrl}/services`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Flooring Installation Sydney",
+            item: pageUrl,
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <>

@@ -8,29 +8,20 @@ import RenovationProcess from "./components/RenovationProcess/RenovationProcess"
 import ContactForm from "./components/ContactForm/ContactForm";
 
 const siteUrl = "https://inhausliving.com.au";
-const pageUrl = `${siteUrl}house-renovations-sydney`;
+const pagePath = "/house-renovations-sydney";
+const pageUrl = `${siteUrl}${pagePath}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title:
-    "House Renovations Sydney | Luxury Home Renovators Sydney | Inhaus Living",
+    "House Renovations Sydney | Luxury Home Renovators | Inhaus Living",
 
   description:
     "Award-winning house renovations in Sydney by licensed builders with 20+ years experience. Luxury home transformations, extensions and design-led renovations tailored to your lifestyle and long-term property value.",
 
-  keywords: [
-    "House Renovations Sydney",
-    "Home Renovations Sydney",
-    "Luxury Home Renovations Sydney",
-    "Sydney Home Renovators",
-    "Custom Home Renovations Sydney",
-    "Home Extensions Sydney",
-    "Licensed Builders Sydney",
-  ],
-
   alternates: {
-    canonical: pageUrl,
+    canonical: pagePath,
   },
 
   robots: {
@@ -77,69 +68,81 @@ export const metadata: Metadata = {
 };
 
 export default function HouseRenovationsPage() {
-  const structuredData = [
-    // 🔥 PRIMARY SERVICE ENTITY
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      name: "House Renovations Sydney",
-      serviceType: "House & Full Home Renovations",
-      url: pageUrl,
-      provider: {
-        "@id": `${siteUrl}/#organization`,
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      /* WebPage */
+      {
+        "@type": "WebPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: "House Renovations Sydney",
+        description:
+          "Luxury house renovations and full home transformations across Sydney.",
+        isPartOf: {
+          "@id": `${siteUrl}/#website`,
+        },
+        inLanguage: "en-AU",
       },
-      areaServed: {
-        "@type": "City",
-        name: "Sydney",
-      },
-      description:
-        "Luxury house renovations and custom home transformations across Sydney including structural renovations, extensions and full interior redesigns.",
-    },
 
-    // 🔥 LOCAL BUSINESS REINFORCEMENT
-    {
-      "@context": "https://schema.org",
-      "@type": "HomeAndConstructionBusiness",
-      "@id": `${pageUrl}/#localbusiness`,
-      name: "Inhaus Living",
-      url: siteUrl,
-      telephone: "+61296623509",
-      priceRange: "$$$$",
-      areaServed: {
-        "@type": "City",
-        name: "Sydney",
+      /* Primary Service */
+      {
+        "@type": "Service",
+        "@id": `${pageUrl}#service`,
+        name: "House Renovations Sydney",
+        serviceType: "House & Full Home Renovations",
+        provider: {
+          "@id": `${siteUrl}/#organization`,
+        },
+        areaServed: {
+          "@type": "City",
+          name: "Sydney",
+        },
+        description:
+          "Luxury house renovations including structural upgrades, home extensions and complete interior redesigns.",
       },
-      parentOrganization: {
-        "@id": `${siteUrl}/#organization`,
-      },
-    },
 
-    // 🔥 BREADCRUMB
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: siteUrl,
+      /* Local Business Reinforcement */
+      {
+        "@type": "HomeAndConstructionBusiness",
+        "@id": `${siteUrl}/#organization`,
+        name: "Inhaus Living",
+        url: siteUrl,
+        telephone: "+61296623509",
+        priceRange: "$$$$",
+        areaServed: {
+          "@type": "City",
+          name: "Sydney",
         },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Services",
-          item: `${siteUrl}/services`,
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "House Renovations Sydney",
-          item: pageUrl,
-        },
-      ],
-    },
-  ];
+      },
+
+      /* Breadcrumb */
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Services",
+            item: `${siteUrl}/services`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "House Renovations Sydney",
+            item: pageUrl,
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <>

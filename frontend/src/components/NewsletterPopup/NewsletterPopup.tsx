@@ -3,57 +3,49 @@
 import { useEffect, useState } from "react";
 import "./NewsletterPopup.css";
 
-export default function NewsletterPopup() {
-  const [showPopup, setShowPopup] =
-    useState(false);
-  const [submitted, setSubmitted] =
-    useState(false);
-  const [formData, setFormData] =
-    useState({
-      name: "",
-      email: "",
-    });
-  const [loading, setLoading] =
-    useState(false);
+const STORAGE_KEY = "inhaus_popup_closed";
+const EXPIRATION_DAYS = 7; // popup reaparece após 7 dias
 
-  // ✅ Next way
-  const API_BASE =
-    process.env.NEXT_PUBLIC_API_BASE || "";
+export default function NewsletterPopup() {
+  const [showPopup, setShowPopup] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+  });
+  const [loading, setLoading] = useState(false);
+
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "";
+
+  /* =====================================================
+     POPUP TRIGGER LOGIC
+  ===================================================== */
 
   useEffect(() => {
-    const hasSeenPopup =
-      localStorage.getItem(
-        "inhaus_popup_closed"
-      );
+    const stored = localStorage.getItem(STORAGE_KEY);
 
-    if (hasSeenPopup) return;
+    if (stored) {
+      const { timestamp } = JSON.parse(stored);
+      const now = Date.now();
+      const daysPassed =
+        (now - timestamp) / (1000 * 60 * 60 * 24);
+
+      if (daysPassed < EXPIRATION_DAYS) return;
+    }
 
     let triggered = false;
-    let hasScrolledEnough = false;
-    let observer: MutationObserver | null =
-      null;
 
-    const triggerPopup = () => {
-      if (
-        triggered ||
-        !hasScrolledEnough
-      )
-        return;
-
+    const show = () => {
+      if (triggered) return;
       triggered = true;
       setShowPopup(true);
-      window.removeEventListener(
-        "scroll",
-        handleScroll
-      );
-      observer?.disconnect();
+      window.removeEventListener("scroll", handleScroll);
     };
 
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       const docHeight =
-        document.documentElement
-          .scrollHeight -
+        document.documentElement.scrollHeight -
         window.innerHeight;
 
       if (docHeight <= 0) return;
@@ -62,73 +54,44 @@ export default function NewsletterPopup() {
         (scrollTop / docHeight) * 100;
 
       if (scrollPercent >= 25) {
-        hasScrolledEnough = true;
-        triggerPopup();
+        show();
       }
     };
 
-    const startPopupLogic = () => {
-      window.addEventListener(
-        "scroll",
-        handleScroll
-      );
-    };
+    window.addEventListener("scroll", handleScroll);
 
-    if (
-      document.body.classList.contains(
-        "site-loaded"
-      )
-    ) {
-      startPopupLogic();
-    } else {
-      observer =
-        new MutationObserver(() => {
-          if (
-            document.body.classList.contains(
-              "site-loaded"
-            )
-          ) {
-            observer?.disconnect();
-            startPopupLogic();
-          }
-        });
-
-      observer.observe(
-        document.body,
-        {
-          attributes: true,
-          attributeFilter: ["class"],
-        }
-      );
-    }
+    // Fallback: mostra após 10 segundos
+    const timer = setTimeout(show, 10000);
 
     return () => {
-      window.removeEventListener(
-        "scroll",
-        handleScroll
-      );
-      observer?.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(timer);
     };
   }, []);
+
+  /* =====================================================
+     CLOSE POPUP
+  ===================================================== */
 
   const closePopup = () => {
     setShowPopup(false);
     setSubmitted(false);
-    setFormData({
-      name: "",
-      email: "",
-    });
+    setFormData({ name: "", email: "" });
 
     localStorage.setItem(
-      "inhaus_popup_closed",
-      "true"
+      STORAGE_KEY,
+      JSON.stringify({
+        timestamp: Date.now(),
+      })
     );
   };
 
+  /* =====================================================
+     FORM HANDLING
+  ===================================================== */
+
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement
-    >
+    e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { name, value } = e.target;
 
@@ -145,51 +108,36 @@ export default function NewsletterPopup() {
     setLoading(true);
 
     try {
-      const response =
-        await fetch(
-          `${API_BASE}/api/newsletter`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type":
-                "application/json",
-            },
-            body: JSON.stringify(
-              formData
-            ),
-          }
-        );
+      const response = await fetch(
+        `${API_BASE}/api/newsletter`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) {
-        const err =
-          await response.json();
-
+        const err = await response.json();
         alert(
-          `Error: ${
-            err.message ||
-            "Something went wrong."
-          }`
+          err.message || "Something went wrong."
         );
-
         return;
       }
 
       setSubmitted(true);
-      setFormData({
-        name: "",
-        email: "",
-      });
+      setFormData({ name: "", email: "" });
 
       localStorage.setItem(
-        "inhaus_popup_closed",
-        "true"
+        STORAGE_KEY,
+        JSON.stringify({
+          timestamp: Date.now(),
+        })
       );
     } catch (error) {
-      console.error(
-        "Newsletter error:",
-        error
-      );
-
+      console.error("Newsletter error:", error);
       alert(
         "Error sending. Please try again later."
       );
@@ -199,6 +147,10 @@ export default function NewsletterPopup() {
   };
 
   if (!showPopup) return null;
+
+  /* =====================================================
+     RENDER
+  ===================================================== */
 
   return (
     <div className="newsletter-popup-overlay">
@@ -215,29 +167,24 @@ export default function NewsletterPopup() {
             <h2>Thank you!</h2>
             <p>
               You're now part of the{" "}
-              <strong>
-                Inhaus Living
-              </strong>{" "}
-              crew and will receive
-              exclusive updates,
-              inspirations, and smart
+              <strong>Inhaus Living</strong>{" "}
+              crew and will receive exclusive
+              updates, inspirations and smart
               renovation insights.
             </p>
           </div>
         ) : (
           <div className="popup-content">
             <h2>
-              <span>
-                Transform
-              </span>{" "}
-              your home with confidence
+              <span>Transform</span> your
+              home with confidence
             </h2>
 
             <p>
               Subscribe for smart ideas,
-              trends, quick guides, and
-              real project stories to
-              help transform your home.
+              trends, quick guides and real
+              project stories to help
+              transform your home.
             </p>
 
             <form
@@ -248,12 +195,8 @@ export default function NewsletterPopup() {
                 type="text"
                 name="name"
                 placeholder="Your name"
-                value={
-                  formData.name
-                }
-                onChange={
-                  handleChange
-                }
+                value={formData.name}
+                onChange={handleChange}
                 required
               />
 
@@ -261,12 +204,8 @@ export default function NewsletterPopup() {
                 type="email"
                 name="email"
                 placeholder="example@domain.com"
-                value={
-                  formData.email
-                }
-                onChange={
-                  handleChange
-                }
+                value={formData.email}
+                onChange={handleChange}
                 required
               />
 
@@ -284,10 +223,10 @@ export default function NewsletterPopup() {
 
         {!submitted && (
           <small className="popup-disclaimer">
-            By subscribing, you agree
-            to receive communications
-            from Inhaus Living. You can
-            unsubscribe at any time.
+            By subscribing, you agree to
+            receive communications from
+            Inhaus Living. You can unsubscribe
+            at any time.
           </small>
         )}
       </div>

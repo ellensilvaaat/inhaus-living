@@ -102,16 +102,19 @@ export default function ContactForm({
     const apiBase = process.env.NEXT_PUBLIC_API_BASE;
 
     // 🔥 ÚNICA ALTERAÇÃO REAL: payload expandido
-    const payload = {
-      ...formData,
-      service_key: serviceKey,
-      service_label: renovationLabel,
-      suburb,
-      region,
-      status: "new",
-      formStartedAt: formLoadedAt.current,
-      turnstileToken,
-    };
+   const pagePath = window.location.pathname;
+
+const payload = {
+  ...formData,
+  service_key: serviceKey,
+  service_label: renovationLabel,
+  suburb,
+  region,
+  page_path: pagePath,
+  status: "new",
+  formStartedAt: formLoadedAt.current,
+  turnstileToken,
+};
 
     try {
       // 🔥 ALTERADO endpoint para landing

@@ -20,17 +20,8 @@ export const metadata: Metadata = {
   description:
     "Award-winning luxury home renovations in Sydney and Canberra. Kitchen renovations, bathroom remodels, flooring and full home transformations delivered with expert craftsmanship.",
 
-  keywords: [
-    "luxury home renovations sydney",
-    "home renovation canberra",
-    "kitchen renovation sydney",
-    "bathroom renovation sydney",
-    "luxury builders sydney",
-    "construction company canberra",
-  ],
-
   alternates: {
-    canonical: siteUrl,
+    canonical: "/",
   },
 
   robots: {
@@ -51,7 +42,7 @@ export const metadata: Metadata = {
     siteName: "Inhaus Living",
     locale: "en_AU",
     title:
-      "Luxury Home Renovations in Sydney & Canberra | Inhaus Living",
+      "Luxury Home Renovations Sydney & Canberra | Inhaus Living",
     description:
       "Premium kitchen, bathroom and full home renovations across Sydney and Canberra.",
     images: [
@@ -80,7 +71,40 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   const structuredData = [
-    // 🔥 WEBPAGE (HOME)
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: "Inhaus Living",
+      url: siteUrl,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/logo.png`,
+      },
+      sameAs: [
+        "https://www.instagram.com/inhausliving",
+        "https://www.facebook.com/inhausliving"
+      ],
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+61XXXXXXXXX",
+        contactType: "customer service",
+        areaServed: "AU",
+        availableLanguage: "English"
+      }
+    },
+
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: "Inhaus Living",
+      publisher: {
+        "@id": `${siteUrl}/#organization`
+      }
+    },
+
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
@@ -88,28 +112,27 @@ export default function HomePage() {
       url: siteUrl,
       name: "Luxury Home Renovations Sydney & Canberra",
       isPartOf: {
-        "@id": `${siteUrl}/#website`,
+        "@id": `${siteUrl}/#website`
       },
       about: {
-        "@type": "Thing",
-        name: "Luxury Home Renovations",
-      },
+        "@type": "Service",
+        name: "Luxury Home Renovations"
+      }
     },
 
-    // 🔥 PRIMARY SERVICE ENTITY
     {
       "@context": "https://schema.org",
       "@type": "Service",
       name: "Luxury Home Renovations",
       provider: {
-        "@id": `${siteUrl}/#organization`,
+        "@id": `${siteUrl}/#organization`
       },
       areaServed: [
         { "@type": "City", name: "Sydney" },
-        { "@type": "City", name: "Canberra" },
+        { "@type": "City", name: "Canberra" }
       ],
-      serviceType: "Home Renovation and Construction",
-    },
+      serviceType: "Home Renovation and Construction"
+    }
   ];
 
   return (

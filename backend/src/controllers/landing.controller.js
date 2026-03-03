@@ -46,7 +46,7 @@ export const submitLandingLead = async (req, res) => {
 
       installation_date: data.installationDate || null,
       subject: data.subject || null,
-
+      page_path: data.page_path || null,
       status: "new",
     };
 

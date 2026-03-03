@@ -36,7 +36,7 @@ function formatSuburbName(slug: string) {
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  return service.suburbs.map((suburb) => ({
+  return service.suburbs.map((suburb: string) => ({
     slug: `bathroom-renovations-${suburb}`,
   }));
 }
@@ -44,6 +44,8 @@ export async function generateStaticParams() {
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
+
+/* ================= METADATA ================= */
 
 export async function generateMetadata(
   { params }: PageProps
@@ -56,14 +58,51 @@ export async function generateMetadata(
   }
 
   const suburbName = formatSuburbName(suburbSlug);
-  const pageUrl = `${siteUrl}/bathroom-renovations/${slug}/`;
+
+  const pagePath = `/bathroom-renovations/${slug}/`;
+  const pageUrl = `${siteUrl}${pagePath}`;
 
   return {
-    title: `${service.label} ${suburbName} | ${service.businessName}`,
-    description: `Premium ${service.label.toLowerCase()} in ${suburbName} delivered by licensed and insured builders.`,
-    alternates: { canonical: pageUrl },
+    title: `Bathroom Renovations ${suburbName} | Licensed Renovators | ${service.businessName}`,
+
+    description: `Premium bathroom renovations in ${suburbName} delivered by licensed and insured builders. Waterproof compliant, design-led and built for long-term value.`,
+
+    alternates: {
+      canonical: pagePath,
+    },
+
+    robots: {
+      index: true,
+      follow: true,
+    },
+
+    openGraph: {
+      type: "article",
+      url: pageUrl,
+      title: `Bathroom Renovations ${suburbName}`,
+      description: `Luxury bathroom renovations in ${suburbName} by licensed renovation specialists.`,
+      siteName: service.businessName,
+      locale: "en_AU",
+      images: [
+        {
+          url: service.heroImage,
+          width: 1200,
+          height: 630,
+          alt: `Bathroom Renovations ${suburbName}`,
+        },
+      ],
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: `Bathroom Renovations ${suburbName}`,
+      description: `Premium bathroom renovation services in ${suburbName}.`,
+      images: [service.heroImage],
+    },
   };
 }
+
+/* ================= PAGE ================= */
 
 export default async function BathroomRenovationPage({
   params,
@@ -78,7 +117,7 @@ export default async function BathroomRenovationPage({
 
   const suburbName = formatSuburbName(suburbSlug);
 
-  // 🔥 REGION DETECTION
+  /* 🔥 REGION DETECTION */
   const region =
     suburbSlug === "canberra" ? "canberra" : "sydney";
 
@@ -90,27 +129,65 @@ export default async function BathroomRenovationPage({
   const locationLabel =
     region === "canberra" ? "Canberra" : "Sydney";
 
-  const pageUrl = `${siteUrl}/bathroom-renovations/${slug}/`;
+  const pagePath = `/bathroom-renovations/${slug}/`;
+  const pageUrl = `${siteUrl}${pagePath}`;
+
+  /* ================= STRUCTURED DATA ================= */
 
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Service",
-    name: `${service.label} ${suburbName}`,
-    serviceType: service.label,
-    areaServed: {
-      "@type": "AdministrativeArea",
-      name: suburbName,
-    },
-    provider: {
-      "@type": "Organization",
-      name: service.businessName,
-      url: siteUrl,
-      telephone:
-        region === "canberra"
-          ? "+61261762807"
-          : "+61296623509",
-    },
-    url: pageUrl,
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: `Bathroom Renovations ${suburbName}`,
+        isPartOf: {
+          "@id": `${siteUrl}/#website`,
+        },
+        inLanguage: "en-AU",
+      },
+
+      {
+        "@type": "Service",
+        "@id": `${pageUrl}#service`,
+        name: `Bathroom Renovations ${suburbName}`,
+        serviceType: "Bathroom Renovation",
+        areaServed: {
+          "@type": "AdministrativeArea",
+          name: suburbName,
+        },
+        provider: {
+          "@id": `${siteUrl}/#organization`,
+        },
+        url: pageUrl,
+      },
+
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Bathroom Renovations",
+            item: `${siteUrl}/bathroom-renovations/`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: suburbName,
+            item: pageUrl,
+          },
+        ],
+      },
+    ],
   };
 
   return (

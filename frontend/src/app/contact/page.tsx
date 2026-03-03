@@ -4,39 +4,28 @@ import Hero from "@/components/Contact/Hero/Hero";
 import ContactPage from "@/components/Contact/ContactPage/ContactPage";
 
 const siteUrl = "https://inhausliving.com.au";
+const pagePath = "/contact";
+const pageUrl = `${siteUrl}${pagePath}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default: "Contact Inhaus Living | Luxury Renovations & Construction",
+    default:
+      "Contact Inhaus Living | Luxury Renovations & Construction",
     template: "%s | Inhaus Living",
   },
 
   description:
     "Contact Inhaus Living for premium kitchen renovations, bathroom renovations, home extensions and luxury construction projects in Sydney and Canberra. Visit our showrooms or request a consultation today.",
 
-  keywords: [
-    "Inhaus Living contact",
-    "luxury renovations Sydney",
-    "kitchen renovation Sydney",
-    "bathroom renovation Sydney",
-    "home renovation Canberra",
-    "construction company Australia",
-    "Moore Park showroom",
-    "Taren Point showroom",
-    "Fyshwick showroom",
-    "renovation consultation",
-  ],
-
   alternates: {
-    canonical: "/contact",
+    canonical: pagePath,
   },
 
   robots: {
     index: true,
     follow: true,
-    nocache: false,
     googleBot: {
       index: true,
       follow: true,
@@ -48,7 +37,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    url: `${siteUrl}/contact`,
+    url: pageUrl,
     title:
       "Contact Inhaus Living | Luxury Renovations & Construction Experts",
     description:
@@ -78,73 +67,105 @@ export const metadata: Metadata = {
 };
 
 export default function Contact() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      /* WebPage */
+      {
+        "@type": "ContactPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: "Contact Inhaus Living",
+        description:
+          "Contact page for Inhaus Living renovation and construction services.",
+        isPartOf: {
+          "@id": `${siteUrl}/#website`,
+        },
+        inLanguage: "en-AU",
+      },
+
+      /* Organization (connected globally) */
+      {
+        "@type": "HomeAndConstructionBusiness",
+        "@id": `${siteUrl}/#organization`,
+        name: "Inhaus Living",
+        url: siteUrl,
+        image: `${siteUrl}/og-contact.jpg`,
+        telephone: "+61296623509",
+        email: "info@inhausliving.com.au",
+        priceRange: "$$$$",
+        areaServed: [
+          {
+            "@type": "City",
+            name: "Sydney",
+          },
+          {
+            "@type": "City",
+            name: "Canberra",
+          },
+        ],
+        address: [
+          {
+            "@type": "PostalAddress",
+            streetAddress: "Shop 10/2A Todman Ave",
+            addressLocality: "Kensington",
+            addressRegion: "NSW",
+            postalCode: "2033",
+            addressCountry: "AU",
+          },
+          {
+            "@type": "PostalAddress",
+            streetAddress: "2/175 Taren Point Rd",
+            addressLocality: "Caringbah",
+            addressRegion: "NSW",
+            postalCode: "2229",
+            addressCountry: "AU",
+          },
+          {
+            "@type": "PostalAddress",
+            streetAddress: "Unit 2/58 Wollongong St",
+            addressLocality: "Fyshwick",
+            addressRegion: "ACT",
+            postalCode: "2609",
+            addressCountry: "AU",
+          },
+        ],
+        sameAs: [
+          "https://www.instagram.com/inhausliving/",
+          "https://www.facebook.com/inhausliving/",
+        ],
+      },
+
+      /* Breadcrumb */
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Contact",
+            item: pageUrl,
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <>
-      {/* 🔥 STRUCTURED DATA - CONTACT PAGE + LOCAL BUSINESS */}
       <Script
-        id="contact-jsonld"
+        id="contact-structured-data"
         type="application/ld+json"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([
-            {
-              "@context": "https://schema.org",
-              "@type": "ContactPage",
-              name: "Contact Inhaus Living",
-              url: `${siteUrl}/contact`,
-              description:
-                "Contact page for Inhaus Living renovation and construction services.",
-            },
-            {
-              "@context": "https://schema.org",
-              "@type": "LocalBusiness",
-              name: "Inhaus Living",
-              image: `${siteUrl}/og-contact.jpg`,
-              url: siteUrl,
-              telephone: "+61-2-9662-3509",
-              email: "info@inhausliving.com.au",
-              address: [
-                {
-                  "@type": "PostalAddress",
-                  streetAddress: "Shop 10/2A Todman Ave",
-                  addressLocality: "Kensington",
-                  addressRegion: "NSW",
-                  postalCode: "2033",
-                  addressCountry: "AU",
-                },
-                {
-                  "@type": "PostalAddress",
-                  streetAddress: "2/175 Taren Point Rd",
-                  addressLocality: "Caringbah",
-                  addressRegion: "NSW",
-                  postalCode: "2229",
-                  addressCountry: "AU",
-                },
-                {
-                  "@type": "PostalAddress",
-                  streetAddress: "Unit 2/58 Wollongong St",
-                  addressLocality: "Fyshwick",
-                  addressRegion: "ACT",
-                  postalCode: "2609",
-                  addressCountry: "AU",
-                },
-              ],
-              areaServed: [
-                {
-                  "@type": "Place",
-                  name: "Sydney",
-                },
-                {
-                  "@type": "Place",
-                  name: "Canberra",
-                },
-              ],
-              sameAs: [
-                "https://www.instagram.com/inhausliving/",
-                "https://www.facebook.com/inhausliving/",
-              ],
-            },
-          ]),
+          __html: JSON.stringify(structuredData),
         }}
       />
 

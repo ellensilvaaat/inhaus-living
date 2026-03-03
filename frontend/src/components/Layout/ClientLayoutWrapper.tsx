@@ -23,6 +23,7 @@ export default function ClientLayoutWrapper({
     normalizedPath?.startsWith("/flooring-") ||
     normalizedPath?.startsWith("/kitchen-renovation-") ||
     normalizedPath?.startsWith("/home-construction-") ||
+    normalizedPath?.startsWith("/thank-you") ||
     normalizedPath?.startsWith("/home-renovation-");
 
   return (

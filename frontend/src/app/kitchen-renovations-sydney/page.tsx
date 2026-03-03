@@ -8,7 +8,8 @@ import RenovationProcess from "./components/RenovationProcess/RenovationProcess"
 import ContactForm from "./components/ContactForm/ContactForm";
 
 const siteUrl = "https://inhausliving.com.au";
-const pageUrl = `${siteUrl}kitchen-renovations-sydney`;
+const pagePath = "/kitchen-renovations-sydney";
+const pageUrl = `${siteUrl}${pagePath}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -19,18 +20,8 @@ export const metadata: Metadata = {
   description:
     "Premium kitchen renovations in Sydney by licensed and insured builders with 20+ years experience. Custom luxury kitchens designed for performance, elegance and long-term value.",
 
-  keywords: [
-    "Kitchen Renovations Sydney",
-    "Luxury Kitchen Renovations Sydney",
-    "Kitchen Renovators Sydney",
-    "Custom Kitchens Sydney",
-    "Modern Kitchen Renovation Sydney",
-    "High-End Kitchen Builders Sydney",
-    "Sydney Kitchen Design",
-  ],
-
   alternates: {
-    canonical: pageUrl,
+    canonical: pagePath,
   },
 
   robots: {
@@ -77,69 +68,81 @@ export const metadata: Metadata = {
 };
 
 export default function KitchenRenovationsPage() {
-  const structuredData = [
-    // 🔥 PRIMARY SERVICE ENTITY
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      name: "Kitchen Renovations Sydney",
-      serviceType: "Kitchen Renovation & Design",
-      url: pageUrl,
-      provider: {
-        "@id": `${siteUrl}/#organization`,
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      /* WebPage */
+      {
+        "@type": "WebPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: "Kitchen Renovations Sydney",
+        description:
+          "Luxury kitchen renovation services across Sydney delivered by licensed renovation specialists.",
+        isPartOf: {
+          "@id": `${siteUrl}/#website`,
+        },
+        inLanguage: "en-AU",
       },
-      areaServed: {
-        "@type": "City",
-        name: "Sydney",
-      },
-      description:
-        "Luxury kitchen renovations across Sydney including custom cabinetry, stone benchtops, European appliances and full kitchen redesigns.",
-    },
 
-    // 🔥 LOCAL BUSINESS REINFORCEMENT
-    {
-      "@context": "https://schema.org",
-      "@type": "HomeAndConstructionBusiness",
-      "@id": `${pageUrl}/#localbusiness`,
-      name: "Inhaus Living",
-      url: siteUrl,
-      telephone: "+61296623509",
-      priceRange: "$$$$",
-      areaServed: {
-        "@type": "City",
-        name: "Sydney",
+      /* Primary Service */
+      {
+        "@type": "Service",
+        "@id": `${pageUrl}#service`,
+        name: "Kitchen Renovations Sydney",
+        serviceType: "Kitchen Renovation & Design",
+        provider: {
+          "@id": `${siteUrl}/#organization`,
+        },
+        areaServed: {
+          "@type": "City",
+          name: "Sydney",
+        },
+        description:
+          "Luxury kitchen renovations including custom cabinetry, premium stone benchtops, European appliances and full kitchen redesigns.",
       },
-      parentOrganization: {
-        "@id": `${siteUrl}/#organization`,
-      },
-    },
 
-    // 🔥 BREADCRUMB
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: siteUrl,
+      /* Local Business Reinforcement */
+      {
+        "@type": "HomeAndConstructionBusiness",
+        "@id": `${siteUrl}/#organization`,
+        name: "Inhaus Living",
+        url: siteUrl,
+        telephone: "+61296623509",
+        priceRange: "$$$$",
+        areaServed: {
+          "@type": "City",
+          name: "Sydney",
         },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Services",
-          item: `${siteUrl}/services`,
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "Kitchen Renovations Sydney",
-          item: pageUrl,
-        },
-      ],
-    },
-  ];
+      },
+
+      /* Breadcrumb */
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Services",
+            item: `${siteUrl}/services`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Kitchen Renovations Sydney",
+            item: pageUrl,
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <>

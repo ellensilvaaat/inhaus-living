@@ -8,7 +8,8 @@ import RenovationProcess from "./components/RenovationProcess/RenovationProcess"
 import ContactForm from "./components/ContactForm/ContactForm";
 
 const siteUrl = "https://inhausliving.com.au";
-const pageUrl = `${siteUrl}bathroom-renovations-sydney`;
+const pagePath = "/bathroom-renovations-sydney";
+const pageUrl = `${siteUrl}${pagePath}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -19,18 +20,8 @@ export const metadata: Metadata = {
   description:
     "Premium bathroom renovations in Sydney by licensed and insured builders with over 20 years experience. Custom luxury bathroom design, waterproofing compliance and high-end finishes tailored to your home.",
 
-  keywords: [
-    "Bathroom Renovations Sydney",
-    "Sydney Bathroom Renovators",
-    "Luxury Bathroom Renovations Sydney",
-    "Bathroom Remodel Sydney",
-    "Custom Bathroom Design Sydney",
-    "Licensed Bathroom Builders Sydney",
-    "Bathroom Waterproofing Sydney",
-  ],
-
   alternates: {
-    canonical: pageUrl,
+    canonical: pagePath,
   },
 
   robots: {
@@ -77,58 +68,87 @@ export const metadata: Metadata = {
 };
 
 export default function BathroomRenovationsPage() {
-  const structuredData = [
-    // 🔥 SERVICE ENTITY
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      name: "Bathroom Renovations Sydney",
-      serviceType: "Bathroom Renovation and Design",
-      url: pageUrl,
-      provider: {
-        "@id": `${siteUrl}/#organization`,
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      /* WebPage */
+      {
+        "@type": "WebPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: "Bathroom Renovations Sydney",
+        description:
+          "Luxury bathroom renovation services across Sydney delivered by licensed renovation specialists.",
+        isPartOf: {
+          "@id": `${siteUrl}/#website`,
+        },
+        inLanguage: "en-AU",
       },
-      areaServed: {
-        "@type": "City",
-        name: "Sydney",
-      },
-      description:
-        "Luxury bathroom renovations in Sydney including waterproofing, custom vanities, premium tiling and full design & build services.",
-    },
 
-    // 🔥 BREADCRUMB
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: siteUrl,
+      /* Primary Service */
+      {
+        "@type": "Service",
+        "@id": `${pageUrl}#service`,
+        name: "Bathroom Renovations Sydney",
+        serviceType: "Bathroom Renovation and Design",
+        provider: {
+          "@id": `${siteUrl}/#organization`,
         },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Services",
-          item: `${siteUrl}/services`,
+        areaServed: {
+          "@type": "City",
+          name: "Sydney",
         },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "Bathroom Renovations Sydney",
-          item: pageUrl,
+        description:
+          "Luxury bathroom renovations including waterproofing compliance, custom vanities, premium tiling and full design & build services.",
+      },
+
+      /* Local Business Reinforcement */
+      {
+        "@type": "HomeAndConstructionBusiness",
+        "@id": `${siteUrl}/#organization`,
+        name: "Inhaus Living",
+        url: siteUrl,
+        telephone: "+61296623509",
+        priceRange: "$$$$",
+        areaServed: {
+          "@type": "City",
+          name: "Sydney",
         },
-      ],
-    },
-  ];
+      },
+
+      /* Breadcrumb */
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Services",
+            item: `${siteUrl}/services`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Bathroom Renovations Sydney",
+            item: pageUrl,
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <>
       <Script
         id="bathroom-renovations-structured-data"
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(structuredData),
         }}
