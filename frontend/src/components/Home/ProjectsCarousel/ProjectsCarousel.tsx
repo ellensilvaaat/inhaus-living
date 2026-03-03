@@ -29,7 +29,7 @@ export default function ProjectsCarousel() {
           <div className="project-card" key={project.slug}>
             <div className="project-card__wrapper">
               <Image
-                src={`${project.heroImage}?tr=w-800,f-webp,q-95`}
+                src={`${project.heroImage}?tr=w-980,f-webp,q-95`}
                 alt={`${project.title} renovation project by Inhaus Living`}
                 width={800}
                 height={600}

@@ -3,119 +3,407 @@
 /* ============================= */
 
 .aboutus-section-wrapper {
+
   width: 100%;
-  background: #ffffff;
-  padding: 6rem 4rem;
+
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #fafafa 40%,
+    #ffffff 100%
+  );
+
+  padding: 10rem 4rem;
+
   box-sizing: border-box;
+
+  position: relative;
+
+  overflow: hidden;
+
 }
 
-/* Container principal (texto + vídeo) */
-.aboutus-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
+/* architectural light */
+
+.aboutus-section-wrapper::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: -20%;
+
+  background:
+    radial-gradient(900px 500px at 20% 30%, rgba(246,124,11,.08), transparent 60%),
+    radial-gradient(800px 500px at 80% 40%, rgba(0,0,0,.05), transparent 60%);
+
+  pointer-events: none;
+
 }
 
 /* ============================= */
-/* LEFT SIDE - TEXT */
+/* CONTAINER */
+/* ============================= */
+
+.aboutus-container {
+
+  max-width: 1300px;
+
+  margin: 0 auto;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 6rem;
+
+  position: relative;
+
+  z-index: 2;
+
+}
+
+/* ============================= */
+/* LEFT SIDE */
 /* ============================= */
 
 .aboutus-section-content {
+
   flex: 1;
+
   display: flex;
+
   flex-direction: column;
-  color: #000;
+
+  color: #111;
+
 }
 
+/* ============================= */
+/* HEADING */
+/* ============================= */
+
 .aboutus-heading {
-  font-size: 2.5rem;
+
+  font-size: 3.4rem;
+
+  font-family: var(--font-title);
+
   font-weight: 400;
+
+  line-height: 1.2;
+
+  margin-bottom: 1rem;
+
 }
 
 .aboutus-heading em {
-  font-weight: 700;
+
+  font-weight: 600;
+
   font-style: italic;
+
 }
+
+/* subtitle */
 
 .aboutus-subheading {
-  font-size: 2.3rem;
-  font-weight: 400;
-  margin-bottom: 3rem;
+
+  font-size: 1.9rem;
+
+  color: #666;
+
+  margin-bottom: 3.5rem;
+
+  max-width: 500px;
+
 }
 
+/* ============================= */
+/* MISSION / VISION */
+/* ============================= */
+
 .aboutus-mission-vision {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6rem;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 4rem;
+
   margin-bottom: 3rem;
-  max-width: 850px;
+
+  max-width: 900px;
+
 }
 
 .aboutus-block {
-  flex: 1 1 45%;
+
+  display: flex;
+
+  flex-direction: column;
+
 }
 
 .aboutus-block h3 {
+
   font-size: 2rem;
+
   font-weight: 600;
+
   margin-bottom: 1rem;
+
+  position: relative;
+
 }
 
+/* decorative underline */
+
+.aboutus-block h3::after {
+
+  content: "";
+
+  display: block;
+
+  width: 40px;
+
+  height: 2px;
+
+  background: var(--color-accent);
+
+  margin-top: 8px;
+
+}
+
+/* text */
+
 .aboutus-block p {
-  font-size: 1.5rem;
-  line-height: 1.6;
-  margin-bottom: 1rem;
+
+  font-size: 1.55rem;
+
+  line-height: 1.75;
+
+  color: #444;
+
+  margin-bottom: 1.2rem;
+
 }
 
 .highlight-orange {
+
   color: var(--color-accent);
+
   font-weight: 600;
+
 }
 
-/* Button */
+/* ============================= */
+/* BUTTON */
+/* ============================= */
+
 .aboutus-button {
-  margin-top: 1rem;
+
+  margin-top: 2rem;
+
 }
 
 .aboutus-button button {
-  font-size: 1.5rem;
-  font-weight: 600;
-  padding: 10px 24px;
+
+  font-size: 1.45rem;
+
+  font-weight: 500;
+
+  padding: 1rem 2.8rem;
+
   background: transparent;
+
   border: 2px solid var(--color-accent);
+
   cursor: pointer;
-  transition: all 0.3s ease;
+
+  transition: all .35s ease;
+
+  font-family: var(--font-primary);
+
+  letter-spacing: 1px;
+
 }
+
+/* hover premium */
 
 .aboutus-button button:hover {
+
   background: var(--color-accent);
-  color: #fff;
+
+  color: white;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 12px 28px rgba(246,124,11,.35);
+
 }
 
 /* ============================= */
-/* RIGHT SIDE - VIDEO */
+/* VIDEO SIDE */
 /* ============================= */
-
-.aboutus-video-wrapper {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 .aboutus-video {
-  width: 25%;
+
+  flex: 1;
+
+  width: 100%;
+
+  max-width: 420px;
+
   height: auto;
+
   object-fit: cover;
+
   border-radius: 20px;
+
+  box-shadow:
+
+    0 30px 70px rgba(0,0,0,.15);
+
+  transition: transform .6s ease;
+
+}
+
+/* subtle cinematic zoom */
+
+.aboutus-video:hover {
+
+  transform: scale(1.02);
+
 }
 
 /* ============================= */
 /* MOBILE */
 /* ============================= */
+
+@media (max-width: 900px) {
+
+.aboutus-container {
+
+  flex-direction: column;
+
+  gap: 3rem;
+
+}
+
+.aboutus-heading {
+
+  font-size: 2.4rem;
+
+}
+
+.aboutus-subheading {
+
+  font-size: 1.7rem;
+
+}
+
+.aboutus-mission-vision {
+
+  grid-template-columns: 1fr;
+
+  gap: 2.5rem;
+
+}
+
+.aboutus-block h3 {
+
+  font-size: 1.8rem;
+
+}
+
+.aboutus-block p {
+
+  font-size: 1.5rem;
+
+}
+
+.aboutus-video {
+
+  max-height: 420px;
+
+}
+
+}
+
+/* ============================= */
+/* LARGE SCREENS */
+/* ============================= */
+
+@media (min-width: 1500px) {
+
+.aboutus-section-wrapper {
+
+  padding: 14rem 4rem;
+
+}
+
+.aboutus-container {
+
+  max-width: 1500px;
+
+  gap: 8rem;
+
+}
+
+/* bigger editorial heading */
+
+.aboutus-heading {
+
+  font-size: 4.6rem;
+
+}
+
+.aboutus-subheading {
+
+  font-size: 2.3rem;
+
+}
+
+/* mission vision */
+
+.aboutus-block h3 {
+
+  font-size: 2.4rem;
+
+}
+
+.aboutus-block p {
+
+  font-size: 1.9rem;
+
+  line-height: 1.8;
+
+}
+
+/* video bigger */
+
+.aboutus-video {
+
+  max-width: 620px;
+
+  border-radius: 26px;
+
+}
+
+/* button */
+
+.aboutus-button button {
+
+  font-size: 1.8rem;
+
+  padding: 1.4rem 3.4rem;
+
+}
+
+}
 
 @media (max-width: 900px) {
   .aboutus-container {
@@ -161,25 +449,3 @@
 /* LARGE SCREENS */
 /* ============================= */
 
-@media (min-width: 1500px) {
-  .aboutus-heading {
-    font-size: 3.8rem;
-  }
-
-  .aboutus-subheading {
-    font-size: 3rem;
-  }
-
-  .aboutus-block h3 {
-    font-size: 2.4rem;
-  }
-
-  .aboutus-block p {
-    font-size: 1.9rem;
-  }
-
-  .aboutus-button button {
-    font-size: 1.8rem;
-    padding: 14px 32px;
-  }
-}

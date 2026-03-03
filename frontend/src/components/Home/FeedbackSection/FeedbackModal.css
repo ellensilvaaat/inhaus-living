@@ -1,77 +1,282 @@
+/* ==============================
+   OVERLAY
+================================ */
+
 .feedback-modal__overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
+
+position:fixed;
+inset:0;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:rgba(0,0,0,.55);
+
+backdrop-filter:blur(8px);
+
+z-index:9999;
+
+animation:fadeIn .35s ease;
+
 }
+
+/* ==============================
+   MODAL
+================================ */
 
 .feedback-modal__content {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 380px;
-  position: relative;
+
+position:relative;
+
+width:min(420px,90%);
+
+padding:3rem 3rem 2.8rem;
+
+border-radius:18px;
+
+background:rgba(255,255,255,.92);
+
+backdrop-filter:blur(16px);
+
+border:1px solid rgba(0,0,0,.05);
+
+box-shadow:
+0 40px 80px rgba(0,0,0,.25);
+
+animation:modalUp .45s cubic-bezier(.22,.9,.36,1);
+
 }
+
+/* ==============================
+   CLOSE BUTTON
+================================ */
 
 .feedback-modal__close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 2.5rem;
-  background: none;
-  border: none;
-  font-size: 2.5rem;
-  cursor: pointer;
+
+position:absolute;
+
+top:1.4rem;
+right:1.6rem;
+
+width:36px;
+height:36px;
+
+border-radius:50%;
+
+border:none;
+
+background:#f2f2f2;
+
+font-size:2rem;
+
+cursor:pointer;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+transition:all .25s ease;
+
 }
 
-.feedback-modal__field {
-  margin-bottom: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  width: 60%;
-  margin: 0 auto 15px;
+.feedback-modal__close-btn:hover{
+
+background:#e8e8e8;
+
+transform:rotate(90deg);
+
 }
 
-.feedback-modal__field label {
-  font-family: var(--font-primary);
-  margin-bottom: 0.4rem;
-  font-size: 1.6rem;
-  color: #555;
+/* ==============================
+   TITLE
+================================ */
+
+.feedback-modal_title2{
+
+font-family:var(--font-title);
+
+font-size:2.8rem;
+
+text-align:center;
+
+margin-bottom:2.2rem;
+
+letter-spacing:-0.02em;
+
+color:#222;
+
 }
+
+/* ==============================
+   FORM FIELDS
+================================ */
+
+.feedback-modal__field{
+
+display:flex;
+flex-direction:column;
+
+margin-bottom:1.5rem;
+
+}
+
+.feedback-modal__field label{
+
+font-size:1.4rem;
+
+margin-bottom:.4rem;
+
+color:#555;
+
+font-family:var(--font-primary);
+
+}
+
+/* INPUT + TEXTAREA */
 
 .feedback-modal__field input,
 .feedback-modal__field textarea,
-.feedback-modal__field select {
-  padding: 0.6rem;
-  font-size: 1.3rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-family: var(--font-primary);
+.feedback-modal__field select{
+
+padding:.9rem 1rem;
+
+border-radius:8px;
+
+border:1px solid #ddd;
+
+font-size:1.4rem;
+
+font-family:var(--font-primary);
+
+transition:all .25s ease;
+
+background:white;
+
 }
 
-.feedback-modal__submit-btn {
-  width: 40%;
-  padding: 0.8rem;
-  font-size: 1.5rem;
-  background: var(--color-accent);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease;
+/* hover */
+
+.feedback-modal__field input:hover,
+.feedback-modal__field textarea:hover,
+.feedback-modal__field select:hover{
+
+border-color:#bbb;
+
 }
 
-.feedback-modal__submit-btn:hover {
-  background: darkorange;
+/* focus */
+
+.feedback-modal__field input:focus,
+.feedback-modal__field textarea:focus,
+.feedback-modal__field select:focus{
+
+outline:none;
+
+border-color:var(--color-accent);
+
+box-shadow:0 0 0 3px rgba(246,124,11,.18);
+
+}
+
+/* textarea */
+
+.feedback-modal__field textarea{
+
+resize:none;
+
+min-height:100px;
+
+}
+
+/* ==============================
+   SUBMIT BUTTON
+================================ */
+
+.feedback-modal__submit-btn{
+
+margin-top:1rem;
+
+width:100%;
+
+padding:1rem;
+
+border-radius:10px;
+
+border:none;
+
+background:var(--color-accent);
+
+color:white;
+
+font-size:1.5rem;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:all .25s ease;
+
+box-shadow:
+0 8px 20px rgba(246,124,11,.35);
+
+}
+
+.feedback-modal__submit-btn:hover{
+
+transform:translateY(-2px);
+
+box-shadow:
+0 14px 30px rgba(246,124,11,.45);
+
+}
+
+/* ==============================
+   ANIMATIONS
+================================ */
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+}
+
+to{
+opacity:1;
+}
+
+}
+
+@keyframes modalUp{
+
+from{
+opacity:0;
+transform:translateY(30px) scale(.96);
+}
+
+to{
+opacity:1;
+transform:translateY(0) scale(1);
+}
+
+}
+
+/* ==============================
+   MOBILE
+================================ */
+
+@media(max-width:480px){
+
+.feedback-modal__content{
+
+padding:2.4rem 2rem;
+
 }
 
 .feedback-modal_title2{
-    margin: 20px;
-    font-size: 3rem;
+
+font-size:2.4rem;
+
+}
+
 }

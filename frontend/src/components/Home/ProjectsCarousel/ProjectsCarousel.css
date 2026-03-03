@@ -1,219 +1,505 @@
-/* ========================== BASE ========================== */
+/* ========================== SECTION ========================== */
 
 .project-carousel {
-  padding: 4rem 0;
-  background: #fff;
-  overflow: hidden;
+
+padding:10rem 0;
+
+background:linear-gradient(
+180deg,
+#ffffff 0%,
+#fafafa 40%,
+#ffffff 100%
+);
+
+overflow:hidden;
+
+position:relative;
+
+}
+
+/* soft architectural light */
+
+.project-carousel::before{
+
+content:"";
+
+position:absolute;
+
+inset:-20%;
+
+background:
+radial-gradient(900px 500px at 15% 20%, rgba(246,124,11,.08), transparent 60%),
+radial-gradient(700px 400px at 80% 30%, rgba(0,0,0,.04), transparent 60%);
+
+pointer-events:none;
+
 }
 
 /* ========================== HEADER ========================== */
 
-.project-carousel__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 2rem;
-  padding: 0 5rem;
+.project-carousel__header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:flex-start;
+
+flex-wrap:wrap;
+
+gap:2rem;
+
+padding:0 8rem;
+
+margin-bottom:2rem;
+
 }
 
-.project-carousel__title {
-  font-size: 2.8rem;
-  font-weight: 500;
-  font-family: var(--font-primary);
-  color: #000;
-  line-height: 1.2;
+.project-carousel__title{
+
+font-size:3.4rem;
+
+font-family:var(--font-title);
+
+letter-spacing:-0.02em;
+
+color:#111;
+
+line-height:1.15;
+
 }
 
-.project-carousel__subtitle {
-  font-size: 1.8rem;
-  font-weight: 400;
-  font-family: var(--font-primary);
-  color: #444;
-  max-width: 600px;
-  text-align: right;
+.project-carousel__subtitle{
+
+font-size:1.7rem;
+
+font-family:var(--font-primary);
+
+color:#666;
+
+max-width:580px;
+
+text-align:right;
+
+line-height:1.6;
+
 }
 
-/* Underline alinhado com o título */
-.projects_underline {
-  width: 200px;
-  height: 2px;
-  background-color: #F67C0B;
-  margin: 0 0 80px 10rem;
-  border-radius: 2px;
+/* underline editorial */
+
+.projects_underline{
+
+width:220px;
+
+height:2px;
+
+background:var(--color-accent);
+
+margin:0 0 80px 12rem;
+
+border-radius:4px;
+
 }
 
 /* ========================== CONTAINER ========================== */
 
-.project-carousel__container {
-  display: flex;
-  gap: 2rem;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
-  padding: 0 10rem 40px 6rem;
-  -webkit-overflow-scrolling: touch;
+.project-carousel__container{
+
+display:flex;
+
+gap:2.4rem;
+
+overflow-x:auto;
+
+overflow-y:hidden;
+
+scroll-behavior:smooth;
+
+padding:0 12rem 60px 8rem;
+
+-webkit-overflow-scrolling:touch;
+
+scroll-snap-type:x mandatory;
+
 }
 
-.project-carousel__container::-webkit-scrollbar {
-  display: none;
+.project-carousel__container::-webkit-scrollbar{
+
+display:none;
+
 }
 
-/* CARD STRUCTURE */
-.project-card {
-  flex: 0 0 auto;
-  width: 400px;
-  height: 550px;
+/* ========================== CARD ========================== */
+
+.project-card{
+
+flex:0 0 auto;
+
+width:420px;
+
+height:560px;
+
+scroll-snap-align:center;
+
 }
 
-.project-card__wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.15);
-  /* ✅ Removido transform daqui para tirar o pulo */
-  transition: box-shadow 0.5s ease;
+.project-card__wrapper{
+
+position:relative;
+
+width:100%;
+
+height:100%;
+
+border-radius:16px;
+
+overflow:hidden;
+
+box-shadow:
+0 20px 45px rgba(0,0,0,.12);
+
+transition:
+box-shadow .45s ease;
+
 }
 
-.project-card__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+/* IMAGE */
+
+.project-card__img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+transition:
+transform 1.2s cubic-bezier(.22,.9,.36,1);
+
 }
 
-/* ✅ O card não pula, apenas a imagem cresce */
-.project-card:hover .project-card__img {
-  transform: scale(1.1);
+/* image zoom */
+
+.project-card:hover .project-card__img{
+
+transform:scale(1.12);
+
 }
 
-.project-card:hover .project-card__wrapper {
-  box-shadow: 0px 20px 45px rgba(0, 0, 0, 0.2);
+/* shadow hover */
+
+.project-card:hover .project-card__wrapper{
+
+box-shadow:
+0 30px 70px rgba(0,0,0,.22);
+
 }
 
-/* OVERLAY */
-.project-card__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 30%, rgba(0,0,0,0.85) 100%);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  padding: 3rem 2rem;
-  text-align: center;
-  z-index: 2;
+/* ========================== OVERLAY ========================== */
+
+.project-card__overlay{
+
+position:absolute;
+
+inset:0;
+
+background:
+linear-gradient(
+to bottom,
+rgba(0,0,0,0) 35%,
+rgba(0,0,0,.85) 100%
+);
+
+color:white;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:flex-end;
+
+align-items:center;
+
+opacity:0;
+
+transition:
+opacity .5s ease;
+
+padding:3.2rem 2.4rem;
+
+text-align:center;
+
 }
 
-.project-card:hover .project-card__overlay {
-  opacity: 1;
+.project-card:hover .project-card__overlay{
+
+opacity:1;
+
 }
 
-.project-card__title {
-  font-family: var(--font-title);
-  font-size: 2.2rem;
-  margin-bottom: 0.8rem;
+/* ========================== TITLE ========================== */
+
+.project-card__title{
+
+font-family:var(--font-title);
+
+font-size:2.4rem;
+
+margin-bottom:.8rem;
+
+letter-spacing:-0.01em;
+
 }
 
-.project-card__description {
-  font-family: var(--font-primary);
-  font-size: 1.4rem;
-  margin-bottom: 1.5rem;
-  line-height: 1.4;
+/* ========================== DESCRIPTION ========================== */
+
+.project-card__description{
+
+font-family:var(--font-primary);
+
+font-size:1.45rem;
+
+line-height:1.6;
+
+margin-bottom:1.8rem;
+
+max-width:300px;
+
+color:rgba(255,255,255,.85);
+
 }
 
-.project-card__button {
-  background: white;
-  color: black;
-  border: none;
-  border-radius: 4px;
-  padding: 0.8rem 1.6rem;
-  font-size: 1.3rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
+/* ========================== BUTTON ========================== */
+
+.project-card__button{
+
+background:white;
+
+color:black;
+
+border:none;
+
+border-radius:6px;
+
+padding:.9rem 1.8rem;
+
+font-size:1.3rem;
+
+font-weight:600;
+
+text-decoration:none;
+
+transition:
+all .3s ease;
+
+box-shadow:
+0 6px 18px rgba(0,0,0,.25);
+
 }
 
-.project-card__button:hover {
-  background-color: #F67C0B;
-  color: white;
+.project-card__button:hover{
+
+background:var(--color-accent);
+
+color:white;
+
+transform:translateY(-2px);
+
+box-shadow:
+0 10px 25px rgba(246,124,11,.5);
+
 }
 
-/* ========================== BOTÃO CTA (CORNERS) ========================== */
+/* ========================== CTA BUTTON ========================== */
 
-.bnt {
-  display: flex;
-  justify-content: center;
-  padding: 4rem 0;
+.bnt{
+
+display:flex;
+
+justify-content:center;
+
+padding:5rem 0 2rem;
+
 }
 
-.projects__cta {
-  position: relative;
-  background: none;
-  border: none;
-  color: black;
-  font-size: 1.6rem;
-  padding: 1.2rem 2.5rem;
-  cursor: pointer;
-  transition: color 0.3s ease;
-  font-family: var(--font-primary);
-  display: inline-block;
-  text-decoration: none;
-  outline: none;
+.projects__cta{
+
+position:relative;
+
+background:none;
+
+border:none;
+
+color:#111;
+
+font-size:1.7rem;
+
+padding:1.4rem 3rem;
+
+cursor:pointer;
+
+transition:color .3s ease;
+
+font-family:var(--font-primary);
+
+display:inline-block;
+
+text-decoration:none;
+
+outline:none;
+
+letter-spacing:.02em;
+
 }
 
-.projects__cta:hover {
-  color: #F67C0B;
+.projects__cta:hover{
+
+color:var(--color-accent);
+
 }
 
-.corner {
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  border: 2px solid #F67C0B;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  z-index: 1;
+/* corners */
+
+.corner{
+
+position:absolute;
+width:16px;
+height:16px;
+border:2px solid var(--color-accent);
+transition:all .45s cubic-bezier(.22,.9,.36,1);
+z-index:1;
+
 }
 
-.corner--top-right { top: 0; right: 0; border-left: none; border-bottom: none; }
-.corner--bottom-left { bottom: 0; left: 0; border-right: none; border-top: none; }
+.corner--top-right{
 
-.projects__cta:hover .corner {
-  width: 100%;
-  height: 100%;
+top:0;
+right:0;
+
+border-left:none;
+border-bottom:none;
+
+}
+
+.corner--bottom-left{
+
+bottom:0;
+left:0;
+
+border-right:none;
+border-top:none;
+
+}
+
+/* animation */
+
+.projects__cta:hover .corner{
+
+width:100%;
+height:100%;
+
 }
 
 /* ========================== MOBILE ========================== */
 
-@media (max-width: 501px) {
-  .project-carousel__title { font-size: 2.6rem; padding-left: 2rem; }
-  .projects_underline { margin-left: 2rem; margin-bottom: 40px; width: 90px; }
+@media (max-width:501px){
 
-  .project-carousel__container {
-    padding: 10px 2rem 50px 2rem;
-    gap: 1.5rem;
-    scroll-snap-type: x mandatory; 
-  }
+/* HEADER MOBILE */
 
-  .project-card {
-    width: 290px;
-    height: 450px;
-    scroll-snap-align: center;
-  }
+.project-carousel__header{
 
-  .project-card__overlay {
-    opacity: 1;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.75));
-  }
+flex-direction:column;
 
-  .project-card__description { display: none; }
+align-items:flex-start;
 
-  .projects__cta { font-size: 1.4rem; width: 85%; text-align: center; }
-  .corner--bottom-left { left: 5rem; }
-  .corner--top-right { right: 5rem; }
+gap:1rem;
+
+padding:0 2rem;
+
+}
+
+.project-carousel__title{
+
+font-size:2.6rem;
+
+padding-left:0;
+
+}
+
+.project-carousel__subtitle{
+
+display:block;
+
+font-size:1.5rem;
+
+text-align:left;
+
+max-width:100%;
+
+color:#666;
+
+}
+
+/* underline */
+
+.projects_underline{
+
+margin-left:2rem;
+
+margin-bottom:40px;
+
+width:100px;
+
+}
+
+/* CAROUSEL */
+
+.project-carousel__container{
+
+padding:10px 2rem 50px 2rem;
+
+gap:1.6rem;
+
+}
+
+/* CARDS */
+
+.project-card{
+
+width:290px;
+
+height:440px;
+
+}
+
+.project-card__overlay{
+
+opacity:1;
+
+background:
+linear-gradient(
+to bottom,
+rgba(0,0,0,.25),
+rgba(0,0,0,.8)
+);
+
+}
+
+.project-card__description{
+display:none;
+
+}
+
+/* CTA */
+
+.projects__cta{
+font-size:1.4rem;
+width:85%;
+text-align:center;
+
+}
+
+.corner--bottom-left{left:5rem;}
+.corner--top-right{right:5rem;}
+
 }

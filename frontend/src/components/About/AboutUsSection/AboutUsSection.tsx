@@ -30,7 +30,7 @@ export default function AboutUsSection() {
 
               <p>
                 With over two decades of experience, our
-                <span className="highlight-orange"> Class 2 (NCC) licensed team </span>
+                <span className="highlight-orange"> licensed team </span>
                 integrates design, documentation and construction into one
                 seamless process, ensuring every project is delivered with clarity
                 and craftsmanship.

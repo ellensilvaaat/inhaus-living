@@ -41,7 +41,7 @@ export default function Hero() {
         <div className="contact-hero__overlay" />
 
         <div className="contact-hero__content">
-          <h1 className="contact-hero__title">Contact Us</h1>
+          <h1 className="contact-hero__title">Contact Inhaus Living</h1>
         </div>
 
         <div className="contact__bottom-text">

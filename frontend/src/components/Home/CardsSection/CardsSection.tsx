@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useMemo, useRef } from "react";
 import "./CardsSection.css";
 import arrowIcon from "@/assets/arrow.svg";
 
@@ -55,21 +58,178 @@ const cardsData = [
 ];
 
 export default function CardsSection() {
-  return (
-    <section className="cards-section">
-      <div className="cards-section__header">
-      <h2 className="cards-section__title">
-       Design–Build Renovation & Construction Services
-      </h2>
-      <p className="cards-section__subtitle">
-      Spaces that welcome you home, delivered by a
-      licensed team across Sydney and Canberra.
-     </p>
-    </div>
+  const sectionRef = useRef<HTMLElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-      <div className="cards-section__scroll">
+  // Detect reduced motion once
+  const prefersReducedMotion = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+  }, []);
+
+  // 1) Entrance animation on view
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    if (prefersReducedMotion) {
+      el.classList.add("is-inview");
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            el.classList.add("is-inview");
+            io.disconnect();
+            break;
+          }
+        }
+      },
+      { threshold: 0.12 }
+    );
+
+    io.observe(el);
+    return () => io.disconnect();
+  }, [prefersReducedMotion]);
+
+  // 2) Horizontal drag scrolling (mouse/pointer)
+  useEffect(() => {
+    const track = scrollRef.current;
+    if (!track) return;
+
+    let isDown = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+    let pointerId: number | null = null;
+
+    const onPointerDown = (e: PointerEvent) => {
+      // Left click / primary touch only
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+
+      isDown = true;
+      pointerId = e.pointerId;
+      track.setPointerCapture(pointerId);
+
+      track.classList.add("is-dragging");
+      startX = e.clientX;
+      startScrollLeft = track.scrollLeft;
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      if (!isDown) return;
+
+      const dx = e.clientX - startX;
+      track.scrollLeft = startScrollLeft - dx;
+
+      // prevent selecting text while dragging
+      e.preventDefault?.();
+    };
+
+    const endDrag = (e?: PointerEvent) => {
+      if (!isDown) return;
+      isDown = false;
+
+      if (pointerId !== null) {
+        try {
+          track.releasePointerCapture(pointerId);
+        } catch {}
+      }
+      pointerId = null;
+
+      track.classList.remove("is-dragging");
+    };
+
+    track.addEventListener("pointerdown", onPointerDown, { passive: false });
+    track.addEventListener("pointermove", onPointerMove, { passive: false });
+    track.addEventListener("pointerup", endDrag);
+    track.addEventListener("pointercancel", endDrag);
+    track.addEventListener("pointerleave", endDrag);
+
+    return () => {
+      track.removeEventListener("pointerdown", onPointerDown);
+      track.removeEventListener("pointermove", onPointerMove);
+      track.removeEventListener("pointerup", endDrag);
+      track.removeEventListener("pointercancel", endDrag);
+      track.removeEventListener("pointerleave", endDrag);
+    };
+  }, []);
+
+  // 3) 3D tilt on cards (pointer move)
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+
+    const root = sectionRef.current;
+    if (!root) return;
+
+    const cards = Array.from(
+      root.querySelectorAll<HTMLElement>(".cards-section__card[data-tilt]")
+    );
+
+    const onMove = (card: HTMLElement, e: PointerEvent) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width; // 0..1
+      const y = (e.clientY - rect.top) / rect.height; // 0..1
+
+      // tilt strength
+      const max = 9; // degrees
+      const ry = (x - 0.5) * (max * 2); // left/right
+      const rx = (0.5 - y) * (max * 2); // up/down
+
+      card.style.setProperty("--rx", `${rx.toFixed(2)}deg`);
+      card.style.setProperty("--ry", `${ry.toFixed(2)}deg`);
+      card.style.setProperty("--mx", `${(x * 100).toFixed(1)}%`);
+      card.style.setProperty("--my", `${(y * 100).toFixed(1)}%`);
+      card.classList.add("is-tilting");
+    };
+
+    const onLeave = (card: HTMLElement) => {
+      card.classList.remove("is-tilting");
+      card.style.setProperty("--rx", `0deg`);
+      card.style.setProperty("--ry", `0deg`);
+      card.style.setProperty("--mx", `50%`);
+      card.style.setProperty("--my", `50%`);
+    };
+
+    const cleanups: Array<() => void> = [];
+
+    for (const card of cards) {
+      const handleMove = (e: PointerEvent) => onMove(card, e);
+      const handleLeave = () => onLeave(card);
+
+      // init defaults
+      card.style.setProperty("--rx", `0deg`);
+      card.style.setProperty("--ry", `0deg`);
+      card.style.setProperty("--mx", `50%`);
+      card.style.setProperty("--my", `50%`);
+
+      card.addEventListener("pointermove", handleMove);
+      card.addEventListener("pointerleave", handleLeave);
+      card.addEventListener("pointercancel", handleLeave);
+
+      cleanups.push(() => {
+        card.removeEventListener("pointermove", handleMove);
+        card.removeEventListener("pointerleave", handleLeave);
+        card.removeEventListener("pointercancel", handleLeave);
+      });
+    }
+
+    return () => cleanups.forEach((fn) => fn());
+  }, [prefersReducedMotion]);
+
+  return (
+    <section className="cards-section" ref={sectionRef}>
+      <div className="cards-section__header">
+        <h2 className="cards-section__title">Design–Build Renovation and Construction Services</h2>
+        <p className="cards-section__subtitle">
+          Spaces that welcome you home, delivered by a licensed team across Sydney and Canberra.
+        </p>
+      </div>
+
+      <div className="cards-section__scroll" ref={scrollRef}>
         {cardsData.map((card, index) => (
-          <div className="cards-section__card" key={index}>
+          <div className="cards-section__card" key={index} data-tilt>
             <Image
               src={card.image}
               alt={card.title}
@@ -81,25 +241,13 @@ export default function CardsSection() {
 
             <div className="cards-section__content">
               <div className="cards-section__white-box">
-                <h3 className="cards-section__card-title">
-                  {card.title}
-                </h3>
+                <h3 className="cards-section__card-title">{card.title}</h3>
               </div>
 
-              <p className="cards-section__description">
-                {card.description}
-              </p>
+              <p className="cards-section__description">{card.description}</p>
 
-              <Link
-                href={`/services#${card.anchor}`}
-                className="cards-section__btn"
-              >
-                <Image
-                  src={arrowIcon}
-                  alt="arrow"
-                  width={24}
-                  height={24}
-                />
+              <Link href={`/services#${card.anchor}`} className="cards-section__btn">
+                <Image src={arrowIcon} alt="arrow" width={24} height={24} />
               </Link>
             </div>
           </div>

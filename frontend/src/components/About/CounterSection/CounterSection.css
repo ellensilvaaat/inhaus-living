@@ -1,163 +1,472 @@
+/* ================================================= */
+/* SECTION */
+/* ================================================= */
+
 .counter-section {
-  padding: 8rem 4rem;
+
+  padding: 10rem 4rem;
+
   text-align: center;
+
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #fafafa 45%,
+    #ffffff 100%
+  );
+
+  position: relative;
+
+  overflow: hidden;
+
 }
 
-/* INTRO */
-.counter-section__intro {
-  margin: 3rem 5rem 6rem;
-  display: flex;
-  justify-content: space-between;
-  gap: 5rem;
+/* architectural light */
+
+.counter-section::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: -20%;
+
+  background:
+    radial-gradient(900px 500px at 15% 25%, rgba(246,124,11,.08), transparent 60%),
+    radial-gradient(700px 400px at 80% 40%, rgba(0,0,0,.05), transparent 60%);
+
+  pointer-events: none;
+
 }
+
+/* ================================================= */
+/* INTRO */
+/* ================================================= */
+
+.counter-section__intro {
+
+  margin: 4rem 6rem 7rem;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+
+  gap: 6rem;
+
+}
+
+/* title */
 
 .counter-section__title {
-  font-family: var(--font-primary);
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  max-width: 300px;
+
+  font-family: var(--font-title);
+
+  font-size: 3rem;
+
+  max-width: 420px;
+
   text-align: left;
+
+  line-height: 1.2;
+
+  letter-spacing: .5px;
+
 }
 
-.counter-section__title em {
-  font-style: italic;
+/* decorative underline */
+
+.counter-section__title::after {
+
+  content: "";
+
+  display: block;
+
+  width: 70px;
+
+  height: 2px;
+
+  background: var(--color-accent);
+
+  margin-top: 1.5rem;
+
 }
+
+/* subtitle */
 
 .counter-section__subtitle {
+
   font-family: var(--font-primary);
-  font-size: 1.4rem;
-  color: #333;
-  max-width: 670px;
+
+  font-size: 1.6rem;
+
+  color: #555;
+
+  max-width: 650px;
+
   text-align: right;
+
+  line-height: 1.7;
+
 }
 
+/* ================================================= */
 /* STATS GRID */
+/* ================================================= */
+
 .counter-section__stats {
+
   display: flex;
-  justify-content: space-around;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 3rem;
+
   margin: 0 160px;
+
   flex-wrap: wrap;
+
 }
+
+/* stat */
 
 .counter-section__stat {
-  margin-bottom: 3rem;
+
+  flex: 1;
+
+  min-width: 200px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  transition: transform .35s ease;
+
 }
+
+/* subtle hover */
+
+.counter-section__stat:hover {
+
+  transform: translateY(-6px);
+
+}
+
+/* number */
 
 .counter-section__value {
+
   font-family: var(--font-primary);
-  font-size: 5rem;
-  color: #010101;
-  margin-bottom: 0.5rem;
+
+  font-size: 5.6rem;
+
+  color: #111;
+
+  margin-bottom: .6rem;
+
   display: flex;
-  justify-content: center;
+
   align-items: baseline;
-  font-weight: bold;
+
+  font-weight: 600;
+
 }
+
+/* plus */
 
 .counter-section__plus {
+
   color: var(--color-accent);
-  font-size: 2rem;
-  margin-right: 0.4rem;
+
+  font-size: 2.4rem;
+
+  margin-right: .5rem;
+
 }
+
+/* label */
 
 .counter-section__label {
+
   font-family: var(--font-primary);
-  font-size: 1.5rem;
+
+  font-size: 1.55rem;
+
   color: #666;
-  margin-left: 0;
+
+  letter-spacing: .5px;
+
 }
 
-/* ========================================================== */
-/* 📱📱📱 MOBILE — até 501px */
-/* ========================================================== */
+/* ================================================= */
+/* MOBILE */
+/* ================================================= */
 
 @media (max-width: 601px) {
 
-  .counter-section {
-    padding: 8rem 2rem 5rem;
-  }
+.counter-section {
 
-  .counter-section__intro {
-    margin: 0 0 3rem;
-    flex-direction: column;
-    text-align: center;
-    gap: 1rem;
-  }
+  padding: 7rem 2rem 5rem;
 
-  .counter-section__title {
-    font-size: 2rem;
-    max-width: 100%;
-    text-align: center;
-    margin-bottom: 0;
-  }
-
-  .counter-section__subtitle {
-    font-size: 1.6rem;
-    text-align: center;
-    line-height: 1.5;
-    padding: 0 1rem;
-  }
-
-  .counter-section__stats {
-    flex-direction: column;
-    margin: 0;
-    gap: 2rem;
-  }
-
-  .counter-section__value {
-    font-size: 4rem; /* menor para caber no mobile */
-    margin-bottom: 0;
-  }
-
-  .counter-section__plus {
-    font-size: 3rem;
-    font-weight: 400;
-  }
-
-  .counter-section__label {
-    font-size: 1.6rem;
-  }
 }
 
-/* ========================================================== */
-/* 🖥️🖥️🖥️ TELAS GIGANTES — +1500px */
-/* ========================================================== */
+.counter-section__intro {
+
+  margin: 0 0 3rem;
+
+  flex-direction: column;
+
+  text-align: center;
+
+  gap: 1rem;
+
+}
+
+.counter-section__title {
+
+  font-size: 2.2rem;
+
+  max-width: 100%;
+
+  text-align: center;
+
+}
+
+.counter-section__title::after {
+
+  margin: 1rem auto 0;
+
+}
+
+.counter-section__subtitle {
+
+  font-size: 1.6rem;
+
+  text-align: center;
+
+  padding: 0 1rem;
+
+}
+
+.counter-section__stats {
+
+  flex-direction: column;
+
+  margin: 0;
+
+  gap: 2.5rem;
+
+}
+
+.counter-section__value {
+
+  font-size: 4.2rem;
+
+}
+
+.counter-section__plus {
+
+  font-size: 2.5rem;
+
+}
+
+.counter-section__label {
+
+  font-size: 1.6rem;
+
+}
+
+}
+
+/* ================================================= */
+/* LARGE SCREENS */
+/* ================================================= */
 
 @media (min-width: 1500px) {
 
-  .counter-section {
-    padding: 12rem 8rem;
+.counter-section {
+
+  padding: 14rem 8rem;
+
+}
+
+.counter-section__intro {
+
+  margin: 6rem 20rem 9rem;
+
+  gap: 10rem;
+
+}
+
+/* bigger heading */
+
+.counter-section__title {
+
+  font-size: 4.6rem;
+
+  max-width: 520px;
+
+}
+
+.counter-section__title::after {
+
+  width: 100px;
+
+}
+
+/* subtitle */
+
+.counter-section__subtitle {
+
+  font-size: 2rem;
+
+  max-width: 700px;
+
+}
+
+/* stats */
+
+.counter-section__stats {
+
+  margin: 0 280px;
+
+  gap: 6rem;
+
+}
+
+/* numbers */
+
+.counter-section__value {
+
+  font-size: 7.5rem;
+
+}
+
+/* plus */
+
+.counter-section__plus {
+
+  font-size: 3rem;
+
+}
+
+/* label */
+
+.counter-section__label {
+
+  font-size: 2rem;
+
+}
+
+}
+
+/* ===================================== */
+/* PARALLAX BACKGROUND */
+/* ===================================== */
+
+.counter-section::before {
+
+  transform: translateY(var(--parallax, 0));
+
+  transition: transform .2s linear;
+
+}
+
+/* ===================================== */
+/* REVEAL ANIMATION */
+/* ===================================== */
+
+.counter-section__stat {
+
+  opacity: 0;
+
+  transform: translateY(40px);
+
+  transition: all .8s cubic-bezier(.22,.9,.36,1);
+
+}
+
+.counter-visible .counter-section__stat {
+
+  opacity: 1;
+
+  transform: translateY(0);
+
+}
+
+/* ===================================== */
+/* NUMBER GLOW ANIMATION */
+/* ===================================== */
+
+.counter-visible .counter-section__value {
+
+  animation: numberGlow 2.5s ease;
+
+}
+
+@keyframes numberGlow {
+
+  0% {
+    text-shadow: 0 0 0 rgba(246,124,11,0);
   }
 
-  .counter-section__intro {
-    margin: 5rem 18rem 8rem;
-    gap: 10rem;
+  40% {
+    text-shadow:
+      0 0 10px rgba(199, 199, 199, 0.6),
+      0 0 20px rgba(234, 234, 234, 0.629);
   }
 
-  .counter-section__title {
-    font-size: 3.6rem;
-    max-width: 450px;
+  100% {
+    text-shadow: 0 0 0 rgba(246,124,11,0);
   }
 
-  .counter-section__subtitle {
-    font-size: 2rem;
-    max-width: 550px;
-  }
+}
 
-  .counter-section__stats {
-    margin: 0 260px;
-    gap: 5rem;
-  }
+/* ===================================== */
+/* ANIMATED LINE */
+/* ===================================== */
 
-  .counter-section__value {
-    font-size: 7rem;
-  }
+.counter-section__line {
 
-  .counter-section__plus {
-    font-size: 3rem;
-  }
+  width: 0;
 
-  .counter-section__label {
-    font-size: 2rem;
-  }
+  height: 2px;
+
+  background: var(--color-accent);
+
+  margin: 10px auto 12px;
+
+  transition: width 1.2s cubic-bezier(.22,.9,.36,1);
+
+}
+
+.counter-visible .counter-section__line {
+
+  width: 70px;
+
+}
+
+/* ===================================== */
+/* HOVER PREMIUM */
+/* ===================================== */
+
+.counter-section__stat:hover {
+
+  transform: translateY(-8px);
+
+}
+
+/* ===================================== */
+/* NUMBERS FONT (KEEP PRIMARY) */
+/* ===================================== */
+
+.counter-section__value {
+
+  font-family: var(--font-primary);
+
 }

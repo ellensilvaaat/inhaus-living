@@ -1,128 +1,263 @@
+/* ========================== SECTION ========================== */
+
 .cards-section {
-  padding: 7rem 0;
-  background-color: #fff;
+  padding: 9rem 0;
+  background: linear-gradient(180deg, #ffffff 0%, #fafafa 40%, #ffffff 100%);
   overflow: hidden;
+  position: relative;
 }
 
-/* HEADER */
+.cards-section::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(900px 500px at 15% 20%, rgba(246,124,11,.08), transparent 60%),
+    radial-gradient(700px 400px at 80% 30%, rgba(0,0,0,.05), transparent 60%);
+  pointer-events: none;
+}
+
+/* ========================== ENTRANCE REVEAL ========================== */
+
+.cards-section__header,
+.cards-section__scroll,
+.cs-cta-main {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 800ms cubic-bezier(.22,.9,.36,1),
+    transform 800ms cubic-bezier(.22,.9,.36,1);
+}
+
+.cards-section.is-inview .cards-section__header {
+  opacity: 1;
+  transform: none;
+  transition-delay: 60ms;
+}
+
+.cards-section.is-inview .cards-section__scroll {
+  opacity: 1;
+  transform: none;
+  transition-delay: 140ms;
+}
+
+.cards-section.is-inview .cs-cta-main {
+  opacity: 1;
+  transform: none;
+  transition-delay: 220ms;
+}
+
+/* ========================== HEADER ========================== */
+
 .cards-section__header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 2rem;
-  margin-bottom: 3rem;
+  margin-bottom: 3.5rem;
   padding: 0 10rem;
 }
 
 .cards-section__title {
-  font-size: 2.8rem;
-  font-weight: 700;
-  font-family: var(--font-primary);
-  color: #000;
-  line-height: 1.2;
-  max-width: 40rem;
+  font-size: 3.2rem;
+  font-family: var(--font-title);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #111;
+  max-width: 46rem;
 }
 
 .cards-section__subtitle {
-  padding-top: 0.5rem;
-  font-size: 1.8rem;
+  padding-top: 0.6rem;
+  font-size: 1.7rem;
   font-weight: 400;
   font-family: var(--font-primary);
-  color: #444;
-  max-width: 500px;
+  color: #666;
+  max-width: 520px;
+  line-height: 1.6;
 }
 
-/* SCROLL CONTAINER */
+/* ========================== SCROLL CONTAINER ========================== */
+
 .cards-section__scroll {
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth;
-  margin-left: 10rem; /* Ajustado para alinhar com o header */
-  gap: 2rem;
-  padding: 2rem 10rem 4rem 0; /* Padding lateral para o scroll não colar */
+  margin-left: 10rem;
+  gap: 2.4rem;
+  padding: 2.5rem 10rem 4rem 0;
   -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+
+  /* drag affordance */
+  cursor: grab;
+
+  /* fade edges (mask) */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.cards-section__scroll.is-dragging {
+  cursor: grabbing;
 }
 
 .cards-section__scroll::-webkit-scrollbar {
   display: none;
 }
 
-/* CARD - ESTRUTURA FIXA (SEM PULO) */
+/* fallback fade edges (pseudo overlays) */
+.cards-section__scroll::before,
+.cards-section__scroll::after {
+  content: "";
+  position: sticky;
+  top: 0;
+  width: 42px;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.cards-section__scroll::before {
+  left: 0;
+  background: linear-gradient(to right, #fff, rgba(255,255,255,0));
+}
+
+.cards-section__scroll::after {
+  right: 0;
+  background: linear-gradient(to left, #fff, rgba(255,255,255,0));
+}
+
+/* ========================== CARD ========================== */
+
 .cards-section__card {
   position: relative;
   flex: 0 0 auto;
-  width: 320px;
-  height: 440px;
+  width: 330px;
+  height: 460px;
   background-color: #f5efe5;
-  border-radius: 16px;
+  border-radius: 18px;
   overflow: hidden;
-  /* Retiramos o transform daqui para o card não "pular" */
-  transition: box-shadow 0.4s ease;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.45s ease, transform 0.35s cubic-bezier(.22,.9,.36,1);
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+  scroll-snap-align: center;
+
+  /* tilt vars */
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 50%;
+  --my: 50%;
+  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+  will-change: transform;
 }
 
 .cards-section__card:hover {
-  /* Apenas uma sombra mais profunda para dar foco, sem mover o card */
-  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 25px 55px rgba(0,0,0,.18);
 }
 
-/* IMAGEM INTERNA (ZOOM CINEMA) */
+/* subtle highlight following cursor */
+.cards-section__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      420px 320px at var(--mx) var(--my),
+      rgba(255,255,255,0.22),
+      transparent 60%
+    );
+  opacity: 0;
+  transition: opacity 280ms ease;
+}
+
+.cards-section__card.is-tilting::before,
+.cards-section__card:hover::before {
+  opacity: 1;
+}
+
+/* overlay appears on hover (desktop) */
+.cards-section__card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,.65) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.cards-section__card:hover::after {
+  opacity: 1;
+}
+
+/* ========================== IMAGE ========================== */
+
 .cards-section__img-bg {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0;
   z-index: 1;
-  /* Transição mais lenta para o zoom ficar elegante */
-  transition: opacity 0.5s ease, transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: opacity 0.5s ease, transform 1.3s cubic-bezier(.22,.9,.36,1);
 }
 
 .cards-section__card:hover .cards-section__img-bg {
   opacity: 1;
-  transform: scale(1.1); /* A imagem amplia lá dentro suavemente */
+  transform: scale(1.12);
 }
 
-/* CONTENT */
+/* ========================== CONTENT ========================== */
+
 .cards-section__content {
   position: relative;
   z-index: 3;
   height: 100%;
-  padding: 2.5rem;
+  padding: 2.6rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  pointer-events: none; /* Garante que o hover seja no card */
+  pointer-events: none;
 }
 
+/* white label */
 .cards-section__white-box {
-  max-width: 50%;
-  background-color: white;
-  padding: 0.8rem 1.2rem;
+  max-width: 55%;
+  background-color: rgba(255,255,255,0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0.9rem 1.3rem;
   border-radius: 12px;
-  align-self: flex-start; /* Substitui o max-width fixo */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  align-self: flex-start;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.10);
+  transition: transform 0.35s cubic-bezier(.22,.9,.36,1);
+}
+
+.cards-section__card:hover .cards-section__white-box {
+  transform: translateY(-4px);
 }
 
 .cards-section__card-title {
   margin: 0;
-  font-size: 1.5rem;
-  color: black;
+  font-size: 1.55rem;
+  color: #111;
   font-family: var(--font-primary);
-  font-weight: 200;
+  font-weight: 500;
 }
 
+/* description */
 .cards-section__description {
   font-size: 1.4rem;
   font-family: var(--font-primary);
-  color: #333;
-  line-height: 1.5;
+  color: #444;
+  line-height: 1.55;
   margin-top: auto;
   margin-bottom: 6rem;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .cards-section__card:hover .cards-section__description {
@@ -130,23 +265,24 @@
   transform: translateY(10px);
 }
 
-/* BUTTON ARROW */
+/* button arrow */
 .cards-section__btn {
   background: white;
   border-radius: 50%;
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.45s cubic-bezier(.22,.9,.36,1);
   cursor: pointer;
   position: absolute;
-  bottom: 2.5rem;
-  left: 2.5rem;
+  bottom: 2.6rem;
+  left: 2.6rem;
   z-index: 4;
   pointer-events: auto;
   text-decoration: none;
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
 }
 
 .cards-section__btn img {
@@ -155,15 +291,16 @@
 }
 
 .cards-section__card:hover .cards-section__btn {
-  left: calc(100% - 73px); /* Move para a direita no hover */
+  left: calc(100% - 78px);
   background-color: #F67C0B;
+  transform: scale(1.05);
 }
 
 .cards-section__card:hover .cards-section__btn img {
-  filter: brightness(0) invert(1); /* Seta fica branca no fundo laranja */
+  filter: brightness(0) invert(1);
 }
 
-/* ========================== EXPLORE PROJECTS CTA (RETÂNGULO) ========================== */
+/* ========================== CTA ========================== */
 
 .cs-cta-main {
   position: relative;
@@ -190,7 +327,7 @@
   width: 15px;
   height: 15px;
   border: 2px solid #F67C0B;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.45s cubic-bezier(.22,.9,.36,1);
   z-index: 1;
   pointer-events: none;
 }
@@ -201,6 +338,30 @@
 .cs-cta-main:hover .cs-cta-line {
   width: 100%;
   height: 100%;
+}
+
+/* ========================== KEEP YOUR EXISTING MOBILE ========================== */
+/* Não mexi nos seus @media (max-width: 501px) — pode manter exatamente como você já tinha. */
+
+/* ========================== REDUCED MOTION ========================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .cards-section__header,
+  .cards-section__scroll,
+  .cs-cta-main {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .cards-section__card {
+    transform: none !important;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .cards-section__img-bg {
+    transition: opacity 0.2s ease;
+  }
 }
 
 /* ========================== RESPONSIVIDADE ========================== */
