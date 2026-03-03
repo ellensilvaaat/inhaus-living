@@ -50,9 +50,9 @@ export const metadata: Metadata = {
   publisher: "Inhaus Living",
 
   icons: {
-    icon: `${siteUrl}/favicon.png`,
-    shortcut: `${siteUrl}/favicon.png`,
-    apple: `${siteUrl}/favicon.png`,
+  icon: "https://ik.imagekit.io/ijsd2xvnc/Inhaus/favicon.png?updatedAt=1767487361967",
+  shortcut: "https://ik.imagekit.io/ijsd2xvnc/Inhaus/favicon.png?updatedAt=1767487361967",
+  apple: "https://ik.imagekit.io/ijsd2xvnc/Inhaus/favicon.png?updatedAt=1767487361967",
   },
 
   robots: {
