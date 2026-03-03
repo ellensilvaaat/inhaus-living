@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import "./ServicesSection.css";
 
 const services = [
@@ -63,27 +63,32 @@ const services = [
 ];
 
 export default function ServicesSection() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    const elements = sectionRef.current?.querySelectorAll(".service");
+    if (!elements) return;
 
-    const hash = window.location.hash;
-    if (!hash) return;
-
-    const id = hash.replace("#", "");
-
-    requestAnimationFrame(() => {
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("service--visible");
+            observer.unobserve(entry.target);
+          }
         });
-      }
-    });
+      },
+      { threshold: 0.15 }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
   }, []);
 
   return (
     <section
+      ref={sectionRef}
       className="services-section"
       aria-label="Renovation and Construction Services"
     >
@@ -91,13 +96,16 @@ export default function ServicesSection() {
         <article className="service" id={svc.id} key={svc.id}>
           <div className="service__images">
             <Link href={`/${svc.slug}/`}>
-              <Image
-                src={`${svc.image}?tr=w-800,f-webp,q-90`}
-                alt={`${svc.title} in Sydney and Canberra by Inhaus Living`}
-                width={800}
-                height={600}
-                className="service__img"
-              />
+              <div className="service__img-wrapper">
+                <Image
+                  src={`${svc.image}?tr=w-900,f-webp,q-90`}
+                  alt={`${svc.title} in Sydney and Canberra by Inhaus Living`}
+                  width={900}
+                  height={700}
+                  className="service__img"
+                />
+                <div className="service__img-overlay" />
+              </div>
             </Link>
           </div>
 

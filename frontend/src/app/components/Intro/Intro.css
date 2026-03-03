@@ -86,27 +86,100 @@
    RESPONSIVE
 ================================ */
 
-@media (max-width: 900px) {
+/* ===================================================== */
+/* =============== MAX 500px (Mobile) =================== */
+/* ===================================================== */
+@media (max-width: 500px) {
+
+  .mp-intro {
+    padding: 8rem 6%;
+  }
+
+  .mp-intro__container {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+
+  .mp-intro__title {
+    font-size: 2.2rem;
+    line-height: 1.2;
+  }
+
+  .mp-intro__divider {
+    width: 50px;
+  }
+
+  .mp-intro__right p {
+    font-size: 1.45rem;
+    line-height: 1.8;
+  }
+
+  .mp-intro__highlights {
+    gap: 1rem;
+  }
+
+  .mp-intro__highlights span {
+    font-size: 1.05rem;
+  }
+
+}
+
+
+/* ===================================================== */
+/* ========= MIN 501px — MAX 768px (Tablet) ============ */
+/* ===================================================== */
+@media (min-width: 501px) and (max-width: 768px) {
+
+  .mp-intro {
+    padding: 10rem 8%;
+  }
+
   .mp-intro__container {
     grid-template-columns: 1fr;
     gap: 4rem;
   }
 
   .mp-intro__title {
-    font-size: 2.6rem;
+    font-size: 2.8rem;
   }
 
   .mp-intro__right p {
-    font-size: 1.5rem;
+    font-size: 1.55rem;
   }
+
+  .mp-intro__highlights span {
+    font-size: 1.1rem;
+  }
+
 }
 
+
+/* ===================================================== */
+/* ================= MIN 1600px (Large) ================= */
+/* ===================================================== */
 @media (min-width: 1600px) {
+
+  .mp-intro {
+    padding: 14rem 14%;
+  }
+
+  .mp-intro__container {
+    max-width: 1600px;
+    gap: 8rem;
+  }
+
   .mp-intro__title {
-    font-size: 4.5rem;
+    font-size: 4.8rem;
   }
 
   .mp-intro__right p {
-    font-size: 1.7rem;
+    font-size: 1.75rem;
+    max-width: 680px;
   }
+
+  .mp-intro__divider {
+    width: 80px;
+    height: 4px;
+  }
+
 }

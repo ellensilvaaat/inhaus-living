@@ -174,42 +174,125 @@
    RESPONSIVE — MAX 500PX
 ========================================================= */
 
+/* ===================================================== */
+/* =============== MAX 500px (Mobile) =================== */
+/* ===================================================== */
 @media (max-width: 500px) {
+
   .bathroom-features {
     padding: 8rem 6%;
   }
 
-  .bathroom-features-grid {
-    grid-template-columns: 1fr;
+  .bathroom-features-header {
+    margin-bottom: 4rem;
   }
 
   .bathroom-features-header h2 {
-    font-size: 2.4rem;
+    font-size: 2.3rem;
+    line-height: 1.2;
   }
 
   .bathroom-features-subtitle {
-    font-size: 1.45rem;
-  }
-}
-
-/* =========================================================
-   LARGE SCREEN — MIN 1500PX
-========================================================= */
-
-@media (min-width: 1500px) {
-  .bathroom-features {
-    padding: 13rem 12%;
-  }
-
-  .bathroom-features-header h2 {
-    font-size: 4.4rem;
+    font-size: 1.4rem;
+    line-height: 1.75;
   }
 
   .bathroom-features-grid {
-    gap: 3.2rem;
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
   }
 
   .bathroom-feature-card {
-    padding: 3rem 2.8rem;
+    padding: 2rem 1.8rem;
   }
+
+  .bathroom-feature-card h3 {
+    font-size: 1.5rem;
+  }
+
+  .bathroom-feature-card p {
+    font-size: 1.35rem;
+  }
+
+}
+
+
+/* ===================================================== */
+/* ========= MIN 501px — MAX 768px (Tablet) ============ */
+/* ===================================================== */
+@media (min-width: 501px) and (max-width: 768px) {
+
+  .bathroom-features {
+    padding: 10rem 8%;
+  }
+
+  .bathroom-features-header {
+    margin-bottom: 5rem;
+  }
+
+  .bathroom-features-header h2 {
+    font-size: 2.8rem;
+  }
+
+  .bathroom-features-subtitle {
+    font-size: 1.5rem;
+  }
+
+  .bathroom-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .bathroom-feature-card {
+    padding: 2.3rem 2.1rem;
+  }
+
+  .bathroom-feature-card h3 {
+    font-size: 1.6rem;
+  }
+
+  .bathroom-feature-card p {
+    font-size: 1.4rem;
+  }
+
+}
+
+
+/* ===================================================== */
+/* ================= MIN 1600px (Large) ================= */
+/* ===================================================== */
+@media (min-width: 1600px) {
+
+  .bathroom-features {
+    padding: 14rem 14%;
+  }
+
+  .bathroom-features-container {
+    max-width: 1600px;
+  }
+
+  .bathroom-features-header h2 {
+    font-size: 4.8rem;
+  }
+
+  .bathroom-features-subtitle {
+    font-size: 1.7rem;
+  }
+
+  .bathroom-features-grid {
+    gap: 3.6rem;
+  }
+
+  .bathroom-feature-card {
+    padding: 3.2rem 3rem;
+  }
+
+  .bathroom-feature-card h3 {
+    font-size: 1.9rem;
+  }
+
+  .bathroom-feature-card p {
+    font-size: 1.55rem;
+  }
+
 }

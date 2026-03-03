@@ -177,24 +177,79 @@
    RESPONSIVE
 ===================================================== */
 
-@media (max-width: 1024px) {
-  .feedback-section__carousel {
-    padding: 0 3rem;
-  }
-
-  .feedback-section__filter {
-    padding: 0 3rem;
-  }
-}
-
-@media (max-width: 600px) {
+/* ===================================================== */
+/* =============== MAX 500px (Mobile) =================== */
+/* ===================================================== */
+@media (max-width: 500px) {
 
   .feedback-section {
-    padding: 7rem 0;
+    padding: 6.5rem 0;
   }
 
   .feedback-section__title {
+    font-size: 2.3rem;
+    line-height: 1.2;
+  }
+
+  .feedback-section__subtitle {
+    font-size: 1.45rem;
+    margin-bottom: 2.6rem;
+    padding: 0 1.4rem;
+  }
+
+  .feedback-section__filter {
+    text-align: center;
+    padding: 0 1.2rem;
+    margin-bottom: 2.4rem;
+  }
+
+  .feedback-section__filter select {
+    width: 100%;
+    font-size: 1.3rem;
+  }
+
+  .feedback-section__carousel {
+    padding: 0 1.2rem;
+  }
+
+  .feedback-section__track {
+    gap: 1rem;
+    padding: 1.6rem 0 3rem;
+  }
+
+  .feedback-card {
+    min-width: 250px;
+    max-width: 280px;
+    padding: 1.8rem;
+  }
+
+  .feedback-card__name {
+    font-size: 1.45rem;
+  }
+
+  .feedback-card__comment {
+    font-size: 1.35rem;
+    line-height: 1.55;
+  }
+
+  .feedback-section__arrow {
     font-size: 2.6rem;
+  }
+
+}
+
+
+/* ===================================================== */
+/* ========= MIN 501px — MAX 768px (Tablet) ============ */
+/* ===================================================== */
+@media (min-width: 501px) and (max-width: 768px) {
+
+  .feedback-section {
+    padding: 8rem 0;
+  }
+
+  .feedback-section__title {
+    font-size: 2.8rem;
   }
 
   .feedback-section__subtitle {
@@ -203,28 +258,83 @@
   }
 
   .feedback-section__filter {
-    text-align: center;
-    padding: 0 1.5rem;
+    padding: 0 2rem;
+    text-align: right;
   }
 
   .feedback-section__carousel {
-    padding: 0 1.5rem;
+    padding: 0 2rem;
   }
 
   .feedback-section__track {
-    gap: 1.2rem;
+    gap: 1.5rem;
   }
 
   .feedback-card {
-    min-width: 260px;
-    padding: 2rem;
+    min-width: 280px;
+    max-width: 320px;
+    padding: 2.2rem;
   }
 
   .feedback-card__comment {
-    font-size: 1.4rem;
+    font-size: 1.45rem;
   }
 
   .feedback-section__arrow {
-    font-size: 3rem;
+    font-size: 3.2rem;
   }
+
+}
+
+
+/* ===================================================== */
+/* ================= MIN 1600px (Large) ================= */
+/* ===================================================== */
+@media (min-width: 1600px) {
+
+  .feedback-section {
+    padding: 11rem 0;
+  }
+
+  .feedback-section__title {
+    font-size: 4.2rem;
+  }
+
+  .feedback-section__subtitle {
+    font-size: 2rem;
+    max-width: 820px;
+  }
+
+  .feedback-section__carousel {
+    padding: 0 8rem;
+  }
+
+  .feedback-section__filter {
+    padding: 0 8rem;
+  }
+
+  .feedback-section__track {
+    gap: 2.6rem;
+    max-width: 1600px;
+  }
+
+  .feedback-card {
+    min-width: 360px;
+    max-width: 400px;
+    padding: 3.2rem;
+  }
+
+  .feedback-card__name {
+    font-size: 1.8rem;
+  }
+
+  .feedback-card__comment {
+    font-size: 1.6rem;
+    line-height: 1.7;
+  }
+
+  .feedback-section__arrow {
+    font-size: 4.5rem;
+  }
+
 }

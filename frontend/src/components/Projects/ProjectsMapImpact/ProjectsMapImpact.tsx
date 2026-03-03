@@ -10,49 +10,65 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ProjectsMapImpact() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const labelsRef = useRef<HTMLDivElement[]>([]);
+  const mapRef = useRef<HTMLImageElement | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (!sectionRef.current) return;
 
-    const idleCallback =
-      (window as any).requestIdleCallback ||
-      function (cb: Function) {
-        return setTimeout(cb, 1);
-      };
+    const ctx = gsap.context(() => {
+      // Map subtle reveal
+      gsap.fromTo(
+        mapRef.current,
+        { opacity: 0, scale: 1.04, filter: "blur(6px)" },
+        {
+          opacity: 1,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 1.4,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+          },
+        }
+      );
 
-    idleCallback(() => {
-      if (!sectionRef.current) return;
-
+      // Labels reveal
       gsap.set(labelsRef.current, {
         opacity: 0,
-        y: 30,
+        y: 40,
+        scale: 0.96,
+        filter: "blur(8px)",
       });
 
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top 80%",
-        once: true,
-        onEnter: () => {
-          labelsRef.current.forEach((el, i) => {
-            if (!el) return;
-
-            gsap.to(el, {
-              opacity: 1,
-              y: 0,
-              duration: 0.6,
-              delay: i * 0.15,
-              ease: "power2.out",
-            });
-          });
+      gsap.to(labelsRef.current, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        duration: 0.9,
+        stagger: 0.12,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 75%",
         },
       });
-    });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((t) =>
-        t.kill()
-      );
-    };
+      // Subtle floating animation
+      labelsRef.current.forEach((el, i) => {
+        gsap.to(el, {
+          y: "+=6",
+          duration: 3 + i * 0.2,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   const labelData = [
@@ -74,7 +90,8 @@ export default function ProjectsMapImpact() {
     <section ref={sectionRef} className="map-impact-section">
       <div className="map-impact-stage">
         <img
-          src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/Frame%202.png?tr=w-1400,q-60,f-webp"
+          ref={mapRef}
+          src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/Frame%202.png?tr=w-1600,q-70,f-webp"
           className="map-layer"
           alt="Sydney map grey"
           loading="lazy"
@@ -91,7 +108,6 @@ export default function ProjectsMapImpact() {
               className={`map-label ${label.class}`}
             >
               <span>{label.text[0]}</span>
-              <br />
               <span>{label.text[1]}</span>
             </div>
           ))}

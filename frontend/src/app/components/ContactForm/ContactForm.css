@@ -314,38 +314,155 @@
    RESPONSIVE
 ===================================================== */
 
-@media (max-width: 1024px) {
-  .bathroom-form__container {
-    grid-template-columns: 1fr;
-  }
-}
-
+/* ===================================================== */
+/* =============== MAX 500px (Mobile) =================== */
+/* ===================================================== */
 @media (max-width: 500px) {
+
   .bathroom-form {
     padding: 7rem 5%;
   }
 
   .bathroom-form__container {
+    grid-template-columns: 1fr;
     gap: 4rem;
   }
 
+  .bathroom-form__info h2 {
+    font-size: 2.4rem;
+    line-height: 1.2;
+  }
+
+  .bathroom-form__info p {
+    font-size: 1.45rem;
+  }
+
   .bathroom-form__form {
-    padding: 3rem 2.2rem;
+    padding: 2.8rem 2rem;
   }
 
   .form-grid {
     grid-template-columns: 1fr;
+    gap: 1.8rem;
   }
 
   .form-group.full {
     grid-column: span 1;
   }
 
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 1.35rem;
+    padding: 1.4rem 1.1rem;
+  }
+
   .step-actions {
     flex-direction: column;
+    gap: 1.4rem;
+  }
+
+  .next-btn,
+  .back-btn {
+    width: 100%;
+    text-align: center;
   }
 
   .submit-btn {
     width: 100%;
   }
+
+}
+
+
+/* ===================================================== */
+/* ========= MIN 501px — MAX 768px (Tablet) ============ */
+/* ===================================================== */
+@media (min-width: 501px) and (max-width: 768px) {
+
+  .bathroom-form {
+    padding: 9rem 8%;
+  }
+
+  .bathroom-form__container {
+    grid-template-columns: 1fr;
+    gap: 5rem;
+  }
+
+  .bathroom-form__info h2 {
+    font-size: 2.9rem;
+  }
+
+  .bathroom-form__info p {
+    font-size: 1.5rem;
+  }
+
+  .bathroom-form__form {
+    padding: 3.2rem 2.6rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .form-group.full {
+    grid-column: span 1;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 1.4rem;
+  }
+
+  .step-actions {
+    gap: 1.6rem;
+  }
+
+}
+
+
+/* ===================================================== */
+/* ================= MIN 1600px (Large) ================= */
+/* ===================================================== */
+@media (min-width: 1600px) {
+
+  .bathroom-form {
+    padding: 14rem 14%;
+  }
+
+  .bathroom-form__container {
+    max-width: 1600px;
+    gap: 10rem;
+  }
+
+  .bathroom-form__info h2 {
+    font-size: 4.4rem;
+  }
+
+  .bathroom-form__info p {
+    font-size: 1.8rem;
+  }
+
+  .bathroom-form__form {
+    padding: 5rem;
+  }
+
+  .form-grid {
+    gap: 3rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 1.5rem;
+    padding: 1.8rem 1.4rem;
+  }
+
+  .submit-btn {
+    padding: 1.8rem;
+    font-size: 1.3rem;
+  }
+
 }

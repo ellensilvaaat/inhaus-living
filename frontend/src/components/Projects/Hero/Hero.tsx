@@ -21,7 +21,7 @@ export default function ProjectsHero() {
       <div className="projects-hero__overlay" />
 
       <div className="projects-hero__content">
-        <h1 className="projects-hero__title">Projects</h1>
+        <h1 className="projects-hero__title">Renovation Projects in Sydney & Canberra</h1>
       </div>
 
       <div className="projects__bottom-text">

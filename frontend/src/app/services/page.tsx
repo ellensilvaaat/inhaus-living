@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title:
-    "Home Renovation Services Sydney & Canberra | Luxury Specialists",
+    "Home Renovation And Construction Services Sydney & Canberra | Luxury Specialists",
 
   description:
     "Premium home renovation services in Sydney and Canberra. Kitchen renovations, bathroom remodels, flooring installation and full home transformations delivered with expert craftsmanship.",

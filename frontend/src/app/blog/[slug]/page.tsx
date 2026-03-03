@@ -15,25 +15,31 @@ interface PostMeta {
   slug: string;
 }
 
-interface Props {
-  params: {
+interface PageProps {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 const siteUrl = "https://inhausliving.com.au";
 
-export async function generateStaticParams() {
+/* ================= STATIC PARAMS ================= */
+
+export function generateStaticParams() {
   return (postsMeta as PostMeta[]).map((post) => ({
     slug: post.slug,
   }));
 }
 
+/* ================= METADATA ================= */
+
 export async function generateMetadata(
-  { params }: Props
+  { params }: PageProps
 ): Promise<Metadata> {
+  const { slug } = await params;
+
   const post = (postsMeta as PostMeta[]).find(
-    (p) => p.slug === params.slug
+    (p) => p.slug === slug
   );
 
   if (!post) {
@@ -43,13 +49,22 @@ export async function generateMetadata(
     };
   }
 
-  const url = `${siteUrl}/blog/${post.slug}`;
+  const url = `${siteUrl}/blog/${slug}`;
 
   return {
     metadataBase: new URL(siteUrl),
 
-    title: `${post.title} | Renovation Insights | Inhaus Living`,
+    title: `${post.title} | Renovation Insights Sydney | Inhaus Living`,
+
     description: post.description,
+
+    keywords: [
+      "Luxury Renovation Sydney",
+      "Home Renovation Tips Australia",
+      "Kitchen Renovation Guide",
+      "Bathroom Renovation Advice",
+      post.title,
+    ],
 
     alternates: {
       canonical: url,
@@ -94,9 +109,15 @@ export async function generateMetadata(
   };
 }
 
-export default async function BlogSlugPage({ params }: Props) {
+/* ================= PAGE ================= */
+
+export default async function BlogSlugPage({
+  params,
+}: PageProps) {
+  const { slug } = await params;
+
   const post = (postsMeta as PostMeta[]).find(
-    (p) => p.slug === params.slug
+    (p) => p.slug === slug
   );
 
   if (!post) return notFound();
@@ -104,7 +125,7 @@ export default async function BlogSlugPage({ params }: Props) {
   const filePath = path.join(
     process.cwd(),
     "src/content/posts",
-    `${params.slug}.md`
+    `${slug}.md`
   );
 
   let content = "";
@@ -115,10 +136,9 @@ export default async function BlogSlugPage({ params }: Props) {
     return notFound();
   }
 
-  const url = `${siteUrl}/blog/${post.slug}`;
+  const url = `${siteUrl}/blog/${slug}`;
 
   const structuredData = [
-    // 🔥 ARTICLE SCHEMA
     {
       "@context": "https://schema.org",
       "@type": "Article",
@@ -129,11 +149,15 @@ export default async function BlogSlugPage({ params }: Props) {
       dateModified: post.date,
       author: {
         "@type": "Organization",
-        "@id": `${siteUrl}/#organization`,
+        name: "Inhaus Living",
       },
       publisher: {
         "@type": "Organization",
-        "@id": `${siteUrl}/#organization`,
+        name: "Inhaus Living",
+        logo: {
+          "@type": "ImageObject",
+          url: `${siteUrl}/logo.png`,
+        },
       },
       mainEntityOfPage: {
         "@type": "WebPage",
@@ -141,7 +165,6 @@ export default async function BlogSlugPage({ params }: Props) {
       },
     },
 
-    // 🔥 BREADCRUMB
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -171,16 +194,15 @@ export default async function BlogSlugPage({ params }: Props) {
   return (
     <>
       <Script
-        id="blogpost-structured-data"
+        id="blogpost-jsonld"
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(structuredData),
         }}
       />
 
       <div className="blog-post">
-        <BlogPost slug={params.slug} content={content} />
+        <BlogPost slug={slug} content={content} />
       </div>
     </>
   );

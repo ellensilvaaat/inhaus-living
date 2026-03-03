@@ -8,12 +8,10 @@ import { Turnstile } from "@marsidev/react-turnstile";
 export default function ContactUsPage() {
   const router = useRouter();
 
-  // ⏱️ Guarda quando o form foi carregado (camada 3)
   const formLoadedAt = useRef<number>(Date.now());
 
-  // ✅ Cloudflare Turnstile token (camada 4)
-  const [turnstileToken, setTurnstileToken] = useState<string>("");
-  const [turnstileError, setTurnstileError] = useState<string>("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileError, setTurnstileError] = useState("");
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -29,7 +27,7 @@ export default function ContactUsPage() {
   });
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+    window.scrollTo({ top: 0, behavior: "auto" });
   }, []);
 
   const budgetOptions = [
@@ -65,7 +63,7 @@ export default function ContactUsPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const requiredFields = [
+    const requiredFields: (keyof typeof formData)[] = [
       "fullName",
       "email",
       "address",
@@ -76,13 +74,12 @@ export default function ContactUsPage() {
     ];
 
     for (const key of requiredFields) {
-      if (!formData[key as keyof typeof formData]) {
+      if (!formData[key]) {
         alert(`⚠️ Please fill in the ${key} field.`);
         return;
       }
     }
 
-    // ✅ Turnstile obrigatório
     if (!turnstileToken) {
       setTurnstileError("Please verify you are human.");
       return;
@@ -90,17 +87,16 @@ export default function ContactUsPage() {
 
     const apiBase = process.env.NEXT_PUBLIC_API_BASE;
 
+    if (!apiBase) {
+      alert("API base URL not configured.");
+      return;
+    }
+
     const payload = {
       ...formData,
       status: "new",
-
-      // 🔥 CAMADA 3 — tempo mínimo
       formStartedAt: formLoadedAt.current,
-
-      // 🔥 CAMADA 4 — Turnstile
       turnstileToken,
-
-      // ✅ Normaliza opcionais
       foundUs: formData.foundUs || null,
       subject: formData.subject || null,
       message: formData.message || null,
@@ -195,19 +191,161 @@ export default function ContactUsPage() {
 
           <div className="contact-page__email">
             <h3>📧 Email Us</h3>
-            <a className="contact__emaill" href="mailto:info@inhausliving.com.au">
+            <a
+              className="contact__emaill"
+              href="mailto:info@inhausliving.com.au"
+            >
               info@inhausliving.com.au
             </a>
           </div>
         </div>
 
         <form className="contact-page__form" onSubmit={handleSubmit}>
-          {/* TODO: Mantido 100% igual ao original (estrutura preservada) */}
+          <div className="two-columns">
+            <div className="form-group">
+              <label htmlFor="fullName">Full Name</label>
+              <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-          {/* Restante do formulário permanece idêntico */}
-          {/* (omiti comentário aqui apenas para reduzir repetição visual — código acima já inclui toda lógica necessária) */}
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
 
-          {/* ✅ Cloudflare Turnstile */}
+          <div className="two-columns">
+            <div className="form-group">
+              <label htmlFor="address">Address</label>
+              <input
+                type="text"
+                id="address"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="mobile">Mobile</label>
+              <input
+                type="text"
+                id="mobile"
+                name="mobile"
+                value={formData.mobile}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="two-columns">
+            <div className="form-group">
+              <label htmlFor="budget">Budget</label>
+              <select
+                id="budget"
+                name="budget"
+                value={formData.budget}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select your budget</option>
+                {budgetOptions.map((opt) => (
+                  <option key={opt} value={opt}>
+                    {opt}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="service">Interested Service</label>
+              <select
+                id="service"
+                name="service"
+                value={formData.service}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select service</option>
+                {serviceOptions.map((opt) => (
+                  <option key={opt} value={opt}>
+                    {opt}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="two-columns">
+            <div className="form-group">
+              <label htmlFor="installationDate">
+                Ideal Installation Date
+              </label>
+              <input
+                type="date"
+                id="installationDate"
+                name="installationDate"
+                value={formData.installationDate}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="foundUs">How did you find us?</label>
+              <select
+                id="foundUs"
+                name="foundUs"
+                value={formData.foundUs}
+                onChange={handleChange}
+              >
+                <option value="">Select one</option>
+                {foundUsOptions.map((opt) => (
+                  <option key={opt} value={opt}>
+                    {opt}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="subject">Subject</label>
+            <input
+              type="text"
+              id="subject"
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="message">Tell us about your project</label>
+            <textarea
+              id="message"
+              name="message"
+              rows={4}
+              value={formData.message}
+              onChange={handleChange}
+            />
+          </div>
+
           <div style={{ marginTop: "14px", marginBottom: "6px" }}>
             <Turnstile
               siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY as string}

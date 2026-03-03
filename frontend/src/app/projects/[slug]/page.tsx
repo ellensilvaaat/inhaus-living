@@ -4,30 +4,71 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import ProjectDetail from "@/components/Projects/projectDetail/projectDetail";
 
-interface Props {
-  params: {
+interface PageProps {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 const siteUrl = "https://inhausliving.com.au";
 
-export async function generateStaticParams() {
+/* ================= STATIC PARAMS ================= */
+
+export function generateStaticParams() {
   return projectsData.map((project) => ({
     slug: project.slug,
   }));
 }
 
-function createDescription(content: string) {
-  const clean = content.replace(/<[^>]+>/g, "");
-  return clean.length > 155 ? clean.slice(0, 152) + "..." : clean;
+/* ================= SEO HELPERS ================= */
+
+function detectServiceType(slug: string) {
+  const s = slug.toLowerCase();
+  if (s.includes("bathroom")) return "Bathroom Renovation";
+  if (s.includes("kitchen")) return "Kitchen Renovation";
+  if (s.includes("apartment")) return "Apartment Renovation";
+  if (s.includes("full")) return "Full Home Renovation";
+  if (s.includes("extension")) return "Home Extension";
+  if (s.includes("duplex")) return "Duplex Construction";
+  return "Luxury Renovation";
 }
 
+function detectLocation(slug: string) {
+  const parts = slug.split("-");
+  const last = parts[parts.length - 1];
+  return last.charAt(0).toUpperCase() + last.slice(1);
+}
+
+function cleanContent(raw = "") {
+  return raw.replace(/<[^>]+>/g, "").trim();
+}
+
+function buildDescription(
+  title: string,
+  slug: string,
+  content: string
+) {
+  const service = detectServiceType(slug);
+  const location = detectLocation(slug);
+
+  const base =
+    `${service} in ${location}, Sydney. ` +
+    cleanContent(content).slice(0, 120);
+
+  return base.length > 155
+    ? base.slice(0, 152) + "..."
+    : base;
+}
+
+/* ================= METADATA ================= */
+
 export async function generateMetadata(
-  { params }: Props
+  { params }: PageProps
 ): Promise<Metadata> {
+  const { slug } = await params;
+
   const project = projectsData.find(
-    (p) => p.slug === params.slug
+    (p) => p.slug === slug
   );
 
   if (!project) {
@@ -37,19 +78,32 @@ export async function generateMetadata(
     };
   }
 
-  const url = `${siteUrl}/projects/${project.slug}`;
-  const description = createDescription(project.content);
+  const service = detectServiceType(slug);
+  const location = detectLocation(slug);
+  const description = buildDescription(
+    project.title,
+    slug,
+    project.content
+  );
+
+  const url = `${siteUrl}/projects/${slug}`;
 
   return {
     metadataBase: new URL(siteUrl),
 
-    title: `${project.title} | Luxury Renovation Project | Inhaus Living`,
+    title: `${project.title} | Luxury ${service} in ${location} | Inhaus Living`,
 
     description,
 
-    alternates: {
-      canonical: url,
-    },
+    keywords: [
+      `${service} ${location}`,
+      `Luxury ${service} Sydney`,
+      "High End Renovation Sydney",
+      "Premium Home Renovation Australia",
+      project.title,
+    ],
+
+    alternates: { canonical: url },
 
     robots: {
       index: true,
@@ -75,7 +129,7 @@ export async function generateMetadata(
           url: project.heroImage,
           width: 1200,
           height: 630,
-          alt: project.title,
+          alt: `${project.title} - Inhaus Living`,
         },
       ],
     },
@@ -89,24 +143,33 @@ export async function generateMetadata(
   };
 }
 
-export default function ProjectPage({ params }: Props) {
+/* ================= PAGE ================= */
+
+export default async function ProjectPage({
+  params,
+}: PageProps) {
+  const { slug } = await params;
+
   const project = projectsData.find(
-    (p) => p.slug === params.slug
+    (p) => p.slug === slug
   );
 
-  if (!project) return notFound();
+  if (!project) {
+    notFound();
+  }
 
-  const url = `${siteUrl}/projects/${project.slug}`;
-  const description = createDescription(project.content);
+  const service = detectServiceType(slug);
+  const location = detectLocation(slug);
+  const url = `${siteUrl}/projects/${slug}`;
 
   const structuredData = [
-    // 🔥 Article Schema
     {
       "@context": "https://schema.org",
       "@type": "Article",
       headline: project.title,
-      description,
+      description: cleanContent(project.content).slice(0, 160),
       image: project.heroImage,
+      mainEntityOfPage: url,
       author: {
         "@type": "Organization",
         name: "Inhaus Living",
@@ -119,10 +182,23 @@ export default function ProjectPage({ params }: Props) {
           url: `${siteUrl}/logo.png`,
         },
       },
-      mainEntityOfPage: url,
     },
 
-    // 🔥 Breadcrumb Schema
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: service,
+      areaServed: {
+        "@type": "Place",
+        name: location,
+      },
+      provider: {
+        "@type": "Organization",
+        name: "Inhaus Living",
+        url: siteUrl,
+      },
+    },
+
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -152,17 +228,14 @@ export default function ProjectPage({ params }: Props) {
   return (
     <>
       <Script
-        id="project-structured-data"
+        id="project-jsonld"
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(structuredData),
         }}
       />
 
-      <div className="project-detail">
-        <ProjectDetail slug={params.slug} />
-      </div>
+      <ProjectDetail slug={slug} />
     </>
   );
 }

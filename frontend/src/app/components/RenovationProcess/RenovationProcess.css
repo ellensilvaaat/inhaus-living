@@ -159,14 +159,77 @@
    RESPONSIVE
 ============================= */
 
-@media (max-width: 900px) {
+/* ===================================================== */
+/* =============== MAX 500px (Mobile) =================== */
+/* ===================================================== */
+@media (max-width: 500px) {
 
   .bathroom-renovation-process {
-    padding: 9rem 7%;
+    padding: 7rem 6%;
+  }
+
+  .bathroom-process-header {
+    margin-bottom: 6rem;
+  }
+
+  .bathroom-process-header h2 {
+    font-size: 2.3rem;
+    line-height: 1.2;
+  }
+
+  .bathroom-process-subtitle {
+    font-size: 1.45rem;
+  }
+
+  .bathroom-process-grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .bathroom-process-card {
+    grid-column: 1 !important;
+  }
+
+  .bathroom-process-node {
+    left: -1.5rem;
+    top: -1rem;
+  }
+
+  .bathroom-process-number {
+    font-size: 5.5rem;
+  }
+
+  .bathroom-process-panel h3 {
+    font-size: 1.8rem;
+  }
+
+  .bathroom-process-panel p {
+    font-size: 1.45rem;
+    line-height: 1.75;
+  }
+
+}
+
+
+/* ===================================================== */
+/* ========= MIN 501px — MAX 768px (Tablet) ============ */
+/* ===================================================== */
+@media (min-width: 501px) and (max-width: 768px) {
+
+  .bathroom-renovation-process {
+    padding: 8rem 8%;
+  }
+
+  .bathroom-process-header {
+    margin-bottom: 8rem;
   }
 
   .bathroom-process-header h2 {
     font-size: 2.8rem;
+  }
+
+  .bathroom-process-subtitle {
+    font-size: 1.55rem;
   }
 
   .bathroom-process-grid {
@@ -178,26 +241,61 @@
     grid-column: 1 !important;
   }
 
+  .bathroom-process-node {
+    left: -2.5rem;
+    top: -1.5rem;
+  }
+
   .bathroom-process-number {
-    font-size: 6rem;
+    font-size: 7rem;
   }
 
   .bathroom-process-panel h3 {
-    font-size: 2rem;
+    font-size: 2.1rem;
   }
 
   .bathroom-process-panel p {
     font-size: 1.5rem;
   }
+
 }
 
+
+/* ===================================================== */
+/* ================= MIN 1600px (Large) ================= */
+/* ===================================================== */
 @media (min-width: 1600px) {
 
+  .bathroom-renovation-process {
+    padding: 10rem 14%;
+  }
+
+  .bathroom-process-container {
+    max-width: 1400px;
+  }
+
   .bathroom-process-header h2 {
-    font-size: 4.8rem;
+    font-size: 5rem;
+  }
+
+  .bathroom-process-subtitle {
+    font-size: 1.8rem;
+  }
+
+  .bathroom-process-grid {
+    gap: 10rem 8rem;
   }
 
   .bathroom-process-number {
-    font-size: 12rem;
+    font-size: 13rem;
   }
+
+  .bathroom-process-panel h3 {
+    font-size: 2.6rem;
+  }
+
+  .bathroom-process-panel p {
+    font-size: 1.7rem;
+  }
+
 }

@@ -28,6 +28,7 @@ export const projectsData = [
   coogee,
   woollahra,
   brompton,
+  bellevue,
   darlingPoint,
   milsons,
   newport,
