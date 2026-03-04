@@ -169,8 +169,14 @@
 }
 
 /* RESPONSIVE */
-@media (max-width: 1024px) {
+@media ( (min-width: 501px) and (max-width: 1024px)) {
   .blog-page__container {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .blog-page {
+  padding: 3rem 1rem;
   }
 }
