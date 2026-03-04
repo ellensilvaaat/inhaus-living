@@ -6,17 +6,32 @@ import ProjectsPage from "@/components/Projects/ProjectsPage/ProjectsPage";
 import ReadySection from "@/components/Home/ReadySection/ReadySection";
 import { projectsData } from "@/content/projects";
 
-const siteUrl = "https://inhausliving.com.au";
+const siteUrl = "https://inhaus-living.vercel.app";
 const pagePath = "/projects";
 const pageUrl = `${siteUrl}${pagePath}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
-  title: "Luxury Renovation Projects in Sydney & Canberra | Inhaus Living Portfolio",
+  title:
+    "Luxury Renovation Projects in Sydney & Canberra | Inhaus Living Portfolio",
 
   description:
-    "Discover award-worthy luxury renovations across Sydney and Canberra. Explore our kitchen renovations, bathroom remodels, home extensions and full home transformations crafted by Inhaus Living.",
+    "Discover luxury home renovations completed across Sydney and Canberra. Explore kitchen renovations, bathroom remodels, apartment upgrades and full home transformations crafted by Inhaus Living.",
+
+  keywords: [
+    "luxury renovation projects",
+    "renovation portfolio sydney",
+    "renovation portfolio canberra",
+    "kitchen renovation projects",
+    "bathroom renovation projects",
+    "apartment renovation projects",
+    "full home renovation projects",
+    "home extension projects",
+    "inhaus living projects",
+    "renovation company sydney",
+    "renovation company canberra",
+  ],
 
   alternates: {
     canonical: pagePath,
@@ -37,17 +52,18 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: pageUrl,
-    title: "Luxury Renovation Portfolio | Sydney & Canberra Projects",
+    title:
+      "Luxury Renovation Portfolio | Sydney & Canberra Projects | Inhaus Living",
     description:
-      "Browse our completed high-end renovation and construction projects across Sydney and Canberra. See the craftsmanship of Inhaus Living.",
+      "Browse our portfolio of premium renovation projects across Sydney and Canberra.",
     siteName: "Inhaus Living",
     locale: "en_AU",
     images: [
       {
-        url: "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/lisa-anna-2g6aRZE9S8s-unsplash.jpg?updatedAt=1767744534201",
+        url: "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/lisa-anna-2g6aRZE9S8s-unsplash.jpg",
         width: 1200,
         height: 630,
-        alt: "Inhaus Living Luxury Renovation Projects",
+        alt: "Luxury renovation portfolio by Inhaus Living",
       },
     ],
   },
@@ -56,9 +72,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Luxury Renovation Projects | Inhaus Living",
     description:
-      "Explore premium kitchen, bathroom and full home renovation projects across Sydney and Canberra.",
+      "Explore premium renovation projects across Sydney and Canberra.",
     images: [
-      "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/lisa-anna-2g6aRZE9S8s-unsplash.jpg?updatedAt=1767744534201",
+      "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/lisa-anna-2g6aRZE9S8s-unsplash.jpg",
     ],
   },
 
@@ -76,35 +92,65 @@ export default function Projects() {
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
-      /* CollectionPage */
       {
         "@type": "CollectionPage",
         "@id": `${pageUrl}#webpage`,
         url: pageUrl,
-        name: "Inhaus Living Renovation Projects",
+        name: "Inhaus Living Renovation Portfolio",
         description:
-          "Portfolio of luxury renovation projects across Sydney and Canberra.",
+          "Portfolio of luxury renovation projects completed across Sydney and Canberra.",
         isPartOf: {
           "@id": `${siteUrl}/#website`,
         },
         about: {
-          "@type": "Thing",
-          name: "Luxury Home Renovations",
+          "@type": "CreativeWorkSeries",
+          name: "Luxury Renovation Projects",
+        },
+        mainEntity: {
+          "@id": `${pageUrl}#portfolio`,
         },
         inLanguage: "en-AU",
       },
 
-      /* ItemList (helps Google understand it’s a portfolio list) */
+      {
+        "@type": "CreativeWorkSeries",
+        "@id": `${pageUrl}#portfolio`,
+        name: "Inhaus Living Renovation Portfolio",
+        creator: {
+          "@id": `${siteUrl}/#organization`,
+        },
+      },
+
       {
         "@type": "ItemList",
-        "@id": `${pageUrl}#itemlist`,
+        "@id": `${pageUrl}#projectlist`,
         name: "Renovation Projects",
-        itemListOrder: "https://schema.org/ItemListOrderAscending",
         numberOfItems: projectsData.length,
+        itemListOrder: "https://schema.org/ItemListOrderAscending",
         itemListElement: itemList,
       },
 
-      /* Breadcrumb */
+      // Helps Google understand your regions / map coverage
+      {
+        "@type": "Place",
+        "@id": `${pageUrl}#serviceareas`,
+        name: "Sydney Renovation Areas",
+        containsPlace: [
+          { "@type": "Place", name: "Northern Beaches" },
+          { "@type": "Place", name: "Eastern Suburbs" },
+          { "@type": "Place", name: "Sutherland Shire" },
+          { "@type": "Place", name: "Inner West" },
+          { "@type": "Place", name: "Parramatta" },
+          { "@type": "Place", name: "Western Sydney" },
+          { "@type": "Place", name: "South Sydney" },
+          { "@type": "Place", name: "Sydney City" },
+          { "@type": "Place", name: "Outer West" },
+          { "@type": "Place", name: "Lower North Shore" },
+          { "@type": "Place", name: "Upper North Shore" },
+          { "@type": "Place", name: "South West" },
+        ],
+      },
+
       {
         "@type": "BreadcrumbList",
         "@id": `${pageUrl}#breadcrumb`,

@@ -3,7 +3,7 @@ import Script from "next/script";
 import Hero from "@/components/Contact/Hero/Hero";
 import ContactPage from "@/components/Contact/ContactPage/ContactPage";
 
-const siteUrl = "https://inhausliving.com.au";
+const siteUrl = "https://inhaus-living.vercel.app";
 const pagePath = "/contact";
 const pageUrl = `${siteUrl}${pagePath}`;
 
@@ -19,8 +19,19 @@ export const metadata: Metadata = {
   description:
     "Contact Inhaus Living for premium kitchen renovations, bathroom renovations, home extensions and luxury construction projects in Sydney and Canberra. Visit our showrooms or request a consultation today.",
 
+  keywords: [
+    "contact renovation company Sydney",
+    "Inhaus Living contact",
+    "kitchen renovation Sydney consultation",
+    "bathroom renovation Sydney contact",
+    "home renovation builder Sydney contact",
+    "renovation consultation Canberra",
+    "luxury renovation company Sydney",
+    "Inhaus Living showroom Sydney",
+  ],
+
   alternates: {
-    canonical: pagePath,
+    canonical: pageUrl,
   },
 
   robots: {
@@ -70,7 +81,9 @@ export default function Contact() {
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
-      /* WebPage */
+
+      /* CONTACT PAGE */
+
       {
         "@type": "ContactPage",
         "@id": `${pageUrl}#webpage`,
@@ -84,59 +97,93 @@ export default function Contact() {
         inLanguage: "en-AU",
       },
 
-      /* Organization (connected globally) */
+      /* ORGANIZATION */
+
       {
         "@type": "HomeAndConstructionBusiness",
         "@id": `${siteUrl}/#organization`,
         name: "Inhaus Living",
         url: siteUrl,
         image: `${siteUrl}/og-contact.jpg`,
-        telephone: "+61296623509",
         email: "info@inhausliving.com.au",
         priceRange: "$$$$",
-        areaServed: [
-          {
-            "@type": "City",
-            name: "Sydney",
-          },
-          {
-            "@type": "City",
-            name: "Canberra",
-          },
-        ],
-        address: [
-          {
-            "@type": "PostalAddress",
-            streetAddress: "Shop 10/2A Todman Ave",
-            addressLocality: "Kensington",
-            addressRegion: "NSW",
-            postalCode: "2033",
-            addressCountry: "AU",
-          },
-          {
-            "@type": "PostalAddress",
-            streetAddress: "2/175 Taren Point Rd",
-            addressLocality: "Caringbah",
-            addressRegion: "NSW",
-            postalCode: "2229",
-            addressCountry: "AU",
-          },
-          {
-            "@type": "PostalAddress",
-            streetAddress: "Unit 2/58 Wollongong St",
-            addressLocality: "Fyshwick",
-            addressRegion: "ACT",
-            postalCode: "2609",
-            addressCountry: "AU",
-          },
-        ],
+
+        contactPoint: {
+          "@type": "ContactPoint",
+          telephone: "+61-2-9662-3509",
+          contactType: "customer service",
+          areaServed: "AU",
+          availableLanguage: "English",
+        },
+
         sameAs: [
-          "https://www.instagram.com/inhausliving/",
-          "https://www.facebook.com/inhausliving/",
+          "https://www.instagram.com/inhaus_living",
+          "https://www.facebook.com/inhausliving.com.au"
         ],
       },
 
-      /* Breadcrumb */
+      /* LOCATION 1 — MOORE PARK */
+
+      {
+        "@type": "LocalBusiness",
+        "@id": `${siteUrl}/#moore-park`,
+        name: "Inhaus Living Moore Park Showroom",
+        parentOrganization: {
+          "@id": `${siteUrl}/#organization`
+        },
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Shop 10/2A Todman Ave",
+          addressLocality: "Kensington",
+          addressRegion: "NSW",
+          postalCode: "2033",
+          addressCountry: "AU",
+        },
+        telephone: "+61-2-9662-3509"
+      },
+
+      /* LOCATION 2 — TAREN POINT */
+
+      {
+        "@type": "LocalBusiness",
+        "@id": `${siteUrl}/#taren-point`,
+        name: "Inhaus Living Taren Point Showroom",
+        parentOrganization: {
+          "@id": `${siteUrl}/#organization`
+        },
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "2/175 Taren Point Rd",
+          addressLocality: "Caringbah",
+          addressRegion: "NSW",
+          postalCode: "2229",
+          addressCountry: "AU",
+        },
+        telephone: "+61-2-8359-1679"
+      },
+
+      /* LOCATION 3 — FYSHWICK */
+
+      {
+        "@type": "LocalBusiness",
+        "@id": `${siteUrl}/#fyshwick`,
+        name: "Inhaus Living Fyshwick Showroom",
+        parentOrganization: {
+          "@id": `${siteUrl}/#organization`
+        },
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Unit 2/58 Wollongong St",
+          addressLocality: "Fyshwick",
+          addressRegion: "ACT",
+          postalCode: "2609",
+          addressCountry: "AU",
+        },
+        telephone: "+61-2-6176-2807"
+      },
+
+      /* BREADCRUMB */
+
       {
         "@type": "BreadcrumbList",
         "@id": `${pageUrl}#breadcrumb`,

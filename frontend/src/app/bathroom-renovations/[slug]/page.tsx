@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { notFound } from "next/navigation";
 
-import { services } from "@/lib/ serviceConfig";
+import { services } from "@/lib/serviceConfig";
 
 import Hero from "../../components/Hero/Hero";
 import Intro from "../../components/Intro/Intro";
@@ -15,7 +15,7 @@ import ProjectsCarousel from "@/components/Home/ProjectsCarousel/ProjectsCarouse
 import FeedbackSection from "../../components/FeedbackSectionStatic/FeedbackSectionStatic";
 import Footer from "../../components/Footer/Footer";
 
-const siteUrl = "https://www.inhausliving.com.au";
+const siteUrl = "https://inhaus-living.vercel.app";
 
 const serviceKey = "bathroom-renovations";
 const service = services[serviceKey];
@@ -50,9 +50,11 @@ interface PageProps {
 export async function generateMetadata(
   { params }: PageProps
 ): Promise<Metadata> {
+
   const { slug } = await params;
 
   const suburbSlug = extractSuburb(slug);
+
   if (!suburbSlug || !service.suburbs.includes(suburbSlug)) {
     return {};
   }
@@ -67,8 +69,16 @@ export async function generateMetadata(
 
     description: `Premium bathroom renovations in ${suburbName} delivered by licensed and insured builders. Waterproof compliant, design-led and built for long-term value.`,
 
+    keywords: [
+      `bathroom renovations ${suburbName}`,
+      `bathroom renovation ${suburbName}`,
+      `bathroom renovators ${suburbName}`,
+      `bathroom remodel ${suburbName}`,
+      `luxury bathroom renovation ${suburbName}`,
+    ],
+
     alternates: {
-      canonical: pagePath,
+      canonical: pageUrl,
     },
 
     robots: {
@@ -107,6 +117,7 @@ export async function generateMetadata(
 export default async function BathroomRenovationPage({
   params,
 }: PageProps) {
+
   const { slug } = await params;
 
   const suburbSlug = extractSuburb(slug);
@@ -117,7 +128,6 @@ export default async function BathroomRenovationPage({
 
   const suburbName = formatSuburbName(suburbSlug);
 
-  /* 🔥 REGION DETECTION */
   const region =
     suburbSlug === "canberra" ? "canberra" : "sydney";
 
@@ -137,11 +147,13 @@ export default async function BathroomRenovationPage({
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
+
       {
         "@type": "WebPage",
         "@id": `${pageUrl}#webpage`,
         url: pageUrl,
         name: `Bathroom Renovations ${suburbName}`,
+        description: `Luxury bathroom renovations in ${suburbName}.`,
         isPartOf: {
           "@id": `${siteUrl}/#website`,
         },
@@ -153,14 +165,58 @@ export default async function BathroomRenovationPage({
         "@id": `${pageUrl}#service`,
         name: `Bathroom Renovations ${suburbName}`,
         serviceType: "Bathroom Renovation",
-        areaServed: {
-          "@type": "AdministrativeArea",
-          name: suburbName,
-        },
         provider: {
           "@id": `${siteUrl}/#organization`,
         },
+        areaServed: {
+          "@type": "Place",
+          name: suburbName,
+        },
         url: pageUrl,
+      },
+
+      {
+        "@type": "HomeAndConstructionBusiness",
+        "@id": `${siteUrl}/#bathroom-renovation-${suburbSlug}`,
+        name: `${service.businessName} Bathroom Renovations ${suburbName}`,
+        parentOrganization: {
+          "@id": `${siteUrl}/#organization`
+        },
+        areaServed: {
+          "@type": "Place",
+          name: suburbName
+        },
+        serviceType: "Bathroom Renovations"
+      },
+
+      {
+        "@type": "ImageObject",
+        "@id": `${pageUrl}#image`,
+        contentUrl: service.heroImage,
+        caption: `Bathroom Renovations ${suburbName}`
+      },
+
+      {
+        "@type": "FAQPage",
+        "@id": `${pageUrl}#faq`,
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: `How much does a bathroom renovation cost in ${suburbName}?`,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: `Bathroom renovation costs in ${suburbName} vary depending on layout, waterproofing requirements and materials used.`
+            }
+          },
+          {
+            "@type": "Question",
+            name: `Do bathroom renovations require approval in ${suburbName}?`,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: `Most bathroom renovations do not require council approval unless structural or plumbing changes significantly alter the property.`
+            }
+          }
+        ]
       },
 
       {
@@ -201,6 +257,7 @@ export default async function BathroomRenovationPage({
       />
 
       <main className="bathroom-page">
+
         <Hero
           suburbName={suburbName}
           renovationLabel={service.label}
@@ -240,6 +297,7 @@ export default async function BathroomRenovationPage({
         />
 
         <ProjectsCarousel />
+
         <FeedbackSection />
 
         <ContactForm
@@ -251,6 +309,7 @@ export default async function BathroomRenovationPage({
         />
 
         <Footer region={region} />
+
       </main>
     </>
   );

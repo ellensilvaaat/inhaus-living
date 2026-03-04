@@ -9,16 +9,26 @@ import FeedbackSection from "@/components/Home/FeedbackSection/FeedbackSection";
 import ReadySection from "@/components/Home/ReadySection/ReadySection";
 import NewsletterPopup from "@/components/NewsletterPopup/NewsletterPopup";
 
-const siteUrl = "https://inhausliving.com.au";
+const siteUrl = "https://inhaus-living.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title:
-    "Luxury Home Renovations Sydney & Canberra | Award-Winning Builders",
+    "Luxury Home Renovations Sydney & Canberra | Inhaus Living",
 
   description:
-    "Award-winning luxury home renovations in Sydney and Canberra. Kitchen renovations, bathroom remodels, flooring and full home transformations delivered with expert craftsmanship.",
+    "Luxury home renovations in Sydney and Canberra. Kitchen renovations, bathroom renovations, apartment upgrades and full home transformations delivered by the licensed design-build team at Inhaus Living.",
+
+  keywords: [
+    "home renovation sydney",
+    "home renovation canberra",
+    "kitchen renovation sydney",
+    "bathroom renovation sydney",
+    "apartment renovation sydney",
+    "luxury renovations australia",
+    "construction and renovation company sydney"
+  ],
 
   alternates: {
     canonical: "/",
@@ -58,9 +68,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title:
-      "Luxury Home Renovations Sydney & Canberra",
+      "Luxury Home Renovations Sydney & Canberra | Inhaus Living",
     description:
-      "Award-winning renovation specialists delivering premium craftsmanship.",
+      "Premium kitchen, bathroom and full home renovations across Sydney and Canberra.",
     images: [
       "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/macro-jr-jfw8TSvSMp0-unsplash.jpg",
     ],
@@ -70,75 +80,179 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  const structuredData = [
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "@id": `${siteUrl}/#organization`,
-      name: "Inhaus Living",
-      url: siteUrl,
-      logo: {
-        "@type": "ImageObject",
-        url: `${siteUrl}/logo.png`,
-      },
-      sameAs: [
-        "https://www.instagram.com/inhausliving",
-        "https://www.facebook.com/inhausliving"
-      ],
-      contactPoint: {
-        "@type": "ContactPoint",
-        telephone: "+61XXXXXXXXX",
-        contactType: "customer service",
-        areaServed: "AU",
-        availableLanguage: "English"
-      }
-    },
 
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "@id": `${siteUrl}/#website`,
-      url: siteUrl,
-      name: "Inhaus Living",
-      publisher: {
-        "@id": `${siteUrl}/#organization`
-      }
-    },
+  const structuredData = {
 
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "@id": `${siteUrl}/#homepage`,
-      url: siteUrl,
-      name: "Luxury Home Renovations Sydney & Canberra",
-      isPartOf: {
-        "@id": `${siteUrl}/#website`
-      },
-      about: {
-        "@type": "Service",
-        name: "Luxury Home Renovations"
-      }
-    },
+    "@context": "https://schema.org",
 
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      name: "Luxury Home Renovations",
-      provider: {
-        "@id": `${siteUrl}/#organization`
+    "@graph": [
+
+      {
+        "@type": "Organization",
+        "@id": `${siteUrl}/#organization`,
+        name: "Inhaus Living",
+        url: siteUrl,
+        logo: {
+          "@type": "ImageObject",
+          url: `${siteUrl}/logo.png`
+        },
+        sameAs: [
+          "https://www.instagram.com/inhaus_living",
+          "https://www.facebook.com/inhausliving.com.au"
+        ]
       },
-      areaServed: [
-        { "@type": "City", name: "Sydney" },
-        { "@type": "City", name: "Canberra" }
-      ],
-      serviceType: "Home Renovation and Construction"
-    }
-  ];
+
+      {
+        "@type": "LocalBusiness",
+        "@id": `${siteUrl}/#localbusiness`,
+        name: "Inhaus Living",
+        url: siteUrl,
+        image: "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/macro-jr-jfw8TSvSMp0-unsplash.jpg",
+        description:
+          "Design-build renovation and construction company delivering luxury home renovations across Sydney and Canberra.",
+        areaServed: [
+          {
+            "@type": "City",
+            name: "Sydney"
+          },
+          {
+            "@type": "City",
+            name: "Canberra"
+          }
+        ],
+        priceRange: "$$$",
+        parentOrganization: {
+          "@id": `${siteUrl}/#organization`
+        }
+      },
+
+      {
+        "@type": "WebSite",
+        "@id": `${siteUrl}/#website`,
+        url: siteUrl,
+        name: "Inhaus Living",
+        publisher: {
+          "@id": `${siteUrl}/#organization`
+        }
+      },
+
+      {
+        "@type": "WebPage",
+        "@id": `${siteUrl}/#homepage`,
+        url: siteUrl,
+        name: "Luxury Home Renovations Sydney & Canberra",
+        isPartOf: {
+          "@id": `${siteUrl}/#website`
+        },
+        about: {
+          "@id": `${siteUrl}/#services`
+        }
+      },
+
+      {
+        "@type": "OfferCatalog",
+        "@id": `${siteUrl}/#services`,
+        name: "Renovation Services",
+        itemListElement: [
+
+          {
+            "@type": "Service",
+            name: "Home Renovations",
+            serviceType: "Full Home Renovation",
+            areaServed: "Sydney & Canberra"
+          },
+
+          {
+            "@type": "Service",
+            name: "Apartment Renovations",
+            serviceType: "Apartment Renovation",
+            areaServed: "Sydney & Canberra"
+          },
+
+          {
+            "@type": "Service",
+            name: "Kitchen Renovations",
+            serviceType: "Kitchen Renovation",
+            areaServed: "Sydney & Canberra"
+          },
+
+          {
+            "@type": "Service",
+            name: "Bathroom Renovations",
+            serviceType: "Bathroom Renovation",
+            areaServed: "Sydney & Canberra"
+          },
+
+          {
+            "@type": "Service",
+            name: "Flooring Services",
+            serviceType: "Floor Installation",
+            areaServed: "Sydney & Canberra"
+          },
+
+          {
+            "@type": "Service",
+            name: "Construction & Additions",
+            serviceType: "Home Construction",
+            areaServed: "Sydney & Canberra"
+          }
+
+        ]
+      },
+
+      {
+        "@type": "ItemList",
+        "@id": `${siteUrl}/#projects`,
+        name: "Featured Renovation Projects",
+        itemListElement: [
+          {
+            "@type": "CreativeWork",
+            name: "Kitchen Renovation Project",
+            creator: {
+              "@id": `${siteUrl}/#organization`
+            }
+          },
+          {
+            "@type": "CreativeWork",
+            name: "Bathroom Renovation Project",
+            creator: {
+              "@id": `${siteUrl}/#organization`
+            }
+          },
+          {
+            "@type": "CreativeWork",
+            name: "Full Home Renovation Project",
+            creator: {
+              "@id": `${siteUrl}/#organization`
+            }
+          }
+        ]
+      },
+
+      {
+        "@type": "AggregateRating",
+        "@id": `${siteUrl}/#reviews`,
+        itemReviewed: {
+          "@id": `${siteUrl}/#localbusiness`
+        },
+        ratingValue: "5",
+        reviewCount: "120"
+      },
+
+      {
+        "@type": "ContactAction",
+        target: `${siteUrl}/contact`,
+        name: "Request Renovation Consultation"
+      }
+
+    ]
+
+  };
 
   return (
     <>
       <Script
-        id="homepage-structured-data"
+        id="seo-schema-home"
         type="application/ld+json"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{

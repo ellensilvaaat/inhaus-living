@@ -9,7 +9,7 @@ import Features from "./components/Features/Features";
 import RenovationProcess from "./components/RenovationProcess/RenovationProcess";
 import ContactForm from "./components/ContactForm/ContactForm";
 
-const siteUrl = "https://inhausliving.com.au";
+const siteUrl = "https://inhaus-living.vercel.app";
 const pagePath = "/kitchen-renovations-sydney";
 const pageUrl = `${siteUrl}${pagePath}`;
 
@@ -22,8 +22,19 @@ export const metadata: Metadata = {
   description:
     "Premium kitchen renovations in Sydney by licensed and insured builders with 20+ years experience. Custom luxury kitchens designed for performance, elegance and long-term value.",
 
+  keywords: [
+    "kitchen renovations sydney",
+    "kitchen renovation company sydney",
+    "luxury kitchen renovations sydney",
+    "kitchen remodeling sydney",
+    "custom kitchen renovation sydney",
+    "kitchen design and renovation sydney",
+    "modern kitchen renovations sydney",
+    "kitchen renovation specialists sydney"
+  ],
+
   alternates: {
-    canonical: pagePath,
+    canonical: pageUrl,
   },
 
   robots: {
@@ -39,7 +50,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    type: "article",
+    type: "website",
     title:
       "Luxury Kitchen Renovations Sydney | Custom Kitchen Builders | Inhaus Living",
     description:
@@ -73,7 +84,9 @@ export default function KitchenRenovationsPage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
-      /* WebPage */
+
+      /* PAGE */
+
       {
         "@type": "WebPage",
         "@id": `${pageUrl}#webpage`,
@@ -87,7 +100,8 @@ export default function KitchenRenovationsPage() {
         inLanguage: "en-AU",
       },
 
-      /* Primary Service */
+      /* SERVICE */
+
       {
         "@type": "Service",
         "@id": `${pageUrl}#service`,
@@ -100,25 +114,82 @@ export default function KitchenRenovationsPage() {
           "@type": "City",
           name: "Sydney",
         },
+        serviceArea: {
+          "@type": "AdministrativeArea",
+          name: "New South Wales",
+        },
         description:
           "Luxury kitchen renovations including custom cabinetry, premium stone benchtops, European appliances and full kitchen redesigns.",
+        offers: {
+          "@type": "Offer",
+          availability: "https://schema.org/InStock",
+          areaServed: "Sydney"
+        }
       },
 
-      /* Local Business Reinforcement */
+      /* LOCAL BUSINESS */
+
       {
         "@type": "HomeAndConstructionBusiness",
-        "@id": `${siteUrl}/#organization`,
-        name: "Inhaus Living",
-        url: siteUrl,
-        telephone: "+61296623509",
-        priceRange: "$$$$",
+        "@id": `${siteUrl}/#kitchen-renovation-business`,
+        name: "Inhaus Living Kitchen Renovations Sydney",
+        parentOrganization: {
+          "@id": `${siteUrl}/#organization`
+        },
         areaServed: {
           "@type": "City",
-          name: "Sydney",
+          name: "Sydney"
         },
+        serviceType: "Kitchen Renovations"
       },
 
-      /* Breadcrumb */
+      /* IMAGE */
+
+      {
+        "@type": "ImageObject",
+        "@id": `${pageUrl}#gallery`,
+        contentUrl: `${siteUrl}/og-kitchen-renovations.jpg`,
+        caption: "Luxury kitchen renovation project in Sydney"
+      },
+
+      /* FAQ */
+
+      {
+        "@type": "FAQPage",
+        "@id": `${pageUrl}#faq`,
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "How much does a kitchen renovation cost in Sydney?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text:
+                "Kitchen renovation costs in Sydney depend on size, materials and layout changes. Custom cabinetry, stone benchtops and premium appliances can influence the final project cost."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "How long does a kitchen renovation take?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text:
+                "Most kitchen renovations take between three to six weeks depending on the complexity of the design, cabinetry manufacturing and installation stages."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "Do I need council approval for a kitchen renovation?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text:
+                "Most kitchen renovations do not require council approval unless structural changes or plumbing modifications significantly alter the layout of the property."
+            }
+          }
+        ]
+      },
+
+      /* BREADCRUMB */
+
       {
         "@type": "BreadcrumbList",
         "@id": `${pageUrl}#breadcrumb`,

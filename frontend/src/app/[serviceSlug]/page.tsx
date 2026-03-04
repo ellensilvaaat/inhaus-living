@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 
-import { services } from "@/lib/ serviceConfig";
+import { services } from "@/lib/serviceConfig";
 import { parseServiceSlug } from "@/lib/slugParser";
 
 import Hero from "../components/Hero/Hero";
@@ -16,7 +16,7 @@ import ProjectsCarousel from "@/components/Home/ProjectsCarousel/ProjectsCarouse
 import FeedbackSection from "../components/FeedbackSectionStatic/FeedbackSectionStatic";
 import Footer from "../components/Footer/Footer";
 
-const siteUrl = "https://www.inhausliving.com.au";
+const siteUrl = "https://inhaus-living.vercel.app";
 
 interface PageProps {
   params: Promise<{ serviceSlug: string }>;
@@ -50,34 +50,54 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
+
   const { serviceSlug } = await params;
   const parsed = parseServiceSlug(serviceSlug);
 
   if (!parsed) return {};
 
   const suburbName = formatSuburbName(parsed.suburb);
+
   const pagePath = `/${serviceSlug}/`;
   const pageUrl = `${siteUrl}${pagePath}`;
 
   return {
-    title: `${parsed.config.label} ${suburbName} | ${parsed.config.businessName}`,
+    title: `${parsed.config.label} ${suburbName} | Licensed Specialists | ${parsed.config.businessName}`,
 
-    description: `Premium ${parsed.config.label.toLowerCase()} in ${suburbName}. Licensed renovation specialists delivering high-quality craftsmanship.`,
+    description: `Professional ${parsed.config.label.toLowerCase()} in ${suburbName}. ${parsed.config.businessName} delivers premium renovation and construction services with licensed builders, premium materials and over 20 years of experience.`,
+
+    keywords: [
+      `${parsed.config.label.toLowerCase()} ${suburbName}`,
+      `${parsed.config.label.toLowerCase()} services ${suburbName}`,
+      `${parsed.config.label.toLowerCase()} company ${suburbName}`,
+      `${parsed.config.label.toLowerCase()} specialists ${suburbName}`,
+      `${parsed.config.label.toLowerCase()} contractors ${suburbName}`,
+      `${parsed.config.label.toLowerCase()} Sydney`,
+      `${parsed.config.label.toLowerCase()} Canberra`,
+      `${parsed.config.label.toLowerCase()} Australia`
+    ],
 
     alternates: {
-      canonical: pagePath,
+      canonical: pageUrl,
     },
 
     robots: {
       index: true,
       follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
     },
 
     openGraph: {
-      type: "article",
+      type: "website",
       url: pageUrl,
       title: `${parsed.config.label} ${suburbName}`,
-      description: `Professional ${parsed.config.label.toLowerCase()} in ${suburbName}.`,
+      description: `Premium ${parsed.config.label.toLowerCase()} services in ${suburbName}.`,
       siteName: parsed.config.businessName,
       locale: "en_AU",
       images: [
@@ -93,15 +113,18 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title: `${parsed.config.label} ${suburbName}`,
-      description: `Premium ${parsed.config.label.toLowerCase()} in ${suburbName}.`,
+      description: `Professional ${parsed.config.label.toLowerCase()} services in ${suburbName}.`,
       images: [parsed.config.heroImage],
     },
+
+    category: "Construction",
   };
 }
 
 /* ================= PAGE ================= */
 
 export default async function ServicePage({ params }: PageProps) {
+
   const { serviceSlug } = await params;
   const parsed = parseServiceSlug(serviceSlug);
 
@@ -127,11 +150,13 @@ export default async function ServicePage({ params }: PageProps) {
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
+
       {
         "@type": "WebPage",
         "@id": `${pageUrl}#webpage`,
         url: pageUrl,
         name: `${parsed.config.label} ${suburbName}`,
+        description: `Professional ${parsed.config.label.toLowerCase()} services in ${suburbName}.`,
         isPartOf: {
           "@id": `${siteUrl}/#website`,
         },
@@ -143,14 +168,59 @@ export default async function ServicePage({ params }: PageProps) {
         "@id": `${pageUrl}#service`,
         name: `${parsed.config.label} ${suburbName}`,
         serviceType: parsed.config.label,
-        areaServed: {
-          "@type": "AdministrativeArea",
-          name: suburbName,
-        },
         provider: {
           "@id": `${siteUrl}/#organization`,
         },
+        areaServed: {
+          "@type": "Place",
+          name: suburbName,
+        },
         url: pageUrl,
+      },
+
+      {
+        "@type": "HomeAndConstructionBusiness",
+        "@id": `${siteUrl}/#${parsed.serviceKey}-${parsed.suburb}`,
+        name: `${parsed.config.businessName} ${parsed.config.label} ${suburbName}`,
+        parentOrganization: {
+          "@id": `${siteUrl}/#organization`
+        },
+        telephone: phoneRaw,
+        areaServed: {
+          "@type": "Place",
+          name: suburbName
+        },
+        serviceType: parsed.config.label
+      },
+
+      {
+        "@type": "ImageObject",
+        "@id": `${pageUrl}#image`,
+        contentUrl: parsed.config.heroImage,
+        caption: `${parsed.config.label} ${suburbName}`
+      },
+
+      {
+        "@type": "FAQPage",
+        "@id": `${pageUrl}#faq`,
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: `How much does ${parsed.config.label.toLowerCase()} cost in ${suburbName}?`,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: `The cost of ${parsed.config.label.toLowerCase()} in ${suburbName} varies depending on project size, materials and complexity. Professional builders provide tailored quotes based on your project requirements.`
+            }
+          },
+          {
+            "@type": "Question",
+            name: `How long does ${parsed.config.label.toLowerCase()} take in ${suburbName}?`,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: `The duration of ${parsed.config.label.toLowerCase()} projects in ${suburbName} depends on the scope of work, design requirements and construction stages involved.`
+            }
+          }
+        ]
       },
 
       {
@@ -177,6 +247,7 @@ export default async function ServicePage({ params }: PageProps) {
           },
         ],
       },
+
     ],
   };
 
@@ -191,6 +262,7 @@ export default async function ServicePage({ params }: PageProps) {
       />
 
       <main>
+
         <Hero
           suburbName={suburbName}
           renovationLabel={parsed.config.label}
@@ -230,6 +302,7 @@ export default async function ServicePage({ params }: PageProps) {
         />
 
         <ProjectsCarousel />
+
         <FeedbackSection />
 
         <ContactForm
@@ -241,6 +314,7 @@ export default async function ServicePage({ params }: PageProps) {
         />
 
         <Footer region={isCanberra ? "canberra" : "sydney"} />
+
       </main>
     </>
   );

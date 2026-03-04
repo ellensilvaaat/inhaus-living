@@ -9,7 +9,7 @@ import Features from "./components/Features/Features";
 import RenovationProcess from "./components/RenovationProcess/RenovationProcess";
 import ContactForm from "./components/ContactForm/ContactForm";
 
-const siteUrl = "https://inhausliving.com.au";
+const siteUrl = "https://inhaus-living.vercel.app";
 const pagePath = "/bathroom-renovations-sydney";
 const pageUrl = `${siteUrl}${pagePath}`;
 
@@ -22,8 +22,19 @@ export const metadata: Metadata = {
   description:
     "Premium bathroom renovations in Sydney by licensed and insured builders with over 20 years experience. Custom luxury bathroom design, waterproofing compliance and high-end finishes tailored to your home.",
 
+  keywords: [
+    "bathroom renovations sydney",
+    "bathroom renovation company sydney",
+    "luxury bathroom renovations sydney",
+    "bathroom remodeling sydney",
+    "bathroom renovation builder sydney",
+    "custom bathroom renovation sydney",
+    "bathroom renovation specialists sydney",
+    "bathroom design and renovation sydney"
+  ],
+
   alternates: {
-    canonical: pagePath,
+    canonical: pageUrl,
   },
 
   robots: {
@@ -39,7 +50,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    type: "article",
+    type: "website",
     title:
       "Luxury Bathroom Renovations Sydney | Trusted Renovation Specialists",
     description:
@@ -73,7 +84,9 @@ export default function BathroomRenovationsPage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
-      /* WebPage */
+
+      /* PAGE */
+
       {
         "@type": "WebPage",
         "@id": `${pageUrl}#webpage`,
@@ -87,12 +100,13 @@ export default function BathroomRenovationsPage() {
         inLanguage: "en-AU",
       },
 
-      /* Primary Service */
+      /* SERVICE */
+
       {
         "@type": "Service",
         "@id": `${pageUrl}#service`,
         name: "Bathroom Renovations Sydney",
-        serviceType: "Bathroom Renovation and Design",
+        serviceType: "Bathroom Renovations",
         provider: {
           "@id": `${siteUrl}/#organization`,
         },
@@ -100,25 +114,82 @@ export default function BathroomRenovationsPage() {
           "@type": "City",
           name: "Sydney",
         },
+        serviceArea: {
+          "@type": "AdministrativeArea",
+          name: "New South Wales",
+        },
         description:
           "Luxury bathroom renovations including waterproofing compliance, custom vanities, premium tiling and full design & build services.",
+        offers: {
+          "@type": "Offer",
+          availability: "https://schema.org/InStock",
+          areaServed: "Sydney"
+        }
       },
 
-      /* Local Business Reinforcement */
+      /* LOCAL BUSINESS */
+
       {
         "@type": "HomeAndConstructionBusiness",
-        "@id": `${siteUrl}/#organization`,
-        name: "Inhaus Living",
-        url: siteUrl,
-        telephone: "+61296623509",
-        priceRange: "$$$$",
+        "@id": `${siteUrl}/#bathroom-renovation-business`,
+        name: "Inhaus Living Bathroom Renovations Sydney",
+        parentOrganization: {
+          "@id": `${siteUrl}/#organization`
+        },
         areaServed: {
           "@type": "City",
-          name: "Sydney",
+          name: "Sydney"
         },
+        serviceType: "Bathroom Renovations"
       },
 
-      /* Breadcrumb */
+      /* IMAGE */
+
+      {
+        "@type": "ImageObject",
+        "@id": `${pageUrl}#gallery`,
+        contentUrl: `${siteUrl}/og-bathroom-renovations.jpg`,
+        caption: "Luxury bathroom renovation project in Sydney"
+      },
+
+      /* FAQ */
+
+      {
+        "@type": "FAQPage",
+        "@id": `${pageUrl}#faq`,
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "How much does a bathroom renovation cost in Sydney?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text:
+                "Bathroom renovation costs in Sydney depend on layout changes, materials and finishes. Projects can range from mid-range updates to luxury custom bathrooms depending on the scope of work."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "How long does a bathroom renovation take?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text:
+                "Most bathroom renovations take between 2 to 4 weeks depending on the complexity of plumbing, waterproofing, tiling and custom cabinetry."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "Do bathroom renovations require waterproofing certification?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text:
+                "Yes. Australian building regulations require compliant waterproofing systems for bathroom renovations to ensure long-term durability and protection against water damage."
+            }
+          }
+        ]
+      },
+
+      /* BREADCRUMB */
+
       {
         "@type": "BreadcrumbList",
         "@id": `${pageUrl}#breadcrumb`,
@@ -151,6 +222,7 @@ export default function BathroomRenovationsPage() {
       <Script
         id="bathroom-renovations-structured-data"
         type="application/ld+json"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(structuredData),
         }}

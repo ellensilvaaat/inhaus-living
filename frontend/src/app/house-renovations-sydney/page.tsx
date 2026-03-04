@@ -7,7 +7,7 @@ import Features from "./components/Features/Features";
 import RenovationProcess from "./components/RenovationProcess/RenovationProcess";
 import ContactForm from "./components/ContactForm/ContactForm";
 
-const siteUrl = "https://inhausliving.com.au";
+const siteUrl = "https://inhaus-living.vercel.app";
 const pagePath = "/house-renovations-sydney";
 const pageUrl = `${siteUrl}${pagePath}`;
 
@@ -20,8 +20,19 @@ export const metadata: Metadata = {
   description:
     "Award-winning house renovations in Sydney by licensed builders with 20+ years experience. Luxury home transformations, extensions and design-led renovations tailored to your lifestyle and long-term property value.",
 
+  keywords: [
+    "house renovations sydney",
+    "home renovations sydney",
+    "full home renovation sydney",
+    "luxury home renovation sydney",
+    "home renovation builders sydney",
+    "house remodeling sydney",
+    "complete home renovation sydney",
+    "home renovation company sydney"
+  ],
+
   alternates: {
-    canonical: pagePath,
+    canonical: pageUrl,
   },
 
   robots: {
@@ -37,7 +48,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    type: "article",
+    type: "website",
     title:
       "Luxury House Renovations Sydney | Trusted Home Renovators | Inhaus Living",
     description:
@@ -71,7 +82,9 @@ export default function HouseRenovationsPage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
-      /* WebPage */
+
+      /* PAGE */
+
       {
         "@type": "WebPage",
         "@id": `${pageUrl}#webpage`,
@@ -85,7 +98,8 @@ export default function HouseRenovationsPage() {
         inLanguage: "en-AU",
       },
 
-      /* Primary Service */
+      /* SERVICE */
+
       {
         "@type": "Service",
         "@id": `${pageUrl}#service`,
@@ -98,25 +112,82 @@ export default function HouseRenovationsPage() {
           "@type": "City",
           name: "Sydney",
         },
+        serviceArea: {
+          "@type": "AdministrativeArea",
+          name: "New South Wales",
+        },
         description:
           "Luxury house renovations including structural upgrades, home extensions and complete interior redesigns.",
+        offers: {
+          "@type": "Offer",
+          availability: "https://schema.org/InStock",
+          areaServed: "Sydney"
+        }
       },
 
-      /* Local Business Reinforcement */
+      /* LOCAL BUSINESS */
+
       {
         "@type": "HomeAndConstructionBusiness",
-        "@id": `${siteUrl}/#organization`,
-        name: "Inhaus Living",
-        url: siteUrl,
-        telephone: "+61296623509",
-        priceRange: "$$$$",
+        "@id": `${siteUrl}/#house-renovation-business`,
+        name: "Inhaus Living House Renovations Sydney",
+        parentOrganization: {
+          "@id": `${siteUrl}/#organization`
+        },
         areaServed: {
           "@type": "City",
-          name: "Sydney",
+          name: "Sydney"
         },
+        serviceType: "House Renovations"
       },
 
-      /* Breadcrumb */
+      /* IMAGE */
+
+      {
+        "@type": "ImageObject",
+        "@id": `${pageUrl}#gallery`,
+        contentUrl: `${siteUrl}/og-house-renovations.jpg`,
+        caption: "Luxury full house renovation project in Sydney"
+      },
+
+      /* FAQ */
+
+      {
+        "@type": "FAQPage",
+        "@id": `${pageUrl}#faq`,
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "How much does a house renovation cost in Sydney?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text:
+                "House renovation costs in Sydney vary depending on the size of the property, structural changes and finishes. Full home renovations typically involve design, structural work, compliance and high-quality materials."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "Do house renovations require council approval?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text:
+                "Some house renovations require council approval or a complying development certificate depending on the scope of structural changes. Professional renovation builders can assist with planning and approvals."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "How long does a full home renovation take?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text:
+                "Full home renovations may take several months depending on the scope of work, design complexity and structural upgrades involved in the project."
+            }
+          }
+        ]
+      },
+
+      /* BREADCRUMB */
+
       {
         "@type": "BreadcrumbList",
         "@id": `${pageUrl}#breadcrumb`,

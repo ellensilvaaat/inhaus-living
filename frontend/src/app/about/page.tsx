@@ -7,7 +7,7 @@ import CounterSection from "@/components/About/CounterSection/CounterSection";
 import WhyChooseUs from "@/components/About/DifferentialSection/DifferentialSection";
 import TrustedPartners from "@/components/About/TrustedPartners/TrustedPartners";
 
-const siteUrl = "https://inhausliving.com.au";
+const siteUrl = "https://inhaus-living.vercel.app";
 const pagePath = "/about";
 const pageUrl = `${siteUrl}${pagePath}`;
 
@@ -18,7 +18,15 @@ export const metadata: Metadata = {
     "About Inhaus Living | 20+ Years of Luxury Renovations in Sydney & Canberra",
 
   description:
-    "For over 20 years, Inhaus Living has delivered premium home, kitchen and bathroom renovations across Sydney and Canberra. Discover our story, expertise and commitment to craftsmanship.",
+    "Discover the story behind Inhaus Living — a premium renovation and construction company delivering luxury home transformations across Sydney and Canberra for over 20 years.",
+
+  keywords: [
+    "inhaus living",
+    "renovation company sydney",
+    "luxury renovations sydney",
+    "construction company canberra",
+    "home renovation experts australia"
+  ],
 
   alternates: {
     canonical: pagePath,
@@ -27,13 +35,6 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
   },
 
   openGraph: {
@@ -70,10 +71,15 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+
   const structuredData = {
+
     "@context": "https://schema.org",
+
     "@graph": [
-      /* About Page */
+
+      /* WebPage */
+
       {
         "@type": "AboutPage",
         "@id": `${pageUrl}#webpage`,
@@ -84,13 +90,29 @@ export default function AboutPage() {
         isPartOf: {
           "@id": `${siteUrl}/#website`,
         },
-        mainEntity: {
-          "@id": `${siteUrl}/#organization`,
+        primaryImageOfPage: {
+          "@type": "ImageObject",
+          url: "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/michael-alake-Ys1Yo1kxxCE-unsplash.jpg"
         },
-        inLanguage: "en-AU",
+        mainEntity: {
+          "@id": `${siteUrl}/#organization`
+        }
       },
 
-      /* Organization Reinforcement */
+      /* Website */
+
+      {
+        "@type": "WebSite",
+        "@id": `${siteUrl}/#website`,
+        url: siteUrl,
+        name: "Inhaus Living",
+        publisher: {
+          "@id": `${siteUrl}/#organization`
+        }
+      },
+
+      /* Organization */
+
       {
         "@type": "Organization",
         "@id": `${siteUrl}/#organization`,
@@ -98,47 +120,154 @@ export default function AboutPage() {
         url: siteUrl,
         logo: {
           "@type": "ImageObject",
-          url: `${siteUrl}/logo.png`,
+          url: `${siteUrl}/logo.png`
+        },
+        sameAs: [
+          "https://www.instagram.com/inhaus_living",
+          "https://www.facebook.com/inhausliving.com.au"
+        ]
+      },
+
+      /* Local Business */
+
+      {
+        "@type": "LocalBusiness",
+        "@id": `${siteUrl}/#localbusiness`,
+        name: "Inhaus Living",
+        url: siteUrl,
+        description:
+          "Luxury renovation and construction company specializing in kitchens, bathrooms and full home transformations.",
+        parentOrganization: {
+          "@id": `${siteUrl}/#organization`
         },
         areaServed: [
           {
             "@type": "City",
-            name: "Sydney",
+            name: "Sydney"
           },
           {
             "@type": "City",
-            name: "Canberra",
-          },
+            name: "Canberra"
+          }
         ],
+        priceRange: "$$$"
+      },
+
+      /* Experience / Company Facts */
+
+      {
+        "@type": "QuantitativeValue",
+        "@id": `${pageUrl}#experience`,
+        name: "Years of Experience",
+        value: 20
+      },
+
+      {
+        "@type": "QuantitativeValue",
+        "@id": `${pageUrl}#projects`,
+        name: "Projects Completed",
+        value: 800
+      },
+
+      {
+        "@type": "QuantitativeValue",
+        "@id": `${pageUrl}#partners`,
+        name: "Trusted Business Partners",
+        value: 35
+      },
+
+      /* Mission */
+
+      {
+        "@type": "CreativeWork",
+        "@id": `${pageUrl}#mission`,
+        name: "Company Mission",
+        text: "To deliver exceptional renovation and construction experiences through craftsmanship, transparency and thoughtful design."
+      },
+
+      /* Why Choose Us */
+
+      {
+        "@type": "ItemList",
+        "@id": `${pageUrl}#whychoose`,
+        name: "Why Choose Inhaus Living",
+        itemListElement: [
+
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Over 20 years of renovation experience"
+          },
+
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Licensed builders and expert craftsmen"
+          },
+
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Design-build renovation process"
+          },
+
+          {
+            "@type": "ListItem",
+            position: 4,
+            name: "Premium materials and finishes"
+          }
+
+        ]
+      },
+
+      /* Partners */
+
+      {
+        "@type": "ItemList",
+        "@id": `${pageUrl}#partnerslist`,
+        name: "Trusted Construction Partners",
+        itemListElement: [
+          {
+            "@type": "Organization",
+            name: "Trusted Partner"
+          }
+        ]
       },
 
       /* Breadcrumb */
+
       {
         "@type": "BreadcrumbList",
         "@id": `${pageUrl}#breadcrumb`,
         itemListElement: [
+
           {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: siteUrl,
+            item: siteUrl
           },
+
           {
             "@type": "ListItem",
             position: 2,
             name: "About",
-            item: pageUrl,
-          },
-        ],
-      },
-    ],
+            item: pageUrl
+          }
+
+        ]
+      }
+
+    ]
+
   };
 
   return (
     <>
       <Script
-        id="about-structured-data"
+        id="about-schema"
         type="application/ld+json"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(structuredData),
         }}

@@ -5,7 +5,7 @@ import Script from "next/script";
 import { projectsData } from "@/content/projects";
 import ProjectDetail from "@/components/Projects/projectDetail/projectDetail";
 
-const siteUrl = "https://inhausliving.com.au";
+const siteUrl = "https://inhaus-living.vercel.app";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -54,9 +54,9 @@ function buildDescription(title: string, slug: string, content: string) {
 
 /* ================= METADATA ================= */
 
-export async function generateMetadata(
-  { params }: PageProps
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params;
 
   const project = projectsData.find((p) => p.slug === slug);
@@ -70,11 +70,7 @@ export async function generateMetadata(
 
   const service = detectServiceType(slug);
   const location = detectLocation(slug);
-  const description = buildDescription(
-    project.title,
-    slug,
-    project.content
-  );
+  const description = buildDescription(project.title, slug, project.content);
 
   const pagePath = `/projects/${slug}`;
   const url = `${siteUrl}${pagePath}`;
@@ -85,6 +81,20 @@ export async function generateMetadata(
     title: `${project.title} | ${service} in ${location} | Inhaus Living`,
 
     description,
+
+    keywords: [
+      `${service} ${location}`,
+      `${service} Sydney`,
+      `${service} Canberra`,
+      "luxury renovation project",
+      "renovation portfolio",
+      "kitchen renovation project",
+      "bathroom renovation project",
+      "apartment renovation project",
+      "full home renovation project",
+      "home extension project",
+      "Inhaus Living",
+    ],
 
     alternates: {
       canonical: pagePath,
@@ -140,42 +150,57 @@ export default async function ProjectPage({ params }: PageProps) {
   const location = detectLocation(slug);
 
   const pageUrl = `${siteUrl}/projects/${slug}`;
-  const plainDescription = buildDescription(
-    project.title,
-    slug,
-    project.content
-  );
+  const plainDescription = buildDescription(project.title, slug, project.content);
+
+  const gallery =
+    project.gallery?.length
+      ? project.gallery
+      : project.gallery?.length
+      ? project.gallery
+      : [project.heroImage];
 
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Article",
-        "@id": `${pageUrl}#article`,
-        headline: project.title,
-        description: plainDescription,
-        image: [project.heroImage],
-        mainEntityOfPage: {
-          "@type": "WebPage",
-          "@id": `${pageUrl}#webpage`,
-        },
-        author: {
-          "@id": `${siteUrl}/#organization`,
-        },
-        publisher: {
-          "@id": `${siteUrl}/#organization`,
-        },
-      },
-      {
         "@type": "WebPage",
         "@id": `${pageUrl}#webpage`,
         url: pageUrl,
         name: project.title,
+        description: plainDescription,
         isPartOf: {
           "@id": `${siteUrl}/#website`,
         },
         inLanguage: "en-AU",
       },
+
+      // Project entity as a work
+      {
+        "@type": "CreativeWork",
+        "@id": `${pageUrl}#project`,
+        name: project.title,
+        description: plainDescription,
+        url: pageUrl,
+        image: gallery,
+        creator: {
+          "@id": `${siteUrl}/#organization`,
+        },
+      },
+
+      // Optional but very effective: "Residence" entity for renovation projects
+      {
+        "@type": "Residence",
+        "@id": `${pageUrl}#residence`,
+        name: project.title,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: location,
+          addressRegion: "NSW",
+          addressCountry: "AU",
+        },
+      },
+
+      // The service this project represents (Google loves this for local intent)
       {
         "@type": "Service",
         "@id": `${pageUrl}#service`,
@@ -189,6 +214,17 @@ export default async function ProjectPage({ params }: PageProps) {
           name: location,
         },
       },
+
+      // Gallery as explicit entity
+      {
+        "@type": "ImageGallery",
+        "@id": `${pageUrl}#gallery`,
+        associatedMedia: gallery.map((img: string) => ({
+          "@type": "ImageObject",
+          contentUrl: img,
+        })),
+      },
+
       {
         "@type": "BreadcrumbList",
         "@id": `${pageUrl}#breadcrumb`,

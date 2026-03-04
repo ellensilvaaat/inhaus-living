@@ -9,7 +9,7 @@ import Features from "./components/Features/Features";
 import RenovationProcess from "./components/RenovationProcess/RenovationProcess";
 import ContactForm from "./components/ContactForm/ContactForm";
 
-const siteUrl = "https://inhausliving.com.au";
+const siteUrl = "https://inhaus-living.vercel.app";
 const pagePath = "/flooring-services-sydney";
 const pageUrl = `${siteUrl}${pagePath}`;
 
@@ -22,8 +22,19 @@ export const metadata: Metadata = {
   description:
     "Premium flooring installation in Sydney, NSW. Timber, engineered and hybrid flooring installed by licensed specialists delivering precision craftsmanship and long-lasting durability.",
 
+  keywords: [
+    "flooring installation sydney",
+    "timber flooring sydney",
+    "engineered flooring sydney",
+    "hybrid flooring sydney",
+    "flooring installation company sydney",
+    "floor renovation sydney",
+    "timber floor installers sydney",
+    "flooring specialists sydney"
+  ],
+
   alternates: {
-    canonical: pagePath,
+    canonical: pageUrl,
   },
 
   robots: {
@@ -39,7 +50,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    type: "article",
+    type: "website",
     url: pageUrl,
     title:
       "Flooring Installation Sydney | Timber & Hybrid Flooring Experts",
@@ -73,7 +84,9 @@ export default function FlooringServicesSydneyPage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
-      /* WebPage */
+
+      /* PAGE */
+
       {
         "@type": "WebPage",
         "@id": `${pageUrl}#webpage`,
@@ -87,7 +100,8 @@ export default function FlooringServicesSydneyPage() {
         inLanguage: "en-AU",
       },
 
-      /* Primary Service */
+      /* SERVICE */
+
       {
         "@type": "Service",
         "@id": `${pageUrl}#service`,
@@ -101,25 +115,82 @@ export default function FlooringServicesSydneyPage() {
           "@type": "City",
           name: "Sydney",
         },
+        serviceArea: {
+          "@type": "AdministrativeArea",
+          name: "New South Wales",
+        },
         description:
           "Professional timber, engineered and hybrid flooring installation including subfloor preparation and premium finishes across Sydney, NSW.",
+        offers: {
+          "@type": "Offer",
+          availability: "https://schema.org/InStock",
+          areaServed: "Sydney"
+        }
       },
 
-      /* Local Business Reinforcement */
+      /* LOCAL BUSINESS */
+
       {
         "@type": "HomeAndConstructionBusiness",
-        "@id": `${siteUrl}/#organization`,
-        name: "Inhaus Living",
-        url: siteUrl,
-        telephone: "+61296623509",
-        priceRange: "$$$",
+        "@id": `${siteUrl}/#flooring-installation-business`,
+        name: "Inhaus Living Flooring Services Sydney",
+        parentOrganization: {
+          "@id": `${siteUrl}/#organization`
+        },
         areaServed: {
           "@type": "City",
-          name: "Sydney",
+          name: "Sydney"
         },
+        serviceType: "Flooring Installation"
       },
 
-      /* Breadcrumb */
+      /* IMAGE */
+
+      {
+        "@type": "ImageObject",
+        "@id": `${pageUrl}#gallery`,
+        contentUrl: `${siteUrl}/og-flooring-services.jpg`,
+        caption: "Premium timber flooring installation project in Sydney"
+      },
+
+      /* FAQ */
+
+      {
+        "@type": "FAQPage",
+        "@id": `${pageUrl}#faq`,
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "What flooring options are best for homes in Sydney?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text:
+                "Popular flooring options in Sydney include engineered timber, solid timber and hybrid flooring. These materials provide durability, moisture resistance and a premium aesthetic suitable for modern homes."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "How long does flooring installation take?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text:
+                "Most flooring installations take between one to three days depending on the floor area, preparation required and the type of flooring being installed."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "Do floors need preparation before installation?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text:
+                "Yes. Proper subfloor preparation ensures long-lasting performance. This may include leveling, moisture testing and removing old flooring before installing new timber, engineered or hybrid flooring."
+            }
+          }
+        ]
+      },
+
+      /* BREADCRUMB */
+
       {
         "@type": "BreadcrumbList",
         "@id": `${pageUrl}#breadcrumb`,

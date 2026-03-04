@@ -7,7 +7,7 @@ import Features from "./components/Features/Features";
 import RenovationProcess from "./components/RenovationProcess/RenovationProcess";
 import ContactForm from "./components/ContactForm/ContactForm";
 
-const siteUrl = "https://inhausliving.com.au";
+const siteUrl = "https://inhaus-living.vercel.app";
 const pagePath = "/construction-additions-sydney";
 const pageUrl = `${siteUrl}${pagePath}`;
 
@@ -20,8 +20,19 @@ export const metadata: Metadata = {
   description:
     "Premium home extensions and construction services in Sydney. Licensed builders delivering second storey additions, ground floor extensions and structural renovations across NSW.",
 
+  keywords: [
+    "home extensions sydney",
+    "home construction sydney",
+    "second storey additions sydney",
+    "house extensions sydney",
+    "home addition builders sydney",
+    "home extension builders sydney",
+    "structural renovation sydney",
+    "house construction company sydney"
+  ],
+
   alternates: {
-    canonical: pagePath,
+    canonical: pageUrl,
   },
 
   robots: {
@@ -37,7 +48,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    type: "article",
+    type: "website",
     url: pageUrl,
     title:
       "Home Extensions Sydney | Construction & Additions Experts",
@@ -71,7 +82,9 @@ export default function ConstructionAdditionsPage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
-      /* WebPage */
+
+      /* PAGE */
+
       {
         "@type": "WebPage",
         "@id": `${pageUrl}#webpage`,
@@ -85,7 +98,8 @@ export default function ConstructionAdditionsPage() {
         inLanguage: "en-AU",
       },
 
-      /* Primary Service */
+      /* SERVICE */
+
       {
         "@type": "Service",
         "@id": `${pageUrl}#service`,
@@ -98,25 +112,82 @@ export default function ConstructionAdditionsPage() {
           "@type": "City",
           name: "Sydney",
         },
+        serviceArea: {
+          "@type": "AdministrativeArea",
+          name: "New South Wales",
+        },
         description:
-          "Premium home extensions including second storey additions, structural renovations and council-compliant construction services across NSW.",
+          "Premium home extensions including second storey additions, structural renovations and council-compliant construction services across Sydney.",
+        offers: {
+          "@type": "Offer",
+          availability: "https://schema.org/InStock",
+          areaServed: "Sydney"
+        }
       },
 
-      /* Local Business Reinforcement */
+      /* LOCAL BUSINESS */
+
       {
         "@type": "HomeAndConstructionBusiness",
-        "@id": `${siteUrl}/#organization`,
-        name: "Inhaus Living",
-        url: siteUrl,
-        telephone: "+61296623509",
-        priceRange: "$$$$",
+        "@id": `${siteUrl}/#construction-business`,
+        name: "Inhaus Living Home Construction Sydney",
+        parentOrganization: {
+          "@id": `${siteUrl}/#organization`
+        },
         areaServed: {
           "@type": "City",
-          name: "Sydney",
+          name: "Sydney"
         },
+        serviceType: "Home Construction and Extensions"
       },
 
-      /* Breadcrumb */
+      /* IMAGE */
+
+      {
+        "@type": "ImageObject",
+        "@id": `${pageUrl}#gallery`,
+        contentUrl: `${siteUrl}/og-construction-additions.jpg`,
+        caption: "Luxury home extension construction project in Sydney"
+      },
+
+      /* FAQ */
+
+      {
+        "@type": "FAQPage",
+        "@id": `${pageUrl}#faq`,
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "How much does a home extension cost in Sydney?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text:
+                "Home extension costs in Sydney vary depending on size, structural complexity and finishes. Second storey additions and ground floor extensions typically require structural engineering, council approval and licensed builders."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "Do home extensions require council approval in NSW?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text:
+                "Most home extensions require council approval or a complying development certificate in New South Wales. Professional builders can assist with planning, engineering and compliance."
+            }
+          },
+          {
+            "@type": "Question",
+            name: "How long does a home extension take to build?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text:
+                "Construction timelines depend on the complexity of the project, but most home extensions in Sydney take several months including planning, approvals and building stages."
+            }
+          }
+        ]
+      },
+
+      /* BREADCRUMB */
+
       {
         "@type": "BreadcrumbList",
         "@id": `${pageUrl}#breadcrumb`,

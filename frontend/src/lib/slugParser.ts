@@ -1,4 +1,4 @@
-import { services } from "./ serviceConfig";
+import { services } from "./serviceConfig";
 
 export function parseServiceSlug(slug: string) {
   for (const key of Object.keys(services)) {

@@ -21,7 +21,7 @@ interface PageProps {
   }>;
 }
 
-const siteUrl = "https://inhausliving.com.au";
+const siteUrl = "https://inhaus-living.vercel.app";
 
 /* ================= STATIC PARAMS ================= */
 
@@ -58,8 +58,18 @@ export async function generateMetadata(
 
     description: post.description,
 
+    keywords: [
+      "home renovation blog",
+      "Sydney renovation tips",
+      "bathroom renovation Sydney",
+      "kitchen renovation Sydney",
+      "home renovation advice",
+      "construction tips Australia",
+      "Inhaus Living renovation blog"
+    ],
+
     alternates: {
-      canonical: `/blog/${slug}`,
+      canonical: url,
     },
 
     robots: {
@@ -98,6 +108,8 @@ export async function generateMetadata(
       description: post.description,
       images: [post.heroImage],
     },
+
+    category: "Construction",
   };
 }
 
@@ -133,12 +145,20 @@ export default async function BlogSlugPage({
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
+
+      /* BLOG POST */
+
       {
-        "@type": "Article",
+        "@type": "BlogPosting",
         "@id": `${url}#article`,
         headline: post.title,
         description: post.description,
-        image: post.heroImage,
+        image: {
+          "@type": "ImageObject",
+          url: post.heroImage,
+          width: 1200,
+          height: 630
+        },
         datePublished: post.date,
         dateModified: post.date,
         mainEntityOfPage: {
@@ -148,12 +168,30 @@ export default async function BlogSlugPage({
         author: {
           "@type": "Organization",
           "@id": `${siteUrl}/#organization`,
+          name: "Inhaus Living"
         },
         publisher: {
           "@type": "Organization",
           "@id": `${siteUrl}/#organization`,
+          name: "Inhaus Living",
+          logo: {
+            "@type": "ImageObject",
+            url: `${siteUrl}/logo.png`
+          }
         },
+        articleSection: "Home Renovation",
+        keywords: [
+          "home renovation",
+          "kitchen renovation",
+          "bathroom renovation",
+          "Sydney renovation",
+          "construction tips",
+          "home improvement"
+        ]
       },
+
+      /* WEBPAGE */
+
       {
         "@type": "WebPage",
         "@id": `${url}#webpage`,
@@ -164,6 +202,9 @@ export default async function BlogSlugPage({
         },
         inLanguage: "en-AU",
       },
+
+      /* BREADCRUMB */
+
       {
         "@type": "BreadcrumbList",
         "@id": `${url}#breadcrumb`,
@@ -188,6 +229,7 @@ export default async function BlogSlugPage({
           },
         ],
       },
+
     ],
   };
 
@@ -196,6 +238,7 @@ export default async function BlogSlugPage({
       <Script
         id="blogpost-jsonld"
         type="application/ld+json"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(structuredData),
         }}
