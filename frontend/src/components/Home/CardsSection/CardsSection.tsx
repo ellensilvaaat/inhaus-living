@@ -238,7 +238,7 @@ export default function CardsSection() {
               className="cards-section__img-bg"
               loading="lazy"
             />
-
+         <div className="cards-section__overlay"></div>
             <div className="cards-section__content">
               <div className="cards-section__white-box">
                 <h3 className="cards-section__card-title">{card.title}</h3>
