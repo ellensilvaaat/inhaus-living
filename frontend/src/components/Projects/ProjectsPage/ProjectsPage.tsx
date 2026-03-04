@@ -46,8 +46,6 @@ function getProjectType(slug: string) {
   return "Renovation";
 }
 
-/* ================= MAGNETIC (ONLY FOR PAGINATION + LINK) ================= */
-
 function useMagnetic(strength = 10) {
   const [style, setStyle] = useState<React.CSSProperties>({
     transform: "translate3d(0,0,0)",
@@ -76,8 +74,6 @@ function useMagnetic(strength = 10) {
 
   return { onMouseMove, onMouseLeave, style };
 }
-
-/* ================= FRAMER VARIANTS (FIXED TYPES) ================= */
 
 const listVariants: Variants = {
   hidden: {},
@@ -108,6 +104,8 @@ const cardVariants: Variants = {
 export default function ProjectsPage() {
   const [selectedFilter, setSelectedFilter] = useState<string>("All");
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isMobile, setIsMobile] = useState(false);
+
   const projectsPerPage = 5;
   const pathname = usePathname();
 
@@ -121,25 +119,42 @@ export default function ProjectsPage() {
     window.scrollTo({ top: 0 });
   }, [pathname]);
 
-  /* ================= FILTER ================= */
+  /* DETECT MOBILE */
 
-  const filteredProjects: Project[] =
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const visibleFilters = isMobile
+    ? filters.filter((f) => f !== "Building works")
+    : filters;
+
+  /* FILTER */
+
+  const filteredProjects =
     selectedFilter === "All"
-      ? (projectsData as Project[])
-      : (projectsData as Project[]).filter(
+      ? projectsData
+      : projectsData.filter(
           (project) => getProjectType(project.slug) === selectedFilter
         );
 
-  /* ================= PAGINATION ================= */
+  /* PAGINATION */
 
   const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
   const startIndex = (currentPage - 1) * projectsPerPage;
+
   const currentProjects = filteredProjects.slice(
     startIndex,
     startIndex + projectsPerPage
   );
-
-  /* ================= SEGMENTED PILL ================= */
 
   const updatePill = useCallback(() => {
     const btn = filterRefs.current[selectedFilter];
@@ -168,11 +183,11 @@ export default function ProjectsPage() {
       <div className="project-page__header">
         <h2 className="project-page__title">Our Projects</h2>
         <p className="project-page__subtitle">
-          A curated portfolio of luxury renovations and builds — crafted with precision, warmth and restraint.
+          A curated portfolio of luxury renovations and builds — crafted with
+          precision, warmth and restraint.
         </p>
       </div>
 
-      {/* FILTERS (NO MAGNETIC HERE) */}
       <div
         className="project-page__filters project-page__filters--segmented"
         role="tablist"
@@ -184,7 +199,7 @@ export default function ProjectsPage() {
           style={{ width: pillStyle.width, left: pillStyle.left }}
         />
 
-        {filters.map((filter) => (
+        {visibleFilters.map((filter) => (
           <button
             key={filter}
             ref={(el) => {
@@ -206,7 +221,6 @@ export default function ProjectsPage() {
         ))}
       </div>
 
-      {/* PROJECT LIST */}
       <motion.div
         className="project-page__list"
         variants={listVariants}
@@ -278,7 +292,6 @@ export default function ProjectsPage() {
         </AnimatePresence>
       </motion.div>
 
-      {/* PAGINATION */}
       <div className="project-page__pagination">
         <MagneticButton
           className="project-page__page-btn"

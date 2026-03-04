@@ -278,6 +278,16 @@
 /* ================================= */
 /* RESPONSIVE */
 /* ================================= */
+@media (max-width: 500px){
+.contact-page__info {
+    max-width: 350px;
+}
+
+.contact-page__form {
+    max-width: 350px;
+    padding: 3rem 2rem 2rem;
+  }
+}
 
 @media (max-width: 1024px){
 

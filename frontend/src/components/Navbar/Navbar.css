@@ -8,6 +8,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        color: white;
       }
 
       .navbar__container {
@@ -27,6 +28,7 @@
         list-style: none;
         display: flex;
         gap: 3rem;
+        color: white;
       }
 
       .navbar__link {
@@ -47,6 +49,7 @@
         background: none;
         border: none;
         cursor: pointer;
+        color: white;
       }
 
       .navbar__hamburger span {

@@ -185,14 +185,14 @@
    📱 MOBILE — até 500px
 ========================= */
 @media (max-width: 500px) {
-
+  
   .services-section {
     padding: 7rem 1.5rem;
   }
 
   .service {
     flex-direction: column;
-    gap: 4rem;
+    gap: 1rem;
     margin-bottom: 8rem;
     transform: none;
   }
