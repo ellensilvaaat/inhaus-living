@@ -82,7 +82,7 @@ const nextConfig = {
             value: "inhaus-living.vercel.app",
           },
         ],
-        destination: "https://www.inhausliving.com.au/:path*",
+        destination: "inhaus-living.vercel.app/:path*",
         permanent: true,
       },
     ];
