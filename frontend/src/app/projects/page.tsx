@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     "Home Renovation Projects in Sydney & Canberra",
 
   description:
-    "Explore luxury home renovation projects by Inhaus Living across Sydney and Canberra, including kitchens, bathrooms, apartments and full home transformations.",
+    "Explore home renovation projects by Inhaus Living across Sydney and Canberra, including kitchens, bathrooms, apartments and full home transformations.",
 
  keywords: [
   "luxury renovation projects",
