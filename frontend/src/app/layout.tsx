@@ -306,9 +306,7 @@ export default function RootLayout({
         />
 
         <ClientLayoutWrapper>
-          <Navbar />
           <main>{children}</main>
-          <Footer />
         </ClientLayoutWrapper>
 
       </body>
