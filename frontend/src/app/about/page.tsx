@@ -18,15 +18,30 @@ export const metadata: Metadata = {
     "About Inhaus Living | 20+ Years of Luxury Renovations in Sydney & Canberra",
 
   description:
-    "Discover the story behind Inhaus Living — a premium renovation and construction company delivering luxury home transformations across Sydney and Canberra for over 20 years.",
+    "Discover Inhaus Living, a premium renovation and construction company delivering home transformations across Sydney and Canberra.",
 
-  keywords: [
-    "inhaus living",
-    "renovation company sydney",
-    "luxury renovations sydney",
-    "construction company canberra",
-    "home renovation experts australia"
-  ],
+keywords: [
+  "inhaus living",
+  "inhaus living sydney",
+  "about inhaus living",
+  "renovation company sydney",
+  "luxury renovations sydney",
+  "home renovation company sydney",
+  "construction company sydney",
+  "construction company canberra",
+  "home renovation experts australia",
+  "luxury home builders sydney",
+  "design and build company sydney",
+  "premium renovation company australia",
+  "high end home renovations sydney",
+  "custom home renovations sydney",
+  "full home renovation specialists",
+  "kitchen and bathroom renovation experts",
+  "apartment renovation specialists sydney",
+  "design led renovation company",
+  "home transformation specialists australia",
+  "luxury construction company australia"
+],
 
   alternates: {
     canonical: pagePath,

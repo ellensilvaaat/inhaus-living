@@ -14,24 +14,33 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title:
-    "Luxury Renovation Projects in Sydney & Canberra | Inhaus Living Portfolio",
+    "Home Renovation Projects in Sydney & Canberra | Inhaus Living Portfolio",
 
   description:
-    "Discover luxury home renovations completed across Sydney and Canberra. Explore kitchen renovations, bathroom remodels, apartment upgrades and full home transformations crafted by Inhaus Living.",
+    "Explore luxury home renovation projects by Inhaus Living across Sydney and Canberra, including kitchens, bathrooms, apartments and full home transformations.",
 
-  keywords: [
-    "luxury renovation projects",
-    "renovation portfolio sydney",
-    "renovation portfolio canberra",
-    "kitchen renovation projects",
-    "bathroom renovation projects",
-    "apartment renovation projects",
-    "full home renovation projects",
-    "home extension projects",
-    "inhaus living projects",
-    "renovation company sydney",
-    "renovation company canberra",
-  ],
+ keywords: [
+  "luxury renovation projects",
+  "home renovation projects sydney",
+  "home renovation projects canberra",
+  "renovation portfolio sydney",
+  "renovation portfolio canberra",
+  "kitchen renovation projects",
+  "bathroom renovation projects",
+  "apartment renovation projects",
+  "full home renovation projects",
+  "home extension projects",
+  "luxury home renovation portfolio",
+  "completed renovation projects",
+  "before and after home renovation",
+  "design and build projects sydney",
+  "custom home renovation projects",
+  "luxury kitchen renovation projects",
+  "luxury bathroom renovation projects",
+  "apartment renovation portfolio sydney",
+  "modern home renovation projects",
+  "inhaus living projects"
+],
 
   alternates: {
     canonical: pagePath,

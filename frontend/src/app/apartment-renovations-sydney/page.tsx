@@ -20,18 +20,30 @@ export const metadata: Metadata = {
     "Apartment Renovations Sydney | Luxury Strata Renovators | Inhaus Living",
 
   description:
-    "Premium apartment renovations in Sydney by licensed strata renovation specialists with 20+ years experience. Strata-compliant kitchen, bathroom and full apartment transformations delivered with precision and design excellence.",
+    "Premium apartment renovations in Sydney by licensed strata renovation specialists with 20+ years experience. Strata-compliant kitchen, bathroom and full apartment transformations delivered with precision and design excellencePremium apartment renovations in Sydney by licensed strata specialists. Kitchen, bathroom and full apartment transformations delivered with precision.",
 
   keywords: [
-    "apartment renovations sydney",
-    "strata renovations sydney",
-    "apartment renovation company sydney",
-    "apartment kitchen renovation sydney",
-    "apartment bathroom renovation sydney",
-    "strata renovation specialists sydney",
-    "luxury apartment renovation sydney",
-    "sydney apartment remodeling"
-  ],
+  "apartment renovations sydney",
+  "strata renovations sydney",
+  "apartment renovation company sydney",
+  "apartment kitchen renovation sydney",
+  "apartment bathroom renovation sydney",
+  "strata renovation specialists sydney",
+  "luxury apartment renovation sydney",
+  "sydney apartment remodeling",
+  "apartment renovation contractors sydney",
+  "strata compliant renovations sydney",
+  "apartment remodel sydney",
+  "apartment renovation builders sydney",
+  "modern apartment renovations sydney",
+  "apartment renovation experts sydney",
+  "high end apartment renovation sydney",
+  "apartment refurbishment sydney",
+  "apartment renovation design sydney",
+  "strata apartment renovations sydney",
+  "inner city apartment renovation sydney",
+  "apartment renovation specialists sydney"
+],
 
   alternates: {
     canonical: pageUrl,

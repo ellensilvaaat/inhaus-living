@@ -15,20 +15,35 @@ export const metadata: Metadata = {
     "Home Renovation Blog | Sydney & Canberra Experts | Inhaus Living",
 
   description:
-    "Expert renovation insights for Sydney and Canberra homeowners. Discover renovation costs, kitchen design trends, bathroom upgrades and construction advice from industry professionals.",
+    "Expert renovation insights for Sydney and Canberra homeowners. Explore renovation costs, kitchen design trends, bathroom upgrades and expert advice.",
 
-  keywords: [
-    "home renovation blog",
-    "renovation advice Sydney",
-    "home renovation tips Australia",
-    "kitchen renovation ideas Sydney",
-    "bathroom renovation tips Sydney",
-    "home renovation costs Sydney",
-    "construction advice Australia",
-    "luxury home renovation tips",
-    "Sydney renovation blog",
-    "Canberra home renovation tips"
-  ],
+keywords: [
+  "home renovation blog",
+  "renovation advice sydney",
+  "home renovation tips australia",
+  "kitchen renovation ideas sydney",
+  "bathroom renovation tips sydney",
+  "home renovation costs sydney",
+  "construction advice australia",
+  "luxury home renovation tips",
+  "sydney renovation blog",
+  "canberra home renovation tips",
+  "home renovation guide australia",
+  "kitchen design trends australia",
+  "bathroom design trends australia",
+  "renovation planning guide",
+  "how to plan a home renovation",
+  "renovation budget guide",
+  "home extension ideas australia",
+  "apartment renovation tips",
+  "renovation mistakes to avoid",
+  "before and after renovation ideas",
+  "modern kitchen design ideas",
+  "luxury bathroom design ideas",
+  "renovation inspiration australia",
+  "design and build insights",
+  "home improvement blog australia"
+],
 
   alternates: {
     canonical: pageUrl,

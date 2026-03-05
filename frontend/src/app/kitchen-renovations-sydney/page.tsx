@@ -17,21 +17,33 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title:
-    "Kitchen Renovations Sydney | Luxury Kitchen Renovators | Inhaus Living",
+    "Kitchen Renovations Sydney | Kitchen Renovators | Inhaus Living",
 
   description:
-    "Premium kitchen renovations in Sydney by licensed and insured builders with 20+ years experience. Custom luxury kitchens designed for performance, elegance and long-term value.",
+    "Premium kitchen renovations in Sydney by licensed builders with 20+ years experience. Custom luxury kitchens designed for performance and elegance.",
 
   keywords: [
-    "kitchen renovations sydney",
-    "kitchen renovation company sydney",
-    "luxury kitchen renovations sydney",
-    "kitchen remodeling sydney",
-    "custom kitchen renovation sydney",
-    "kitchen design and renovation sydney",
-    "modern kitchen renovations sydney",
-    "kitchen renovation specialists sydney"
-  ],
+  "kitchen renovations sydney",
+  "kitchen renovation company sydney",
+  "luxury kitchen renovations sydney",
+  "kitchen remodeling sydney",
+  "custom kitchen renovation sydney",
+  "kitchen design and renovation sydney",
+  "modern kitchen renovations sydney",
+  "kitchen renovation specialists sydney",
+  "kitchen renovation contractors sydney",
+  "kitchen renovation builders sydney",
+  "kitchen remodel sydney",
+  "high end kitchen renovation sydney",
+  "custom kitchen design sydney",
+  "luxury kitchen design sydney",
+  "kitchen refurbishment sydney",
+  "premium kitchen renovations sydney",
+  "open plan kitchen renovation sydney",
+  "small kitchen renovation sydney",
+  "kitchen upgrade sydney",
+  "kitchen renovation experts sydney"
+],
 
   alternates: {
     canonical: pageUrl,

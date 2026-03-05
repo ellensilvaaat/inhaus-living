@@ -19,16 +19,28 @@ export const metadata: Metadata = {
   description:
     "Contact Inhaus Living for premium kitchen, bathroom and home renovations in Sydney and Canberra. Book a consultation or visit our showroom.",
 
-  keywords: [
-    "contact renovation company Sydney",
-    "Inhaus Living contact",
-    "kitchen renovation Sydney consultation",
-    "bathroom renovation Sydney contact",
-    "home renovation builder Sydney contact",
-    "renovation consultation Canberra",
-    "luxury renovation company Sydney",
-    "Inhaus Living showroom Sydney",
-  ],
+keywords: [
+  "contact renovation company sydney",
+  "inhaus living contact",
+  "kitchen renovation sydney consultation",
+  "bathroom renovation sydney contact",
+  "home renovation builder sydney contact",
+  "renovation consultation canberra",
+  "luxury renovation company sydney",
+  "inhaus living showroom sydney",
+  "book renovation consultation sydney",
+  "home renovation consultation sydney",
+  "kitchen renovation consultation sydney",
+  "bathroom renovation consultation sydney",
+  "design and build consultation sydney",
+  "renovation company contact canberra",
+  "luxury home renovation builders sydney",
+  "visit renovation showroom sydney",
+  "renovation specialists sydney contact",
+  "home renovation experts sydney",
+  "book home renovation consultation",
+  "premium renovation company australia"
+],
 
   alternates: {
     canonical: pageUrl,

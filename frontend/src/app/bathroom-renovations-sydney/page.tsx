@@ -20,18 +20,30 @@ export const metadata: Metadata = {
     "Bathroom Renovations Sydney | Luxury Bathroom Renovators | Inhaus Living",
 
   description:
-    "Premium bathroom renovations in Sydney by licensed and insured builders with over 20 years experience. Custom luxury bathroom design, waterproofing compliance and high-end finishes tailored to your home.",
+    "Premium bathroom renovations in Sydney by licensed builders with 20+ years experience. Custom bathroom design, waterproofing compliance and luxury finishes.",
 
   keywords: [
-    "bathroom renovations sydney",
-    "bathroom renovation company sydney",
-    "luxury bathroom renovations sydney",
-    "bathroom remodeling sydney",
-    "bathroom renovation builder sydney",
-    "custom bathroom renovation sydney",
-    "bathroom renovation specialists sydney",
-    "bathroom design and renovation sydney"
-  ],
+  "bathroom renovations sydney",
+  "bathroom renovation company sydney",
+  "luxury bathroom renovations sydney",
+  "bathroom remodeling sydney",
+  "bathroom renovation builder sydney",
+  "custom bathroom renovation sydney",
+  "bathroom renovation specialists sydney",
+  "bathroom design and renovation sydney",
+  "bathroom renovation contractors sydney",
+  "modern bathroom renovations sydney",
+  "high end bathroom renovation sydney",
+  "small bathroom renovation sydney",
+  "ensuite renovation sydney",
+  "bathroom renovation experts sydney",
+  "bathroom renovation services sydney",
+  "luxury bathroom design sydney",
+  "bathroom refurbishment sydney",
+  "bathroom remodel contractors sydney",
+  "bathroom renovation builders sydney",
+  "premium bathroom renovations sydney"
+],
 
   alternates: {
     canonical: pageUrl,

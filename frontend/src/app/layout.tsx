@@ -38,27 +38,40 @@ export const metadata: Metadata = {
 
   title: {
     default:
-      "Inhaus Living | Luxury Renovations Sydney & Canberra",
+      "Inhaus Living | Renovations Sydney & Canberra",
     template: "%s | Inhaus Living",
   },
 
   description:
-    "Inhaus Living delivers luxury home renovations, kitchen renovations, bathroom renovations, flooring installation and construction services across Sydney and Canberra.",
+    "Inhaus Living delivers premium home, kitchen and bathroom renovations, flooring installation and construction services across Sydney and Canberra.",
 
-  keywords: [
-    "luxury renovations Sydney",
-    "home renovations Sydney",
-    "kitchen renovations Sydney",
-    "bathroom renovations Sydney",
-    "apartment renovations Sydney",
-    "flooring installation Sydney",
-    "construction services Sydney",
-    "home extensions Sydney",
-    "luxury builders Sydney",
-    "renovation company Sydney",
-    "renovations Canberra",
-    "home renovation Canberra",
-  ],
+keywords: [
+  "luxury renovations sydney",
+  "home renovations sydney",
+  "kitchen renovations sydney",
+  "bathroom renovations sydney",
+  "apartment renovations sydney",
+  "flooring installation sydney",
+  "construction services sydney",
+  "home extensions sydney",
+  "luxury builders sydney",
+  "renovation company sydney",
+  "renovations canberra",
+  "home renovation canberra",
+  "design and build company sydney",
+  "premium home renovations sydney",
+  "high end renovations sydney",
+  "custom home renovations sydney",
+  "home renovation specialists sydney",
+  "residential construction sydney",
+  "luxury home builders sydney",
+  "complete home renovation sydney",
+  "full service renovation company",
+  "design led renovation sydney",
+  "modern home renovations sydney",
+  "home transformation sydney",
+  "premium renovation company australia"
+],
 
   alternates: {
     canonical: siteUrl,

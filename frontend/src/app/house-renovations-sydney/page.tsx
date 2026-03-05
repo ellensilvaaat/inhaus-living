@@ -15,21 +15,33 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title:
-    "House Renovations Sydney | Luxury Home Renovators | Inhaus Living",
+    "House Renovations Sydney | Home Renovators | Inhaus Living",
 
   description:
-    "Award-winning house renovations in Sydney by licensed builders with 20+ years experience. Luxury home transformations, extensions and design-led renovations tailored to your lifestyle and long-term property value.",
+    "House renovations in Sydney by licensed builders. Full home transformations, extensions and design-led renovations tailored to your lifestyle.",
 
-  keywords: [
-    "house renovations sydney",
-    "home renovations sydney",
-    "full home renovation sydney",
-    "luxury home renovation sydney",
-    "home renovation builders sydney",
-    "house remodeling sydney",
-    "complete home renovation sydney",
-    "home renovation company sydney"
-  ],
+keywords: [
+  "house renovations sydney",
+  "home renovations sydney",
+  "full home renovation sydney",
+  "luxury home renovation sydney",
+  "home renovation builders sydney",
+  "house remodeling sydney",
+  "complete home renovation sydney",
+  "home renovation company sydney",
+  "home renovation contractors sydney",
+  "custom home renovations sydney",
+  "modern home renovations sydney",
+  "high end home renovations sydney",
+  "house renovation specialists sydney",
+  "home renovation experts sydney",
+  "design and build renovations sydney",
+  "home transformation sydney",
+  "residential renovation builders sydney",
+  "premium home renovations sydney",
+  "whole house renovation sydney",
+  "major home renovations sydney"
+],
 
   alternates: {
     canonical: pageUrl,

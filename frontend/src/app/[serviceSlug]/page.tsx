@@ -64,18 +64,21 @@ export async function generateMetadata({
   return {
     title: `${parsed.config.label} ${suburbName} | Licensed Specialists | ${parsed.config.businessName}`,
 
-    description: `Professional ${parsed.config.label.toLowerCase()} in ${suburbName}. ${parsed.config.businessName} delivers premium renovation and construction services with licensed builders, premium materials and over 20 years of experience.`,
+    description: `Professional ${parsed.config.label.toLowerCase()} in ${suburbName}. ${parsed.config.businessName} delivers premium renovation and construction services.`,
 
-    keywords: [
-      `${parsed.config.label.toLowerCase()} ${suburbName}`,
-      `${parsed.config.label.toLowerCase()} services ${suburbName}`,
-      `${parsed.config.label.toLowerCase()} company ${suburbName}`,
-      `${parsed.config.label.toLowerCase()} specialists ${suburbName}`,
-      `${parsed.config.label.toLowerCase()} contractors ${suburbName}`,
-      `${parsed.config.label.toLowerCase()} Sydney`,
-      `${parsed.config.label.toLowerCase()} Canberra`,
-      `${parsed.config.label.toLowerCase()} Australia`
-    ],
+   keywords: [
+  `${parsed.config.label.toLowerCase()} ${suburbName}`,
+  `${parsed.config.label.toLowerCase()} services ${suburbName}`,
+  `${parsed.config.label.toLowerCase()} company ${suburbName}`,
+  `${parsed.config.label.toLowerCase()} specialists ${suburbName}`,
+  `${parsed.config.label.toLowerCase()} contractors ${suburbName}`,
+  `${parsed.config.label.toLowerCase()} builders ${suburbName}`,
+  `${parsed.config.label.toLowerCase()} renovation ${suburbName}`,
+  `${parsed.config.label.toLowerCase()} experts ${suburbName}`,
+  `${parsed.config.label.toLowerCase()} Sydney`,
+  `${parsed.config.label.toLowerCase()} Canberra`,
+  `${parsed.config.label.toLowerCase()} Australia`
+],
 
     alternates: {
       canonical: pageUrl,
@@ -148,108 +151,127 @@ export default async function ServicePage({ params }: PageProps) {
   /* ================= STRUCTURED DATA ================= */
 
   const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
+  "@context": "https://schema.org",
+  "@graph": [
 
-      {
-        "@type": "WebPage",
-        "@id": `${pageUrl}#webpage`,
-        url: pageUrl,
-        name: `${parsed.config.label} ${suburbName}`,
-        description: `Professional ${parsed.config.label.toLowerCase()} services in ${suburbName}.`,
-        isPartOf: {
-          "@id": `${siteUrl}/#website`,
-        },
-        inLanguage: "en-AU",
+    {
+      "@type": "WebPage",
+      "@id": `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: `${parsed.config.label} ${suburbName}`,
+      description: `Professional ${parsed.config.label.toLowerCase()} services in ${suburbName}.`,
+      inLanguage: "en-AU",
+      isPartOf: {
+        "@id": `${siteUrl}/#website`,
       },
+      primaryImageOfPage: {
+        "@id": `${pageUrl}#image`
+      }
+    },
 
-      {
-        "@type": "Service",
-        "@id": `${pageUrl}#service`,
-        name: `${parsed.config.label} ${suburbName}`,
-        serviceType: parsed.config.label,
-        provider: {
-          "@id": `${siteUrl}/#organization`,
-        },
-        areaServed: {
-          "@type": "Place",
-          name: suburbName,
-        },
-        url: pageUrl,
+    {
+      "@type": "Service",
+      "@id": `${pageUrl}#service`,
+      name: `${parsed.config.label} ${suburbName}`,
+      description: `Premium ${parsed.config.label.toLowerCase()} services delivered by licensed builders in ${suburbName}.`,
+      serviceType: parsed.config.label,
+      provider: {
+        "@id": `${siteUrl}/#organization`,
       },
-
-      {
-        "@type": "HomeAndConstructionBusiness",
-        "@id": `${siteUrl}/#${parsed.serviceKey}-${parsed.suburb}`,
-        name: `${parsed.config.businessName} ${parsed.config.label} ${suburbName}`,
-        parentOrganization: {
-          "@id": `${siteUrl}/#organization`
-        },
-        telephone: phoneRaw,
-        areaServed: {
+      areaServed: {
+        "@type": "City",
+        name: suburbName
+      },
+      availableChannel: {
+        "@type": "ServiceChannel",
+        serviceLocation: {
           "@type": "Place",
           name: suburbName
-        },
-        serviceType: parsed.config.label
+        }
       },
-
-      {
-        "@type": "ImageObject",
-        "@id": `${pageUrl}#image`,
-        contentUrl: parsed.config.heroImage,
-        caption: `${parsed.config.label} ${suburbName}`
+      offers: {
+        "@type": "Offer",
+        availability: "https://schema.org/InStock",
+        url: pageUrl
       },
+      url: pageUrl
+    },
 
-      {
-        "@type": "FAQPage",
-        "@id": `${pageUrl}#faq`,
-        mainEntity: [
-          {
-            "@type": "Question",
-            name: `How much does ${parsed.config.label.toLowerCase()} cost in ${suburbName}?`,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: `The cost of ${parsed.config.label.toLowerCase()} in ${suburbName} varies depending on project size, materials and complexity. Professional builders provide tailored quotes based on your project requirements.`
-            }
-          },
-          {
-            "@type": "Question",
-            name: `How long does ${parsed.config.label.toLowerCase()} take in ${suburbName}?`,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: `The duration of ${parsed.config.label.toLowerCase()} projects in ${suburbName} depends on the scope of work, design requirements and construction stages involved.`
-            }
+    {
+      "@type": "HomeAndConstructionBusiness",
+      "@id": `${siteUrl}/#${parsed.serviceKey}-${parsed.suburb}`,
+      name: parsed.config.businessName,
+      url: siteUrl,
+      parentOrganization: {
+        "@id": `${siteUrl}/#organization`
+      },
+      telephone: phoneRaw,
+      areaServed: {
+        "@type": "City",
+        name: suburbName
+      },
+      makesOffer: {
+        "@id": `${pageUrl}#service`
+      }
+    },
+
+    {
+      "@type": "ImageObject",
+      "@id": `${pageUrl}#image`,
+      contentUrl: parsed.config.heroImage,
+      caption: `${parsed.config.label} ${suburbName}`
+    },
+
+    {
+      "@type": "FAQPage",
+      "@id": `${pageUrl}#faq`,
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: `How much does ${parsed.config.label.toLowerCase()} cost in ${suburbName}?`,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: `The cost of ${parsed.config.label.toLowerCase()} in ${suburbName} varies depending on project size, materials and complexity. Professional builders provide tailored quotes based on your project requirements.`
           }
-        ]
-      },
+        },
+        {
+          "@type": "Question",
+          name: `How long does ${parsed.config.label.toLowerCase()} take in ${suburbName}?`,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: `The duration of ${parsed.config.label.toLowerCase()} projects in ${suburbName} depends on the scope of work, design requirements and construction stages involved.`
+          }
+        }
+      ]
+    },
 
-      {
-        "@type": "BreadcrumbList",
-        "@id": `${pageUrl}#breadcrumb`,
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: siteUrl,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: parsed.config.label,
-            item: `${siteUrl}/${parsed.serviceKey}/`,
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: suburbName,
-            item: pageUrl,
-          },
-        ],
-      },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: siteUrl
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: parsed.config.label,
+          item: `${siteUrl}/${parsed.serviceKey}/`
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: suburbName,
+          item: pageUrl
+        }
+      ]
+    }
 
-    ],
-  };
+  ]
+};
 
   return (
     <>

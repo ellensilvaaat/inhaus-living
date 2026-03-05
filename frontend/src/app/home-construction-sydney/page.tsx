@@ -18,18 +18,30 @@ export const metadata: Metadata = {
     "Home Extensions Sydney | Construction & Additions Specialists | Inhaus Living",
 
   description:
-    "Premium home extensions and construction services in Sydney. Licensed builders delivering second storey additions, ground floor extensions and structural renovations across NSW.",
+    "Premium home extensions and construction in Sydney. Licensed builders delivering second storey additions and ground floor extensions across NSW.",
 
-  keywords: [
-    "home extensions sydney",
-    "home construction sydney",
-    "second storey additions sydney",
-    "house extensions sydney",
-    "home addition builders sydney",
-    "home extension builders sydney",
-    "structural renovation sydney",
-    "house construction company sydney"
-  ],
+keywords: [
+  "home extensions sydney",
+  "home construction sydney",
+  "second storey additions sydney",
+  "house extensions sydney",
+  "home addition builders sydney",
+  "home extension builders sydney",
+  "structural renovation sydney",
+  "house construction company sydney",
+  "second storey extension sydney",
+  "ground floor extension sydney",
+  "house extension builders sydney",
+  "custom home builders sydney",
+  "design and build company sydney",
+  "luxury home extensions sydney",
+  "home renovation and extension sydney",
+  "home expansion sydney",
+  "house additions sydney",
+  "construction builders sydney",
+  "licensed builders sydney",
+  "residential construction sydney"
+],
 
   alternates: {
     canonical: pageUrl,

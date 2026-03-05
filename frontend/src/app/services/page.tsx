@@ -16,16 +16,35 @@ export const metadata: Metadata = {
     "Home Renovation & Construction Services Sydney & Canberra | Inhaus Living",
 
   description:
-    "Premium renovation services across Sydney and Canberra including kitchen renovations, bathroom renovations, apartment upgrades, flooring installation and full home transformations.",
+    "Premium renovations in Sydney and Canberra including kitchen, bathroom and apartment renovations, flooring installation and full home transformations.",
 
   keywords: [
-    "home renovation sydney",
-    "kitchen renovation sydney",
-    "bathroom renovation sydney",
-    "apartment renovation sydney",
-    "flooring installation sydney",
-    "home construction sydney"
-  ],
+  "home renovation sydney",
+  "kitchen renovation sydney",
+  "bathroom renovation sydney",
+  "apartment renovation sydney",
+  "flooring installation sydney",
+  "home construction sydney",
+  "luxury home renovations sydney",
+  "full home renovation sydney",
+  "custom home renovations sydney",
+  "design and build company sydney",
+  "renovation company sydney",
+  "home renovation contractors sydney",
+  "high end home renovations sydney",
+  "kitchen remodel sydney",
+  "bathroom remodel sydney",
+  "apartment renovation specialists sydney",
+  "flooring contractors sydney",
+  "timber flooring installation sydney",
+  "tile flooring installation sydney",
+  "luxury home builders sydney",
+  "home renovation canberra",
+  "kitchen renovation canberra",
+  "bathroom renovation canberra",
+  "apartment renovation canberra",
+  "construction company canberra"
+],
 
   alternates: {
     canonical: "/services",

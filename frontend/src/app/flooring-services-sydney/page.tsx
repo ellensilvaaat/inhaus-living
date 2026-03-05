@@ -20,18 +20,30 @@ export const metadata: Metadata = {
     "Flooring Installation Sydney | Timber, Engineered & Hybrid Flooring Specialists | Inhaus Living",
 
   description:
-    "Premium flooring installation in Sydney, NSW. Timber, engineered and hybrid flooring installed by licensed specialists delivering precision craftsmanship and long-lasting durability.",
+    "Premium flooring installation in Sydney, NSW. Timber, engineered and hybrid floors installed by licensed specialists with precision craftsmanship.",
 
-  keywords: [
-    "flooring installation sydney",
-    "timber flooring sydney",
-    "engineered flooring sydney",
-    "hybrid flooring sydney",
-    "flooring installation company sydney",
-    "floor renovation sydney",
-    "timber floor installers sydney",
-    "flooring specialists sydney"
-  ],
+keywords: [
+  "flooring installation sydney",
+  "timber flooring sydney",
+  "engineered flooring sydney",
+  "hybrid flooring sydney",
+  "flooring installation company sydney",
+  "floor renovation sydney",
+  "timber floor installers sydney",
+  "flooring specialists sydney",
+  "timber floor installation sydney",
+  "engineered timber flooring sydney",
+  "hybrid floor installation sydney",
+  "wood flooring installation sydney",
+  "floating floor installation sydney",
+  "hardwood flooring sydney",
+  "flooring contractors sydney",
+  "luxury flooring installation sydney",
+  "premium flooring sydney",
+  "floor replacement sydney",
+  "timber flooring installers sydney",
+  "engineered wood flooring installers"
+],
 
   alternates: {
     canonical: pageUrl,

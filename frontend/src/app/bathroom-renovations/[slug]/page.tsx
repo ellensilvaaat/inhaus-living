@@ -67,15 +67,25 @@ export async function generateMetadata(
   return {
     title: `Bathroom Renovations ${suburbName} | Licensed Renovators | ${service.businessName}`,
 
-    description: `Premium bathroom renovations in ${suburbName} delivered by licensed and insured builders. Waterproof compliant, design-led and built for long-term value.`,
+    description: `Premium bathroom renovations in ${suburbName} by licensed builders. Waterproof compliant, design-led bathrooms built for durability and long-term value.`,
 
     keywords: [
-      `bathroom renovations ${suburbName}`,
-      `bathroom renovation ${suburbName}`,
-      `bathroom renovators ${suburbName}`,
-      `bathroom remodel ${suburbName}`,
-      `luxury bathroom renovation ${suburbName}`,
-    ],
+  `bathroom renovations ${suburbName}`,
+  `bathroom renovation ${suburbName}`,
+  `bathroom renovators ${suburbName}`,
+  `bathroom remodel ${suburbName}`,
+  `luxury bathroom renovation ${suburbName}`,
+  `bathroom renovation builders ${suburbName}`,
+  `bathroom renovation company ${suburbName}`,
+  `bathroom renovation contractors ${suburbName}`,
+  `bathroom renovation specialists ${suburbName}`,
+  `modern bathroom renovation ${suburbName}`,
+  `ensuite renovation ${suburbName}`,
+  `small bathroom renovation ${suburbName}`,
+  `custom bathroom renovation ${suburbName}`,
+  `premium bathroom renovation ${suburbName}`,
+  `bathroom refurbishment ${suburbName}`
+],
 
     alternates: {
       canonical: pageUrl,
@@ -87,7 +97,7 @@ export async function generateMetadata(
     },
 
     openGraph: {
-      type: "article",
+      type: "website",
       url: pageUrl,
       title: `Bathroom Renovations ${suburbName}`,
       description: `Luxury bathroom renovations in ${suburbName} by licensed renovation specialists.`,
@@ -144,107 +154,104 @@ export default async function BathroomRenovationPage({
 
   /* ================= STRUCTURED DATA ================= */
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
 
-      {
-        "@type": "WebPage",
-        "@id": `${pageUrl}#webpage`,
-        url: pageUrl,
-        name: `Bathroom Renovations ${suburbName}`,
-        description: `Luxury bathroom renovations in ${suburbName}.`,
-        isPartOf: {
-          "@id": `${siteUrl}/#website`,
-        },
-        inLanguage: "en-AU",
+    {
+      "@type": "WebPage",
+      "@id": `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: `Bathroom Renovations ${suburbName}`,
+      description: `Premium bathroom renovations in ${suburbName} by licensed builders.`,
+      inLanguage: "en-AU",
+      isPartOf: {
+        "@id": `${siteUrl}/#website`
       },
+      primaryImageOfPage: {
+        "@id": `${pageUrl}#image`
+      }
+    },
 
-      {
-        "@type": "Service",
-        "@id": `${pageUrl}#service`,
-        name: `Bathroom Renovations ${suburbName}`,
-        serviceType: "Bathroom Renovation",
-        provider: {
-          "@id": `${siteUrl}/#organization`,
-        },
-        areaServed: {
-          "@type": "Place",
-          name: suburbName,
-        },
-        url: pageUrl,
+    {
+      "@type": "Service",
+      "@id": `${pageUrl}#service`,
+      name: `Bathroom Renovations ${suburbName}`,
+      description: `Luxury bathroom renovation services in ${suburbName} delivered by licensed builders.`,
+      serviceType: "Bathroom Renovation",
+      provider: {
+        "@id": `${siteUrl}/#organization`
       },
-
-      {
-        "@type": "HomeAndConstructionBusiness",
-        "@id": `${siteUrl}/#bathroom-renovation-${suburbSlug}`,
-        name: `${service.businessName} Bathroom Renovations ${suburbName}`,
-        parentOrganization: {
-          "@id": `${siteUrl}/#organization`
-        },
-        areaServed: {
+      areaServed: {
+        "@type": "City",
+        name: suburbName
+      },
+      availableChannel: {
+        "@type": "ServiceChannel",
+        serviceLocation: {
           "@type": "Place",
           name: suburbName
+        }
+      },
+      offers: {
+        "@type": "Offer",
+        availability: "https://schema.org/InStock",
+        url: pageUrl
+      },
+      url: pageUrl
+    },
+
+    {
+      "@type": "HomeAndConstructionBusiness",
+      "@id": `${siteUrl}/#bathroom-renovation-${suburbSlug}`,
+      name: service.businessName,
+      url: siteUrl,
+      parentOrganization: {
+        "@id": `${siteUrl}/#organization`
+      },
+      areaServed: {
+        "@type": "City",
+        name: suburbName
+      },
+      makesOffer: {
+        "@id": `${pageUrl}#service`
+      }
+    },
+
+    {
+      "@type": "ImageObject",
+      "@id": `${pageUrl}#image`,
+      contentUrl: service.heroImage,
+      caption: `Bathroom Renovations ${suburbName}`
+    },
+
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: siteUrl
         },
-        serviceType: "Bathroom Renovations"
-      },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Bathroom Renovations",
+          item: `${siteUrl}/bathroom-renovations/`
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: suburbName,
+          item: pageUrl
+        }
+      ]
+    }
 
-      {
-        "@type": "ImageObject",
-        "@id": `${pageUrl}#image`,
-        contentUrl: service.heroImage,
-        caption: `Bathroom Renovations ${suburbName}`
-      },
-
-      {
-        "@type": "FAQPage",
-        "@id": `${pageUrl}#faq`,
-        mainEntity: [
-          {
-            "@type": "Question",
-            name: `How much does a bathroom renovation cost in ${suburbName}?`,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: `Bathroom renovation costs in ${suburbName} vary depending on layout, waterproofing requirements and materials used.`
-            }
-          },
-          {
-            "@type": "Question",
-            name: `Do bathroom renovations require approval in ${suburbName}?`,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: `Most bathroom renovations do not require council approval unless structural or plumbing changes significantly alter the property.`
-            }
-          }
-        ]
-      },
-
-      {
-        "@type": "BreadcrumbList",
-        "@id": `${pageUrl}#breadcrumb`,
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: siteUrl,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Bathroom Renovations",
-            item: `${siteUrl}/bathroom-renovations/`,
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: suburbName,
-            item: pageUrl,
-          },
-        ],
-      },
-    ],
-  };
+  ]
+};
 
   return (
     <>
