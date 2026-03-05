@@ -9,7 +9,7 @@ import FeedbackSection from "@/components/Home/FeedbackSection/FeedbackSection";
 import ReadySection from "@/components/Home/ReadySection/ReadySection";
 import NewsletterPopup from "@/components/NewsletterPopup/NewsletterPopup";
 
-const siteUrl = "https://inhaus-living.vercel.app";
+const siteUrl = "https://www.inhausliving.com.au";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

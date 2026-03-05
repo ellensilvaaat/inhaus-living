@@ -3,7 +3,7 @@ import Script from "next/script";
 import Hero from "@/components/Contact/Hero/Hero";
 import ContactPage from "@/components/Contact/ContactPage/ContactPage";
 
-const siteUrl = "https://inhaus-living.vercel.app";
+const siteUrl = "https://www.inhausliving.com.au";
 const pagePath = "/contact";
 const pageUrl = `${siteUrl}${pagePath}`;
 

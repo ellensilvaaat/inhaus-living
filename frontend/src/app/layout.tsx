@@ -1,6 +1,4 @@
 import "./globals.css";
-import Navbar from "@/components/Navbar/Navbar";
-import Footer from "@/components/Footer/Footer";
 import ClientLayoutWrapper from "@/components/Layout/ClientLayoutWrapper";
 
 import type { Metadata } from "next";
@@ -8,7 +6,7 @@ import localFont from "next/font/local";
 import { Be_Vietnam_Pro } from "next/font/google";
 import Script from "next/script";
 
-const siteUrl = "https://inhaus-living.vercel.app";
+const siteUrl = "https://www.inhausliving.com.au";
 
 /* ================= FONTS ================= */
 

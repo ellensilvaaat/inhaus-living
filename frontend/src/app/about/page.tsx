@@ -7,7 +7,7 @@ import CounterSection from "@/components/About/CounterSection/CounterSection";
 import WhyChooseUs from "@/components/About/DifferentialSection/DifferentialSection";
 import TrustedPartners from "@/components/About/TrustedPartners/TrustedPartners";
 
-const siteUrl = "https://inhaus-living.vercel.app";
+const siteUrl = "https://www.inhausliving.com.au";
 const pagePath = "/about";
 const pageUrl = `${siteUrl}${pagePath}`;
 

@@ -9,7 +9,7 @@ import Features from "./components/Features/Features";
 import RenovationProcess from "./components/RenovationProcess/RenovationProcess";
 import ContactForm from "./components/ContactForm/ContactForm";
 
-const siteUrl = "https://inhaus-living.vercel.app";
+const siteUrl = "https://www.inhausliving.com.au";
 const pagePath = "/apartment-renovations-sydney";
 const pageUrl = `${siteUrl}${pagePath}`;
 

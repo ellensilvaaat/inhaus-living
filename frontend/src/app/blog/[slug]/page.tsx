@@ -21,7 +21,7 @@ interface PageProps {
   }>;
 }
 
-const siteUrl = "https://inhaus-living.vercel.app";
+const siteUrl = "https://www.inhausliving.com.au";
 
 /* ================= STATIC PARAMS ================= */
 

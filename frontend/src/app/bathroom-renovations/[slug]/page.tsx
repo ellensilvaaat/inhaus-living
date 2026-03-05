@@ -15,7 +15,7 @@ import ProjectsCarousel from "@/components/Home/ProjectsCarousel/ProjectsCarouse
 import FeedbackSection from "../../components/FeedbackSectionStatic/FeedbackSectionStatic";
 import Footer from "../../components/Footer/Footer";
 
-const siteUrl = "https://inhaus-living.vercel.app";
+const siteUrl = "https://www.inhausliving.com.au";
 
 const serviceKey = "bathroom-renovations";
 const service = services[serviceKey];

@@ -4,7 +4,7 @@ import Script from "next/script";
 import Hero from "@/components/Blog/Hero/Hero";
 import BlogPage from "@/components/Blog/BlogPage/BlogPage";
 
-const siteUrl = "https://inhaus-living.vercel.app";
+const siteUrl = "https://www.inhausliving.com.au";
 const pagePath = "/blog";
 const pageUrl = `${siteUrl}${pagePath}`;
 

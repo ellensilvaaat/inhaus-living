@@ -6,7 +6,7 @@ import ServicesSection from "@/components/Services/ServicesSection/ServicesSecti
 import HowItWorks from "@/components/Services/HowItWorks/HowItWorks";
 import ReadySection from "@/components/Home/ReadySection/ReadySection";
 
-const siteUrl = "https://inhaus-living.vercel.app";
+const siteUrl = "https://www.inhausliving.com.au";
 const pageUrl = `${siteUrl}/services`;
 
 export const metadata: Metadata = {

@@ -5,7 +5,7 @@ import Script from "next/script";
 import { projectsData } from "@/content/projects";
 import ProjectDetail from "@/components/Projects/projectDetail/projectDetail";
 
-const siteUrl = "https://inhaus-living.vercel.app";
+const siteUrl = "https://www.inhausliving.com.au";
 
 type PageProps = {
   params: Promise<{ slug: string }>;

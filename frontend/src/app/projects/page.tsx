@@ -6,7 +6,7 @@ import ProjectsPage from "@/components/Projects/ProjectsPage/ProjectsPage";
 import ReadySection from "@/components/Home/ReadySection/ReadySection";
 import { projectsData } from "@/content/projects";
 
-const siteUrl = "https://inhaus-living.vercel.app";
+const siteUrl = "https://www.inhausliving.com.au";
 const pagePath = "/projects";
 const pageUrl = `${siteUrl}${pagePath}`;
 
