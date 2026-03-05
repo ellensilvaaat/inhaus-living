@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
   title: {
     default:
-      "Contact Inhaus Living | Luxury Renovations & Construction",
+      "Contact Us | Luxury Renovations & Construction",
     template: "%s | Inhaus Living",
   },
 

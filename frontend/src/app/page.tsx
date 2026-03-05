@@ -18,17 +18,30 @@ export const metadata: Metadata = {
     "Luxury Home Renovations Sydney & Canberra | Inhaus Living",
 
   description:
-    "Luxury home renovations in Sydney and Canberra. Kitchen renovations, bathroom renovations, apartment upgrades and full home transformations delivered by the licensed design-build team at Inhaus Living.",
+    "Luxury home renovations in Sydney and Canberra by Inhaus Living. Kitchen, bathroom and apartment upgrades with expert design and construction.",
 
-  keywords: [
-    "home renovation sydney",
-    "home renovation canberra",
-    "kitchen renovation sydney",
-    "bathroom renovation sydney",
-    "apartment renovation sydney",
-    "luxury renovations australia",
-    "construction and renovation company sydney"
-  ],
+keywords: [
+  "inhaus living",
+  "luxury home renovations sydney",
+  "home renovation sydney",
+  "home renovation canberra",
+  "kitchen renovation sydney",
+  "bathroom renovation sydney",
+  "apartment renovation sydney",
+  "luxury renovations australia",
+  "construction and renovation company sydney",
+  "design and build company sydney",
+  "home renovation builders sydney",
+  "renovation company sydney",
+  "premium home renovations sydney",
+  "custom home renovations sydney",
+  "residential construction sydney",
+  "luxury home builders sydney",
+  "complete home renovation sydney",
+  "high end renovations sydney",
+  "home extensions sydney",
+  "full service renovation company"
+],
 
   alternates: {
     canonical: "/",

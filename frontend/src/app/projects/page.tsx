@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title:
-    "Home Renovation Projects in Sydney & Canberra | Inhaus Living Portfolio",
+    "Home Renovation Projects in Sydney & Canberra",
 
   description:
     "Explore luxury home renovation projects by Inhaus Living across Sydney and Canberra, including kitchens, bathrooms, apartments and full home transformations.",
