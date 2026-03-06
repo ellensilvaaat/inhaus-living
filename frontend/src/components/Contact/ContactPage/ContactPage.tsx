@@ -12,6 +12,8 @@ export default function ContactUsPage() {
 
   const [turnstileToken, setTurnstileToken] = useState("");
   const [turnstileError, setTurnstileError] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -53,31 +55,81 @@ export default function ContactUsPage() {
 
   const foundUsOptions = ["Google", "Instagram", "Referral", "Other"];
 
+  const validateForm = (data: typeof formData) => {
+    const newErrors: Record<string, string> = {};
+
+    if (!data.fullName.trim() || data.fullName.trim().split(" ").length < 2) {
+      newErrors.fullName = "Please enter your full name.";
+    }
+
+    if (!data.email.trim() || !data.email.includes("@")) {
+      newErrors.email = "Please enter a valid email.";
+    }
+
+    if (!data.address.trim()) {
+      newErrors.address = "Address is required.";
+    }
+
+    if (!data.mobile.trim()) {
+      newErrors.mobile = "Mobile number is required.";
+    }
+
+    if (!data.budget) {
+      newErrors.budget = "Please select your budget.";
+    }
+
+    if (!data.service) {
+      newErrors.service = "Please select a service.";
+    }
+
+    if (!data.installationDate) {
+      newErrors.installationDate = "Please choose a date.";
+    }
+
+    return newErrors;
+  };
+
+  const handleFocus = (
+    e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+    const { name } = e.target;
+
+    setTouched((prev) => ({
+      ...prev,
+      [name]: true,
+    }));
+  };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    setFormData((prev) => {
+      const updated = { ...prev, [name]: value };
+      const validationErrors = validateForm(updated);
+      setErrors(validationErrors);
+      return updated;
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const requiredFields: (keyof typeof formData)[] = [
-      "fullName",
-      "email",
-      "address",
-      "mobile",
-      "budget",
-      "service",
-      "installationDate",
-    ];
+    const validationErrors = validateForm(formData);
 
-    for (const key of requiredFields) {
-      if (!formData[key]) {
-        alert(`⚠️ Please fill in the ${key} field.`);
-        return;
-      }
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      setTouched({
+        fullName: true,
+        email: true,
+        address: true,
+        mobile: true,
+        budget: true,
+        service: true,
+        installationDate: true,
+      });
+      return;
     }
 
     if (!turnstileToken) {
@@ -88,7 +140,7 @@ export default function ContactUsPage() {
     const apiBase = process.env.NEXT_PUBLIC_API_BASE;
 
     if (!apiBase) {
-      alert("API base URL not configured.");
+      console.error("API base URL not configured.");
       return;
     }
 
@@ -119,7 +171,7 @@ export default function ContactUsPage() {
       }
     } catch (err) {
       console.error("Network error:", err);
-      alert("⚠️ Could not connect to the server.");
+      setTurnstileError("⚠️ Could not connect to the server.");
       setTurnstileToken("");
     }
   };
@@ -200,94 +252,146 @@ export default function ContactUsPage() {
           </div>
         </div>
 
-        <form className="contact-page__form" onSubmit={handleSubmit}>
+        <form
+          className="contact-page__form"
+          onSubmit={handleSubmit}
+          noValidate
+        >
           <div className="two-columns">
             <div className="form-group">
               <label htmlFor="fullName">Full Name</label>
+
               <input
                 type="text"
                 id="fullName"
                 name="fullName"
                 value={formData.fullName}
+                onFocus={handleFocus}
                 onChange={handleChange}
-                required
+                className={
+                  touched.fullName && errors.fullName ? "input-error" : ""
+                }
               />
+
+              {touched.fullName && errors.fullName && (
+                <p className="error-text">{errors.fullName}</p>
+              )}
             </div>
 
             <div className="form-group">
               <label htmlFor="email">Email</label>
+
               <input
                 type="email"
                 id="email"
                 name="email"
                 value={formData.email}
+                onFocus={handleFocus}
                 onChange={handleChange}
-                required
+                className={touched.email && errors.email ? "input-error" : ""}
               />
+
+              {touched.email && errors.email && (
+                <p className="error-text">{errors.email}</p>
+              )}
             </div>
           </div>
 
           <div className="two-columns">
             <div className="form-group">
               <label htmlFor="address">Address</label>
+
               <input
                 type="text"
                 id="address"
                 name="address"
                 value={formData.address}
+                onFocus={handleFocus}
                 onChange={handleChange}
-                required
+                className={
+                  touched.address && errors.address ? "input-error" : ""
+                }
               />
+
+              {touched.address && errors.address && (
+                <p className="error-text">{errors.address}</p>
+              )}
             </div>
 
             <div className="form-group">
               <label htmlFor="mobile">Mobile</label>
+
               <input
                 type="text"
                 id="mobile"
                 name="mobile"
                 value={formData.mobile}
+                onFocus={handleFocus}
                 onChange={handleChange}
-                required
+                className={
+                  touched.mobile && errors.mobile ? "input-error" : ""
+                }
               />
+
+              {touched.mobile && errors.mobile && (
+                <p className="error-text">{errors.mobile}</p>
+              )}
             </div>
           </div>
 
           <div className="two-columns">
             <div className="form-group">
               <label htmlFor="budget">Budget</label>
+
               <select
                 id="budget"
                 name="budget"
                 value={formData.budget}
+                onFocus={handleFocus}
                 onChange={handleChange}
-                required
+                className={
+                  touched.budget && errors.budget ? "input-error" : ""
+                }
               >
                 <option value="">Select your budget</option>
+
                 {budgetOptions.map((opt) => (
                   <option key={opt} value={opt}>
                     {opt}
                   </option>
                 ))}
               </select>
+
+              {touched.budget && errors.budget && (
+                <p className="error-text">{errors.budget}</p>
+              )}
             </div>
 
             <div className="form-group">
               <label htmlFor="service">Interested Service</label>
+
               <select
                 id="service"
                 name="service"
                 value={formData.service}
+                onFocus={handleFocus}
                 onChange={handleChange}
-                required
+                className={
+                  touched.service && errors.service ? "input-error" : ""
+                }
               >
                 <option value="">Select service</option>
+
                 {serviceOptions.map((opt) => (
                   <option key={opt} value={opt}>
                     {opt}
                   </option>
                 ))}
               </select>
+
+              {touched.service && errors.service && (
+                <p className="error-text">{errors.service}</p>
+              )}
             </div>
           </div>
 
@@ -296,25 +400,38 @@ export default function ContactUsPage() {
               <label htmlFor="installationDate">
                 Ideal Installation Date
               </label>
+
               <input
                 type="date"
                 id="installationDate"
                 name="installationDate"
                 value={formData.installationDate}
+                onFocus={handleFocus}
                 onChange={handleChange}
-                required
+                className={
+                  touched.installationDate && errors.installationDate
+                    ? "input-error"
+                    : ""
+                }
               />
+
+              {touched.installationDate && errors.installationDate && (
+                <p className="error-text">{errors.installationDate}</p>
+              )}
             </div>
 
             <div className="form-group">
               <label htmlFor="foundUs">How did you find us?</label>
+
               <select
                 id="foundUs"
                 name="foundUs"
                 value={formData.foundUs}
+                onFocus={handleFocus}
                 onChange={handleChange}
               >
                 <option value="">Select one</option>
+
                 {foundUsOptions.map((opt) => (
                   <option key={opt} value={opt}>
                     {opt}
@@ -326,22 +443,26 @@ export default function ContactUsPage() {
 
           <div className="form-group">
             <label htmlFor="subject">Subject</label>
+
             <input
               type="text"
               id="subject"
               name="subject"
               value={formData.subject}
+              onFocus={handleFocus}
               onChange={handleChange}
             />
           </div>
 
           <div className="form-group">
             <label htmlFor="message">Tell us about your project</label>
+
             <textarea
               id="message"
               name="message"
               rows={4}
               value={formData.message}
+              onFocus={handleFocus}
               onChange={handleChange}
             />
           </div>
@@ -363,6 +484,7 @@ export default function ContactUsPage() {
               }}
               options={{ theme: "light" }}
             />
+
             {turnstileError && (
               <p style={{ color: "#c0392b", fontSize: "0.9rem", marginTop: 6 }}>
                 {turnstileError}
