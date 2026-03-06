@@ -19,17 +19,62 @@ dotenv.config();
 const app = express();
 
 /*
-  🔒 TRUST PROXY (importante para rate-limit e IP real em produção)
+  🔒 TRUST PROXY
+  necessário para rate-limit funcionar corretamente
+  quando existe proxy/CDN (Vercel / Cloudflare etc)
 */
 app.set("trust proxy", 1);
 
 /*
   🔐 SECURITY HEADERS
+  configuração segura que NÃO bloqueia requests
+  para o backend a partir do frontend
 */
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "'unsafe-eval'",
+          "https://www.googletagmanager.com",
+          "https://www.google-analytics.com",
+        ],
+
+        connectSrc: [
+          "'self'",
+          "https://inhaus-living.onrender.com",
+          "https://www.google-analytics.com",
+          "https://www.googletagmanager.com",
+        ],
+
+        imgSrc: [
+          "'self'",
+          "data:",
+          "https:",
+        ],
+
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "https:",
+        ],
+
+        fontSrc: [
+          "'self'",
+          "data:",
+          "https:",
+        ],
+      },
+    },
+  })
+);
 
 /*
-  📊 HTTP REQUEST LOGGING (Morgan → Winston)
+  📊 HTTP REQUEST LOGGING
 */
 app.use(
   morgan("combined", {
@@ -45,7 +90,8 @@ app.use(
 app.use(apiLimiter);
 
 /*
-  🔒 CORS (mantido exatamente como você pediu)
+  🔒 CORS
+  permite acesso do frontend
 */
 app.use(
   cors({
