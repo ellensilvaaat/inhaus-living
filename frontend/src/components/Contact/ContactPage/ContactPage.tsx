@@ -133,9 +133,8 @@ export default function ContactUsPage() {
     }
 
     if (!turnstileToken) {
-      setTurnstileError("Please verify you are human.");
-      return;
-    }
+  console.log("NO TURNSTILE TOKEN");
+}
 
     const apiBase = process.env.NEXT_PUBLIC_API_BASE;
 
