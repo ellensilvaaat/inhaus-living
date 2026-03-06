@@ -2,7 +2,6 @@
 
 import { useState, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { Turnstile } from "@marsidev/react-turnstile";
 import "./ContactForm.css";
 
 interface ContactFormProps {
@@ -24,7 +23,7 @@ export default function ContactForm({
   const params = useParams();
   const formLoadedAt = useRef(Date.now());
 
-  // 🔥 NOVO: capturar service e slug dinamicamente
+  // capturar service e slug dinamicamente
   const serviceKey = params?.service as string | undefined;
   const slug = params?.slug as string | undefined;
 
@@ -39,9 +38,7 @@ export default function ContactForm({
 
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const [turnstileToken, setTurnstileToken] = useState("");
-  const [turnstileError, setTurnstileError] = useState("");
+  const [submitError, setSubmitError] = useState("");
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -77,8 +74,7 @@ export default function ContactForm({
     formData.address.trim();
 
   const validateStep2 = () =>
-    formData.budget.trim() &&
-    formData.message.trim();
+    formData.budget.trim() && formData.message.trim();
 
   const nextStep = () => {
     if (step === 1 && !validateStep1()) return;
@@ -91,36 +87,29 @@ export default function ContactForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!turnstileToken) {
-      setTurnstileError("Please verify you are human.");
-      return;
-    }
-
     setIsSubmitting(true);
-    setTurnstileError("");
+    setSubmitError("");
 
     const apiBase = process.env.NEXT_PUBLIC_API_BASE;
+    const pagePath = window.location.pathname;
 
-    // 🔥 ÚNICA ALTERAÇÃO REAL: payload expandido
-   const pagePath = window.location.pathname;
-
-const payload = {
-  ...formData,
-  service_key: serviceKey,
-  service_label: renovationLabel,
-  suburb,
-  region,
-  page_path: pagePath,
-  status: "new",
-  formStartedAt: formLoadedAt.current,
-  turnstileToken,
-};
+    const payload = {
+      ...formData,
+      service_key: serviceKey,
+      service_label: renovationLabel,
+      suburb,
+      region,
+      page_path: pagePath,
+      status: "new",
+      formStartedAt: formLoadedAt.current,
+    };
 
     try {
-      // 🔥 ALTERADO endpoint para landing
       const res = await fetch(`${apiBase}/api/landing`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(payload),
       });
 
@@ -131,13 +120,11 @@ const payload = {
         return;
       }
 
-      setTurnstileError(data?.message || "Submission blocked.");
-      setTurnstileToken("");
+      setSubmitError(data?.message || "Submission failed.");
       setIsSubmitting(false);
     } catch (err) {
       console.error(err);
-      setTurnstileError("⚠️ Could not connect to the server.");
-      setTurnstileToken("");
+      setSubmitError("⚠️ Could not connect to the server.");
       setIsSubmitting(false);
     }
   };
@@ -152,6 +139,7 @@ const payload = {
       aria-labelledby="renovation-form-heading"
     >
       <div className="bathroom-form__container">
+
         {/* LEFT */}
         <div className="bathroom-form__info">
           <h2 id="renovation-form-heading">
@@ -173,9 +161,11 @@ const payload = {
             <div className={`step-pill ${step === 1 ? "active" : ""}`}>
               01 Details
             </div>
+
             <div className={`step-pill ${step === 2 ? "active" : ""}`}>
               02 Project
             </div>
+
             <div className={`step-pill ${step === 3 ? "active" : ""}`}>
               03 Submit
             </div>
@@ -184,6 +174,7 @@ const payload = {
 
         {/* FORM */}
         <form className="bathroom-form__form" onSubmit={handleSubmit}>
+
           <div className="progress-wrapper">
             <div
               className="progress-bar"
@@ -193,26 +184,58 @@ const payload = {
 
           {step === 1 && (
             <div className="form-step">
+
               <div className="form-grid">
+
                 <div className="form-group">
-                  <input name="fullName" required placeholder=" " onChange={handleChange} />
+                  <input
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleChange}
+                    required
+                    placeholder=" "
+                    autoComplete="name"
+                  />
                   <label>Full Name</label>
                 </div>
 
                 <div className="form-group">
-                  <input type="email" name="email" required placeholder=" " onChange={handleChange} />
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    placeholder=" "
+                    autoComplete="email"
+                  />
                   <label>Email</label>
                 </div>
 
                 <div className="form-group">
-                  <input name="mobile" required placeholder=" " onChange={handleChange} />
+                  <input
+                    name="mobile"
+                    value={formData.mobile}
+                    onChange={handleChange}
+                    required
+                    placeholder=" "
+                    autoComplete="tel"
+                  />
                   <label>Mobile</label>
                 </div>
 
                 <div className="form-group">
-                  <input name="address" required placeholder=" " onChange={handleChange} />
+                  <input
+                    name="address"
+                    value={formData.address}
+                    onChange={handleChange}
+                    required
+                    placeholder=" "
+                    autoComplete="street-address"
+                  />
                   <label>Suburb / Address</label>
                 </div>
+
               </div>
 
               <div className="step-actions single">
@@ -220,18 +243,28 @@ const payload = {
                   Next →
                 </button>
               </div>
+
             </div>
           )}
 
           {step === 2 && (
             <div className="form-step">
+
               <div className="form-grid">
+
                 <div className="form-group full">
-                  <select name="budget" required onChange={handleChange}>
+                  <select
+                    name="budget"
+                    value={formData.budget}
+                    onChange={handleChange}
+                    required
+                  >
                     <option value=""></option>
+
                     {budgetOptions.map((opt) => (
                       <option key={opt}>{opt}</option>
                     ))}
+
                   </select>
                   <label>Budget</label>
                 </div>
@@ -239,50 +272,64 @@ const payload = {
                 <div className="form-group full">
                   <textarea
                     name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     rows={4}
                     required
                     placeholder=" "
-                    onChange={handleChange}
                   />
-                  <label>Tell us about your {renovationLabel.toLowerCase()}</label>
+                  <label>
+                    Tell us about your {renovationLabel.toLowerCase()}
+                  </label>
                 </div>
+
               </div>
 
               <div className="step-actions">
-                <button type="button" onClick={prevStep} className="back-btn">
+
+                <button
+                  type="button"
+                  onClick={prevStep}
+                  className="back-btn"
+                >
                   ← Back
                 </button>
-                <button type="button" onClick={nextStep} className="next-btn">
+
+                <button
+                  type="button"
+                  onClick={nextStep}
+                  className="next-btn"
+                >
                   Next →
                 </button>
+
               </div>
+
             </div>
           )}
 
           {step === 3 && (
             <div className="form-step">
-              <div className="turnstile-wrapper">
-                <Turnstile
-                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-                  onSuccess={(token) => {
-                    setTurnstileToken(token);
-                    setTurnstileError("");
-                  }}
-                  onExpire={() => {
-                    setTurnstileToken("");
-                    setTurnstileError("Captcha expired.");
-                  }}
-                />
 
-                {turnstileError && <p className="error">{turnstileError}</p>}
-              </div>
+              {submitError && (
+                <p className="error">{submitError}</p>
+              )}
 
               <div className="step-actions">
-                <button type="button" onClick={prevStep} className="back-btn">
+
+                <button
+                  type="button"
+                  onClick={prevStep}
+                  className="back-btn"
+                >
                   ← Back
                 </button>
 
-                <button type="submit" className="submit-btn" disabled={isSubmitting}>
+                <button
+                  type="submit"
+                  className="submit-btn"
+                  disabled={isSubmitting}
+                >
                   {isSubmitting ? (
                     <>
                       <span className="spinner" />
@@ -292,9 +339,12 @@ const payload = {
                     `Start My ${renovationLabel}`
                   )}
                 </button>
+
               </div>
+
             </div>
           )}
+
         </form>
       </div>
     </section>

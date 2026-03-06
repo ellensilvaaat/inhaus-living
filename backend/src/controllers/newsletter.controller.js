@@ -1,5 +1,3 @@
-import axios from "axios";
-import crypto from "crypto";
 import { supabase } from "../services/supabase.service.js";
 import { validateEmail, validateRequiredFields } from "../utils/validators.js";
 import logger from "../utils/logger.js";
@@ -8,8 +6,11 @@ export const subscribeToNewsletter = async (req, res) => {
   try {
     const { name, email } = req.body;
 
+    // validar campos obrigatórios
     if (!validateRequiredFields([name, email])) {
-      logger.warn("Newsletter validation failed - missing fields", { body: req.body });
+      logger.warn("Newsletter validation failed - missing fields", {
+        body: req.body,
+      });
 
       return res.status(400).json({
         success: false,
@@ -17,6 +18,7 @@ export const subscribeToNewsletter = async (req, res) => {
       });
     }
 
+    // validar email
     if (!validateEmail(email)) {
       logger.warn("Newsletter invalid email format", { email });
 
@@ -28,14 +30,18 @@ export const subscribeToNewsletter = async (req, res) => {
 
     const normalizedEmail = email.toLowerCase().trim();
 
-    const { error: dbError } = await supabase
+    // salvar no supabase
+    const { error } = await supabase
       .from("newsletter_subscribers")
-      .upsert([{ name: name.trim(), email: normalizedEmail }], {
-        onConflict: "email",
-      });
+      .insert([
+        {
+          name: name.trim(),
+          email: normalizedEmail,
+        },
+      ]);
 
-    if (dbError) {
-      logger.error("Newsletter Supabase error", { error: dbError });
+    if (error) {
+      logger.error("Newsletter Supabase error", { error });
 
       return res.status(500).json({
         success: false,
@@ -43,42 +49,15 @@ export const subscribeToNewsletter = async (req, res) => {
       });
     }
 
-    // Mailchimp integration
-    try {
-      const subscriberHash = crypto
-        .createHash("md5")
-        .update(normalizedEmail)
-        .digest("hex");
+    logger.info("Newsletter subscription saved", {
+      email: normalizedEmail,
+    });
 
-      const mailchimpUrl = `https://${process.env.MAILCHIMP_DC}.api.mailchimp.com/3.0/lists/${process.env.MAILCHIMP_AUDIENCE_ID}/members/${subscriberHash}`;
-
-      await axios.put(
-        mailchimpUrl,
-        {
-          email_address: normalizedEmail,
-          status_if_new: "subscribed",
-          status: "subscribed",
-          merge_fields: { FNAME: name },
-        },
-        {
-          headers: {
-            Authorization: `apikey ${process.env.MAILCHIMP_API_KEY}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-    } catch (mailchimpError) {
-      logger.warn("Mailchimp error (non-blocking)", {
-        message: mailchimpError.message,
-      });
-    }
-
-    logger.info("Newsletter subscription successful", { email: normalizedEmail });
-
-    return res.json({
+    return res.status(201).json({
       success: true,
       message: "Subscribed successfully",
     });
+
   } catch (err) {
     logger.error("Newsletter controller unexpected error", {
       message: err.message,

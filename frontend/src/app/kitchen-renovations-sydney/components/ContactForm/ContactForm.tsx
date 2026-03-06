@@ -2,7 +2,6 @@
 
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Turnstile } from "@marsidev/react-turnstile";
 import "./ContactForm.css";
 
 export default function ContactForm() {
@@ -11,9 +10,7 @@ export default function ContactForm() {
 
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const [turnstileToken, setTurnstileToken] = useState("");
-  const [turnstileError, setTurnstileError] = useState("");
+  const [submitError, setSubmitError] = useState("");
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -62,7 +59,9 @@ export default function ContactForm() {
     formData.address.trim();
 
   const validateStep2 = () =>
-    formData.budget.trim() && formData.service.trim() && formData.message.trim();
+    formData.budget.trim() &&
+    formData.service.trim() &&
+    formData.message.trim();
 
   const nextStep = () => {
     if (step === 1 && !validateStep1()) return;
@@ -75,20 +74,15 @@ export default function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!turnstileToken) {
-      setTurnstileError("Please verify you are human.");
-      return;
-    }
-
     setIsSubmitting(true);
-    setTurnstileError("");
+    setSubmitError("");
 
     const apiBase = process.env.NEXT_PUBLIC_API_BASE;
 
     const payload = {
       ...formData,
 
-      // 🔥 FIXO PARA ESTA LANDING
+      // LANDING FIXED CONTEXT
       service_key: "apartment-renovation",
       service_label: "Apartment Renovations Sydney",
       suburb: "sydney",
@@ -96,13 +90,14 @@ export default function ContactForm() {
 
       status: "new",
       formStartedAt: formLoadedAt.current,
-      turnstileToken,
     };
 
     try {
       const res = await fetch(`${apiBase}/api/landing`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(payload),
       });
 
@@ -113,13 +108,11 @@ export default function ContactForm() {
         return;
       }
 
-      setTurnstileError(data?.message || "Submission blocked.");
-      setTurnstileToken("");
+      setSubmitError(data?.message || "Submission failed.");
       setIsSubmitting(false);
     } catch (err) {
       console.error(err);
-      setTurnstileError("⚠️ Could not connect to the server.");
-      setTurnstileToken("");
+      setSubmitError("⚠️ Could not connect to the server.");
       setIsSubmitting(false);
     }
   };
@@ -129,7 +122,8 @@ export default function ContactForm() {
   return (
     <section className="premium-form" aria-labelledby="premium-form-heading">
       <div className="premium-form__container">
-        {/* LEFT */}
+
+        {/* LEFT SIDE */}
         <div className="premium-form__info">
           <h2 id="premium-form-heading">
             Start Your <span>Renovation Journey</span>
@@ -152,9 +146,11 @@ export default function ContactForm() {
             <div className={`step-pill ${step === 1 ? "active" : ""}`}>
               01 Details
             </div>
+
             <div className={`step-pill ${step === 2 ? "active" : ""}`}>
               02 Project
             </div>
+
             <div className={`step-pill ${step === 3 ? "active" : ""}`}>
               03 Submit
             </div>
@@ -163,16 +159,20 @@ export default function ContactForm() {
 
         {/* FORM */}
         <form className="premium-form__form" onSubmit={handleSubmit}>
-          <div className="progress-wrapper" aria-hidden="true">
+
+          <div className="progress-wrapper">
             <div
               className="progress-bar"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
 
+          {/* STEP 1 */}
           {step === 1 && (
-            <div className="form-step" aria-label="Step 1: Your details">
+            <div className="form-step">
+
               <div className="form-grid">
+
                 <div className="form-group">
                   <input
                     name="fullName"
@@ -221,6 +221,7 @@ export default function ContactForm() {
                   />
                   <label>Suburb / Address</label>
                 </div>
+
               </div>
 
               <div className="step-actions single">
@@ -228,12 +229,16 @@ export default function ContactForm() {
                   Next →
                 </button>
               </div>
+
             </div>
           )}
 
+          {/* STEP 2 */}
           {step === 2 && (
-            <div className="form-step" aria-label="Step 2: Project details">
+            <div className="form-step">
+
               <div className="form-grid">
+
                 <div className="form-group full">
                   <select
                     name="budget"
@@ -242,9 +247,11 @@ export default function ContactForm() {
                     required
                   >
                     <option value=""></option>
+
                     {budgetOptions.map((opt) => (
                       <option key={opt}>{opt}</option>
                     ))}
+
                   </select>
                   <label>Budget</label>
                 </div>
@@ -257,9 +264,11 @@ export default function ContactForm() {
                     required
                   >
                     <option value=""></option>
+
                     {serviceOptions.map((opt) => (
                       <option key={opt}>{opt}</option>
                     ))}
+
                   </select>
                   <label>Service Interested In</label>
                 </div>
@@ -275,39 +284,47 @@ export default function ContactForm() {
                   />
                   <label>Tell us about your project</label>
                 </div>
+
               </div>
 
               <div className="step-actions">
-                <button type="button" onClick={prevStep} className="back-btn">
+
+                <button
+                  type="button"
+                  onClick={prevStep}
+                  className="back-btn"
+                >
                   ← Back
                 </button>
-                <button type="button" onClick={nextStep} className="next-btn">
+
+                <button
+                  type="button"
+                  onClick={nextStep}
+                  className="next-btn"
+                >
                   Next →
                 </button>
+
               </div>
+
             </div>
           )}
 
+          {/* STEP 3 */}
           {step === 3 && (
-            <div className="form-step" aria-label="Step 3: Submit">
-              <div className="turnstile-wrapper">
-                <Turnstile
-                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-                  onSuccess={(token) => {
-                    setTurnstileToken(token);
-                    setTurnstileError("");
-                  }}
-                  onExpire={() => {
-                    setTurnstileToken("");
-                    setTurnstileError("Captcha expired.");
-                  }}
-                />
+            <div className="form-step">
 
-                {turnstileError && <p className="error">{turnstileError}</p>}
-              </div>
+              {submitError && (
+                <p className="error">{submitError}</p>
+              )}
 
               <div className="step-actions">
-                <button type="button" onClick={prevStep} className="back-btn">
+
+                <button
+                  type="button"
+                  onClick={prevStep}
+                  className="back-btn"
+                >
                   ← Back
                 </button>
 
@@ -325,9 +342,12 @@ export default function ContactForm() {
                     "Start My Renovation"
                   )}
                 </button>
+
               </div>
+
             </div>
           )}
+
         </form>
       </div>
     </section>
