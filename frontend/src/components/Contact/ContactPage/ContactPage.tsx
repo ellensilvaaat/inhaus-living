@@ -3,17 +3,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./ContactPage.css";
 import { useRouter } from "next/navigation";
-import { Turnstile } from "@marsidev/react-turnstile";
 
 export default function ContactUsPage() {
   const router = useRouter();
 
   const formLoadedAt = useRef<number>(Date.now());
 
-  const [turnstileToken, setTurnstileToken] = useState("");
-  const [turnstileError, setTurnstileError] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [submitError, setSubmitError] = useState("");
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -132,14 +130,11 @@ export default function ContactUsPage() {
       return;
     }
 
-    if (!turnstileToken) {
-  console.log("NO TURNSTILE TOKEN");
-}
-
     const apiBase = process.env.NEXT_PUBLIC_API_BASE;
 
     if (!apiBase) {
       console.error("API base URL not configured.");
+      setSubmitError("Server configuration error.");
       return;
     }
 
@@ -147,7 +142,6 @@ export default function ContactUsPage() {
       ...formData,
       status: "new",
       formStartedAt: formLoadedAt.current,
-      turnstileToken,
       foundUs: formData.foundUs || null,
       subject: formData.subject || null,
       message: formData.message || null,
@@ -165,13 +159,11 @@ export default function ContactUsPage() {
       if (res.ok && data.success) {
         router.push("/thank-you");
       } else {
-        setTurnstileError(data.message || "Submission blocked.");
-        setTurnstileToken("");
+        setSubmitError(data.message || "Submission blocked.");
       }
     } catch (err) {
       console.error("Network error:", err);
-      setTurnstileError("⚠️ Could not connect to the server.");
-      setTurnstileToken("");
+      setSubmitError("⚠️ Could not connect to the server.");
     }
   };
 
@@ -182,6 +174,7 @@ export default function ContactUsPage() {
           <h2 className="contact-page__title">
             Let’s Talk About <span className="highlight">Your Project</span>
           </h2>
+
           <p>
             Whether you’re ready to renovate or just exploring ideas, our team
             is here to help. Visit us, call us, or send a message, let’s start
@@ -242,20 +235,14 @@ export default function ContactUsPage() {
 
           <div className="contact-page__email">
             <h3>📧 Email Us</h3>
-            <a
-              className="contact__emaill"
-              href="mailto:info@inhausliving.com.au"
-            >
+            <a className="contact__emaill" href="mailto:info@inhausliving.com.au">
               info@inhausliving.com.au
             </a>
           </div>
         </div>
 
-        <form
-          className="contact-page__form"
-          onSubmit={handleSubmit}
-          noValidate
-        >
+        <form className="contact-page__form" onSubmit={handleSubmit} noValidate>
+
           <div className="two-columns">
             <div className="form-group">
               <label htmlFor="fullName">Full Name</label>
@@ -267,9 +254,7 @@ export default function ContactUsPage() {
                 value={formData.fullName}
                 onFocus={handleFocus}
                 onChange={handleChange}
-                className={
-                  touched.fullName && errors.fullName ? "input-error" : ""
-                }
+                className={touched.fullName && errors.fullName ? "input-error" : ""}
               />
 
               {touched.fullName && errors.fullName && (
@@ -307,9 +292,7 @@ export default function ContactUsPage() {
                 value={formData.address}
                 onFocus={handleFocus}
                 onChange={handleChange}
-                className={
-                  touched.address && errors.address ? "input-error" : ""
-                }
+                className={touched.address && errors.address ? "input-error" : ""}
               />
 
               {touched.address && errors.address && (
@@ -327,9 +310,7 @@ export default function ContactUsPage() {
                 value={formData.mobile}
                 onFocus={handleFocus}
                 onChange={handleChange}
-                className={
-                  touched.mobile && errors.mobile ? "input-error" : ""
-                }
+                className={touched.mobile && errors.mobile ? "input-error" : ""}
               />
 
               {touched.mobile && errors.mobile && (
@@ -348,9 +329,7 @@ export default function ContactUsPage() {
                 value={formData.budget}
                 onFocus={handleFocus}
                 onChange={handleChange}
-                className={
-                  touched.budget && errors.budget ? "input-error" : ""
-                }
+                className={touched.budget && errors.budget ? "input-error" : ""}
               >
                 <option value="">Select your budget</option>
 
@@ -375,9 +354,7 @@ export default function ContactUsPage() {
                 value={formData.service}
                 onFocus={handleFocus}
                 onChange={handleChange}
-                className={
-                  touched.service && errors.service ? "input-error" : ""
-                }
+                className={touched.service && errors.service ? "input-error" : ""}
               >
                 <option value="">Select service</option>
 
@@ -466,36 +443,18 @@ export default function ContactUsPage() {
             />
           </div>
 
-          <div className="turnstile-wrapper">
-            <Turnstile
-              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY as string}
-              onSuccess={(token) => {
-                setTurnstileToken(token);
-                setTurnstileError("");
-              }}
-              onError={() => {
-                setTurnstileToken("");
-                setTurnstileError("Captcha error. Please try again.");
-              }}
-              onExpire={() => {
-                setTurnstileToken("");
-                setTurnstileError("Captcha expired. Please verify again.");
-              }}
-              options={{ theme: "light" }}
-            />
-
-            {turnstileError && (
-              <p style={{ color: "#c0392b", fontSize: "0.9rem", marginTop: 6 }}>
-                {turnstileError}
-              </p>
-            )}
-          </div>
+          {submitError && (
+            <p style={{ color: "#c0392b", marginBottom: 10 }}>
+              {submitError}
+            </p>
+          )}
 
           <div className="form-submit">
             <button type="submit" className="submit-btn">
               Submit
             </button>
           </div>
+
         </form>
       </div>
     </section>
