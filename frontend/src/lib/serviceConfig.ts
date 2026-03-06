@@ -107,7 +107,7 @@ export const services = {
 
       // CANBERRA
       "fyshwick",
-      "canberra",
+      "canberra-act",
     ],
   },
 
@@ -124,6 +124,17 @@ export const services = {
       // CANBERRA
       "fyshwick",
       "canberra-act",
+    ],
+  },
+
+  "home-extensions": {
+    label: "Home Extentions",
+    businessName: "Inhaus Living",
+    heroImage:
+      "https://ik.imagekit.io/ijsd2xvnc/Inhaus/caroline-badran-Cio7d2EK1vs-unsplash.jpg",
+    suburbs: [
+      // SYDNEY
+      "caringbah-nsw",
     ],
   },
 
