@@ -60,7 +60,7 @@ export const services = {
       "moore-park",
 
       // CANBERRA (apenas 1 página)
-      "canberra-act",
+      "canberra",
     ],
   },
 
@@ -123,7 +123,7 @@ export const services = {
 
       // CANBERRA
       "fyshwick",
-      "canberra",
+      "canberra-act",
     ],
   },
 
@@ -152,5 +152,6 @@ export const services = {
     ],
   },
 };
+
 
 export type ServiceKey = keyof typeof services;
