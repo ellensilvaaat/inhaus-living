@@ -60,7 +60,7 @@ export const services = {
       "moore-park",
 
       // CANBERRA (apenas 1 página)
-      "canberra",
+      "canberra-act",
     ],
   },
 
