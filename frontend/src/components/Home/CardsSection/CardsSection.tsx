@@ -52,7 +52,7 @@ const cardsData = [
     description:
       "Licensed builders for extensions, new builds and second-storey additions.",
     image:
-      "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/card6.jpg?tr=w-800,f-webp,q-95",
+      "https://ik.imagekit.io/ijsd2xvnc/Inhaus/0baa5f64-bab8-432c-a9ed-55bfa89fbb16.JPG?tr=w-1400,f-webp,q-95",
     anchor: "construction",
   },
 ];
@@ -61,13 +61,11 @@ export default function CardsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Detect reduced motion once
   const prefersReducedMotion = useMemo(() => {
     if (typeof window === "undefined") return false;
     return window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
   }, []);
 
-  // 1) Entrance animation on view
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -94,7 +92,6 @@ export default function CardsSection() {
     return () => io.disconnect();
   }, [prefersReducedMotion]);
 
-  // 2) Horizontal drag scrolling (mouse/pointer)
   useEffect(() => {
     const track = scrollRef.current;
     if (!track) return;
@@ -105,7 +102,8 @@ export default function CardsSection() {
     let pointerId: number | null = null;
 
     const onPointerDown = (e: PointerEvent) => {
-      // Left click / primary touch only
+      if ((e.target as HTMLElement).closest("a")) return;
+
       if (e.pointerType === "mouse" && e.button !== 0) return;
 
       isDown = true;
@@ -123,11 +121,10 @@ export default function CardsSection() {
       const dx = e.clientX - startX;
       track.scrollLeft = startScrollLeft - dx;
 
-      // prevent selecting text while dragging
-      e.preventDefault?.();
+      e.preventDefault();
     };
 
-    const endDrag = (e?: PointerEvent) => {
+    const endDrag = () => {
       if (!isDown) return;
       isDown = false;
 
@@ -156,7 +153,6 @@ export default function CardsSection() {
     };
   }, []);
 
-  // 3) 3D tilt on cards (pointer move)
   useEffect(() => {
     if (prefersReducedMotion) return;
 
@@ -169,13 +165,12 @@ export default function CardsSection() {
 
     const onMove = (card: HTMLElement, e: PointerEvent) => {
       const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width; // 0..1
-      const y = (e.clientY - rect.top) / rect.height; // 0..1
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
 
-      // tilt strength
-      const max = 9; // degrees
-      const ry = (x - 0.5) * (max * 2); // left/right
-      const rx = (0.5 - y) * (max * 2); // up/down
+      const max = 9;
+      const ry = (x - 0.5) * (max * 2);
+      const rx = (0.5 - y) * (max * 2);
 
       card.style.setProperty("--rx", `${rx.toFixed(2)}deg`);
       card.style.setProperty("--ry", `${ry.toFixed(2)}deg`);
@@ -198,7 +193,6 @@ export default function CardsSection() {
       const handleMove = (e: PointerEvent) => onMove(card, e);
       const handleLeave = () => onLeave(card);
 
-      // init defaults
       card.style.setProperty("--rx", `0deg`);
       card.style.setProperty("--ry", `0deg`);
       card.style.setProperty("--mx", `50%`);
@@ -221,7 +215,9 @@ export default function CardsSection() {
   return (
     <section className="cards-section" ref={sectionRef}>
       <div className="cards-section__header">
-        <h2 className="cards-section__title">Design–Build Renovation and Construction Services</h2>
+        <h2 className="cards-section__title">
+          Design–Build Renovation and Construction Services
+        </h2>
         <p className="cards-section__subtitle">
           Spaces that welcome you home, delivered by a licensed team across Sydney and Canberra.
         </p>
@@ -229,7 +225,12 @@ export default function CardsSection() {
 
       <div className="cards-section__scroll" ref={scrollRef}>
         {cardsData.map((card, index) => (
-          <div className="cards-section__card" key={index} data-tilt>
+          <Link
+            key={index}
+            href={`/services#${card.anchor}`}
+            className="cards-section__card"
+            data-tilt
+          >
             <Image
               src={card.image}
               alt={card.title}
@@ -238,7 +239,9 @@ export default function CardsSection() {
               className="cards-section__img-bg"
               loading="lazy"
             />
-         <div className="cards-section__overlay"></div>
+
+            <div className="cards-section__overlay"></div>
+
             <div className="cards-section__content">
               <div className="cards-section__white-box">
                 <h3 className="cards-section__card-title">{card.title}</h3>
@@ -246,11 +249,11 @@ export default function CardsSection() {
 
               <p className="cards-section__description">{card.description}</p>
 
-              <Link href={`/services#${card.anchor}`} className="cards-section__btn">
+              <div className="cards-section__btn">
                 <Image src={arrowIcon} alt="arrow" width={24} height={24} />
-              </Link>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 

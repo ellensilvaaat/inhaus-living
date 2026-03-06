@@ -12,8 +12,7 @@ const services = [
     title: "Apartment Renovations Sydney",
     description:
       "At Inhaus Living, we specialise in transforming compact spaces into highly functional and refined urban homes across Sydney and Canberra. Our team understands strata requirements, spatial optimisation and premium material selections tailored for apartment living.",
-    image:
-      "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/apartment.png",
+    image: "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/apartment.png",
   },
   {
     id: "homes",
@@ -21,8 +20,7 @@ const services = [
     title: "Home Renovations Sydney",
     description:
       "Our home renovations are designed to evolve with your lifestyle. From partial upgrades to full-scale transformations, we deliver design-led solutions backed by over 20 years of experience and Class 2 licensed construction expertise.",
-    image:
-      "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/home.png",
+    image: "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/home.png",
   },
   {
     id: "kitchens",
@@ -30,8 +28,7 @@ const services = [
     title: "Kitchen Renovations Sydney",
     description:
       "The heart of the home deserves thoughtful planning and premium craftsmanship. We design high-performance kitchens with custom joinery, intelligent layouts and seamless appliance integration.",
-    image:
-      "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/kitchen.png",
+    image: "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/kitchen.png",
   },
   {
     id: "bathrooms",
@@ -39,8 +36,7 @@ const services = [
     title: "Bathroom Renovations Sydney",
     description:
       "Elevate your daily routine with spa-level detailing, advanced waterproofing systems and refined finishes. Our bathroom renovations balance beauty with long-term durability.",
-    image:
-      "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/bathroom.png",
+    image: "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/bathroom.png",
   },
   {
     id: "flooring",
@@ -48,8 +44,7 @@ const services = [
     title: "Flooring Services Sydney",
     description:
       "From engineered timber to hybrid and parquetry solutions, we supply and install premium flooring systems that enhance comfort, durability and aesthetic cohesion.",
-    image:
-      "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/flooring.png",
+    image: "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/flooring.png",
   },
   {
     id: "construction",
@@ -57,8 +52,7 @@ const services = [
     title: "Construction and Additions Sydney",
     description:
       "Planning to expand? Our licensed team delivers structural alterations, extensions and second-storey additions with precision, compliance and full project management.",
-    image:
-      "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/construction.png",
+    image: "https://ik.imagekit.io/ijsd2xvnc/Inhaus/Subtractconstruction.png",
   },
 ];
 
@@ -84,6 +78,34 @@ export default function ServicesSection() {
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const scrollToHash = () => {
+      const hash = window.location.hash;
+      if (!hash) return;
+
+      const id = hash.replace("#", "");
+      const element = document.getElementById(id);
+      if (!element) return;
+
+      const headerOffset = 140;
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    };
+
+    scrollToHash();
+
+    window.addEventListener("hashchange", scrollToHash);
+
+    return () => {
+      window.removeEventListener("hashchange", scrollToHash);
+    };
   }, []);
 
   return (
@@ -138,10 +160,7 @@ export default function ServicesSection() {
       ))}
 
       <div className="services-section__cta">
-        <Link
-          href="/projects/"
-          className="services-section__button"
-        >
+        <Link href="/projects/" className="services-section__button">
           Explore Projects
         </Link>
       </div>

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Script from "next/script";
 
 import Hero from "./components/Hero/Hero";
+import Navbar from "@/components/Navbar/Navbar";
+import Footer from "@/components/Footer/Footer";
 import Intro from "./components/Intro/Intro";
 import Features from "./components/Features/Features";
 import RenovationProcess from "./components/RenovationProcess/RenovationProcess";
@@ -239,11 +241,13 @@ export default function HouseRenovationsPage() {
       />
 
       <div className="house-page">
+        <Navbar />
         <Hero />
         <Intro />
         <Features />
         <RenovationProcess />
         <ContactForm />
+        <Footer />
       </div>
     </>
   );
