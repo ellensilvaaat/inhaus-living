@@ -17,10 +17,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title:
-    "Bathroom Renovations Taren Point | Luxury Bathroom Renovators | Inhaus Living",
+    "Bathroom Renovations Taren Point | Bathroom Renovators",
 
   description:
-    "Premium bathroom renovations in Taren Point by licensed builders with 20+ years experience. Custom bathroom design, waterproofing compliance and luxury finishes.",
+    "Premium bathroom renovations in Taren Point by licensed builders with 20+ years experience.",
 
   keywords: [
   "bathroom renovations Taren Point",
