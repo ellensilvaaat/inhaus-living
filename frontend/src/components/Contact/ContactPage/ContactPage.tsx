@@ -467,7 +467,30 @@ export default function ContactUsPage() {
             />
           </div>
 
-          
+          <div className="turnstile-wrapper">
+            <Turnstile
+              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY as string}
+              onSuccess={(token) => {
+                setTurnstileToken(token);
+                setTurnstileError("");
+              }}
+              onError={() => {
+                setTurnstileToken("");
+                setTurnstileError("Captcha error. Please try again.");
+              }}
+              onExpire={() => {
+                setTurnstileToken("");
+                setTurnstileError("Captcha expired. Please verify again.");
+              }}
+              options={{ theme: "light" }}
+            />
+
+            {turnstileError && (
+              <p style={{ color: "#c0392b", fontSize: "0.9rem", marginTop: 6 }}>
+                {turnstileError}
+              </p>
+            )}
+          </div>
 
           <div className="form-submit">
             <button type="submit" className="submit-btn">
