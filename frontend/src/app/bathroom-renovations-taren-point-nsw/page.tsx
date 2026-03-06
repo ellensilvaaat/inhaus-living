@@ -10,39 +10,39 @@ import RenovationProcess from "./components/RenovationProcess/RenovationProcess"
 import ContactForm from "./components/ContactForm/ContactForm";
 
 const siteUrl = "https://www.inhausliving.com.au";
-const pagePath = "/bathroom-renovations-sydney";
+const pagePath = "/bathroom-renovations-taren-point-nsw";
 const pageUrl = `${siteUrl}${pagePath}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title:
-    "Bathroom Renovations Sydney | Luxury Bathroom Renovators | Inhaus Living",
+    "Bathroom Renovations Taren Point | Luxury Bathroom Renovators | Inhaus Living",
 
   description:
-    "Premium bathroom renovations in Sydney by licensed builders with 20+ years experience. Custom bathroom design, waterproofing compliance and luxury finishes.",
+    "Premium bathroom renovations in Taren Point by licensed builders with 20+ years experience. Custom bathroom design, waterproofing compliance and luxury finishes.",
 
   keywords: [
-  "bathroom renovations sydney",
-  "bathroom renovation company sydney",
-  "luxury bathroom renovations sydney",
-  "bathroom remodeling sydney",
-  "bathroom renovation builder sydney",
-  "custom bathroom renovation sydney",
-  "bathroom renovation specialists sydney",
-  "bathroom design and renovation sydney",
-  "bathroom renovation contractors sydney",
-  "modern bathroom renovations sydney",
-  "high end bathroom renovation sydney",
-  "small bathroom renovation sydney",
-  "ensuite renovation sydney",
-  "bathroom renovation experts sydney",
-  "bathroom renovation services sydney",
-  "luxury bathroom design sydney",
-  "bathroom refurbishment sydney",
-  "bathroom remodel contractors sydney",
-  "bathroom renovation builders sydney",
-  "premium bathroom renovations sydney"
+  "bathroom renovations Taren Point",
+  "bathroom renovation company Taren Point",
+  "luxury bathroom renovations Taren Point",
+  "bathroom remodeling Taren Point",
+  "bathroom renovation builder Taren Point",
+  "custom bathroom renovation Taren Point",
+  "bathroom renovation specialists Taren Point",
+  "bathroom design and renovation Taren Point",
+  "bathroom renovation contractors Taren Point",
+  "modern bathroom renovations Taren Point",
+  "high end bathroom renovation Taren Point",
+  "small bathroom renovation Taren Point",
+  "ensuite renovation Taren Point",
+  "bathroom renovation experts Taren Point",
+  "bathroom renovation services Taren Point",
+  "luxury bathroom design Taren Point",
+  "bathroom refurbishment Taren Point",
+  "bathroom remodel contractors Taren Point",
+  "bathroom renovation builders Taren Point",
+  "premium bathroom renovations Taren Point"
 ],
 
   alternates: {
@@ -64,9 +64,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     title:
-      "Luxury Bathroom Renovations Sydney | Trusted Renovation Specialists",
+      "Luxury Bathroom Renovations Taren Point | Trusted Renovation Specialists",
     description:
-      "Design-led bathroom renovations across Sydney. Fully licensed builders delivering waterproof-compliant, high-end bathroom transformations.",
+      "Design-led bathroom renovations across Taren Point. Fully licensed builders delivering waterproof-compliant, high-end bathroom transformations.",
     url: pageUrl,
     siteName: "Inhaus Living",
     locale: "en_AU",
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
         url: `${siteUrl}/og-bathroom-renovations.jpg`,
         width: 1200,
         height: 630,
-        alt: "Luxury bathroom renovation in Sydney by Inhaus Living",
+        alt: "Luxury bathroom renovation in Taren Point by Inhaus Living",
       },
     ],
   },
@@ -83,9 +83,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title:
-      "Bathroom Renovations Sydney | Luxury Bathroom Builders",
+      "Bathroom Renovations Taren Point | Bathroom Builders",
     description:
-      "Transform your bathroom with Sydney’s trusted renovation specialists.",
+      "Transform your bathroom with Taren Point’s trusted renovation specialists.",
     images: [`${siteUrl}/og-bathroom-renovations.jpg`],
   },
 
@@ -103,9 +103,9 @@ export default function BathroomRenovationsPage() {
         "@type": "WebPage",
         "@id": `${pageUrl}#webpage`,
         url: pageUrl,
-        name: "Bathroom Renovations Sydney",
+        name: "Bathroom Renovations Taren Point",
         description:
-          "Luxury bathroom renovation services across Sydney delivered by licensed renovation specialists.",
+          "Luxury bathroom renovation services across Taren Point delivered by licensed renovation specialists.",
         isPartOf: {
           "@id": `${siteUrl}/#website`,
         },
@@ -117,14 +117,14 @@ export default function BathroomRenovationsPage() {
       {
         "@type": "Service",
         "@id": `${pageUrl}#service`,
-        name: "Bathroom Renovations Sydney",
+        name: "Bathroom Renovations Taren Point",
         serviceType: "Bathroom Renovations",
         provider: {
           "@id": `${siteUrl}/#organization`,
         },
         areaServed: {
           "@type": "City",
-          name: "Sydney",
+          name: "Taren Point",
         },
         serviceArea: {
           "@type": "AdministrativeArea",
@@ -135,7 +135,7 @@ export default function BathroomRenovationsPage() {
         offers: {
           "@type": "Offer",
           availability: "https://schema.org/InStock",
-          areaServed: "Sydney"
+          areaServed: "Taren Point"
         }
       },
 
@@ -144,13 +144,13 @@ export default function BathroomRenovationsPage() {
       {
         "@type": "HomeAndConstructionBusiness",
         "@id": `${siteUrl}/#bathroom-renovation-business`,
-        name: "Inhaus Living Bathroom Renovations Sydney",
+        name: "Inhaus Living Bathroom Renovations Taren Point",
         parentOrganization: {
           "@id": `${siteUrl}/#organization`
         },
         areaServed: {
           "@type": "City",
-          name: "Sydney"
+          name: "Taren Point"
         },
         serviceType: "Bathroom Renovations"
       },
@@ -161,7 +161,7 @@ export default function BathroomRenovationsPage() {
         "@type": "ImageObject",
         "@id": `${pageUrl}#gallery`,
         contentUrl: `${siteUrl}/og-bathroom-renovations.jpg`,
-        caption: "Luxury bathroom renovation project in Sydney"
+        caption: "Luxury bathroom renovation project in Taren Point"
       },
 
       /* FAQ */
@@ -172,11 +172,11 @@ export default function BathroomRenovationsPage() {
         mainEntity: [
           {
             "@type": "Question",
-            name: "How much does a bathroom renovation cost in Sydney?",
+            name: "How much does a bathroom renovation cost in Taren Point?",
             acceptedAnswer: {
               "@type": "Answer",
               text:
-                "Bathroom renovation costs in Sydney depend on layout changes, materials and finishes. Projects can range from mid-range updates to luxury custom bathrooms depending on the scope of work."
+                "Bathroom renovation costs in Taren Point depend on layout changes, materials and finishes. Projects can range from mid-range updates to luxury custom bathrooms depending on the scope of work."
             }
           },
           {
@@ -221,7 +221,7 @@ export default function BathroomRenovationsPage() {
           {
             "@type": "ListItem",
             position: 3,
-            name: "Bathroom Renovations Sydney",
+            name: "Bathroom Renovations Taren Point",
             item: pageUrl,
           },
         ],

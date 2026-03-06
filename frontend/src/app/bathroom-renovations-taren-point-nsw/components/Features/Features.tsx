@@ -9,11 +9,11 @@ export default function Features() {
       <div className="bathroom-features-container">
         <div className="bathroom-features-header">
           <h2 id="bathroom-features-heading">
-            Luxury Bathroom Renovations in Sydney by Trusted Specialists
+            Luxury Bathroom Renovations in Taren Point by Trusted Specialists
           </h2>
 
           <p className="bathroom-features-subtitle">
-            Inhaus Living delivers premium bathroom renovations across Sydney,
+            Inhaus Living delivers premium bathroom renovations across Taren Point,
             combining innovative design, precision craftsmanship and over 20
             years of proven industry expertise.
           </p>
@@ -24,7 +24,7 @@ export default function Features() {
             <h3>Over 20 Years of Renovation Experience</h3>
             <p>
               With more than two decades of experience in residential
-              renovations across Sydney, we understand the technical precision
+              renovations across Taren Point, we understand the technical precision
               required for high-end bathroom transformations — from waterproofing
               systems to luxury finishes and custom joinery.
             </p>

@@ -138,7 +138,7 @@ export default function RenovationProcess() {
           </p>
 
           <h2 id="bathroom-renovation-process-heading">
-            Our Bathroom Renovation Process in Sydney
+            Our Bathroom Renovation Process in Taren Point
           </h2>
 
           <p className="bathroom-process-subtitle">

@@ -49,12 +49,12 @@ export default function Intro() {
         <div className="bathroom-intro-grid">
           <div className="bathroom-intro-text">
             <h2>
-              Transform Your Space with Bathroom Renovations in Sydney
+              Transform Your Space with Bathroom Renovations in Taren Point, NSW
             </h2>
             <p>
               At Inhaus Living, we redefine luxury through exceptional
               craftsmanship and innovative design. Specialising in bespoke
-              bathroom renovations in Sydney, we create refined spaces that
+              bathroom renovations in Taren Point, we create refined spaces that
               combine elegance, durability and everyday functionality.
             </p>
             <p>
