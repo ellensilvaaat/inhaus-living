@@ -53,7 +53,7 @@ export const sendConfirmationEmail = async (formData) => {
 <tr>
 <td style="background:#000;padding:35px;text-align:center;">
 <img 
-src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Logo%20(4).png?tr=w-400,f-webp"
+src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Logo%20(4).png"
 width="180"
 style="display:block;margin:auto"
 />
