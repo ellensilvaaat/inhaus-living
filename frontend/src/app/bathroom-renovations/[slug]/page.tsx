@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { notFound } from "next/navigation";
 
-import { services } from "@/lib/serviceConfig";
+import { services } from "@/lib/bathroomConfig";
 
 import Hero from "../../components/Hero/Hero";
 import Intro from "../../components/Intro/Intro";
