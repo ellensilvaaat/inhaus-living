@@ -7,6 +7,9 @@ export const services = {
     suburbs: [
       // CANBERRA (apenas 1 página)
       "canberra-act",
+      "moore-park-nsw",
+      "taren-point-nsw",
+      "caringbah-nsw",
     ],
   },
 
@@ -35,9 +38,11 @@ export const services = {
       "yowie-bay",
       "woolooware",
       "moore-park-nsw",
+      "taren-point-nsw",
+      "caringbah-nsw",
 
       // CANBERRA
-      "canberra",
+      "canberra-act",
     ],
   },
 
@@ -48,7 +53,7 @@ export const services = {
       "https://ik.imagekit.io/ijsd2xvnc/Inhaus/caroline-badran-eroVX2UFNK4-unsplash.jpg",
     suburbs: [
       // SYDNEY
-      "moore-park",
+      "moore-park-nsw",
       "taren-point",
       "caringbah-nsw",
 
@@ -65,8 +70,9 @@ export const services = {
       "https://ik.imagekit.io/ijsd2xvnc/Inhaus/caroline-badran-Cio7d2EK1vs-unsplash.jpg",
     suburbs: [
       // SYDNEY
-      "taren-point",
-      "moore-park",
+      "taren-point-nsw",
+      "moore-park-nsw",
+      "caringbah-nsw",
 
       // CANBERRA
       "fyshwick",
@@ -84,6 +90,7 @@ export const services = {
       "caringbah-nsw",
       "canberra-act",
       "moore-park-nsw",
+      "taren-point-nsw",
     ],
   },
 
@@ -94,10 +101,12 @@ export const services = {
       "https://ik.imagekit.io/ijsd2xvnc/Inhaus/caroline-badran-eroVX2UFNK4-unsplash.jpg",
     suburbs: [
       // SYDNEY
-      "taren-point",
+      "taren-point-nsw",
+      "caringbah-nsw",
+      "moore-park-nsw",
 
       // CANBERRA
-      "canberra",
+      "canberra-act",
     ],
   },
 
@@ -108,8 +117,10 @@ export const services = {
       "https://ik.imagekit.io/ijsd2xvnc/Inhaus/caroline-badran-eroVX2UFNK4-unsplash.jpg",
     suburbs: [
       // CANBERRA apenas
-      "canberra",
+      "canberra-act",
       "taren-point-nsw",
+      "moore-park-nsw",
+      "caringbah-nsw",
     ],
   },
 };
