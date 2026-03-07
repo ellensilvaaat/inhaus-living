@@ -34,6 +34,7 @@ export const services = {
       "caringbah-south",
       "yowie-bay",
       "woolooware",
+      "moore-park-nsw",
 
       // CANBERRA
       "canberra",
@@ -81,6 +82,8 @@ export const services = {
     suburbs: [
       // SYDNEY
       "caringbah-nsw",
+      "canberra-act",
+      "moore-park-nsw",
     ],
   },
 
