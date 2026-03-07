@@ -25,7 +25,8 @@ export default function ClientLayoutWrapper({
   normalizedPath?.startsWith("/kitchen-renovation") ||
   normalizedPath?.startsWith("/home-construction") ||
   normalizedPath?.startsWith("/thank-you") ||
-  normalizedPath?.startsWith("/home-extensions") ||
+   normalizedPath?.startsWith("/home-extensions") ||
+  normalizedPath?.startsWith("/construction-renovations") ||
   normalizedPath?.startsWith("/home-renovation");
 
   return (

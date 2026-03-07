@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 
 import { services } from "@/lib/serviceConfig";
+import { genericServices } from "@/lib/genericServiceConfig";
 import { parseServiceSlug } from "@/lib/slugParser";
 
 import Hero from "../components/Hero/Hero";
@@ -42,6 +43,12 @@ export async function generateStaticParams() {
     });
   });
 
+  Object.keys(genericServices).forEach((serviceKey) => {
+    params.push({
+      serviceSlug: serviceKey,
+    });
+  });
+
   return params;
 }
 
@@ -52,6 +59,76 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
 
   const { serviceSlug } = await params;
+
+  const generic =
+    genericServices[serviceSlug as keyof typeof genericServices];
+
+  if (generic) {
+
+    const pagePath = `/${serviceSlug}/`;
+    const pageUrl = `${siteUrl}${pagePath}`;
+
+    return {
+      title: `${generic.label} | Licensed Specialists | ${generic.businessName}`,
+
+      description: `Professional ${generic.label.toLowerCase()} services across Sydney and Canberra. ${generic.businessName} delivers premium renovation and construction services.`,
+
+      keywords: [
+        `${generic.label.toLowerCase()} Sydney`,
+        `${generic.label.toLowerCase()} Canberra`,
+        `${generic.label.toLowerCase()} Australia`,
+        `${generic.label.toLowerCase()} services`,
+        `${generic.label.toLowerCase()} specialists`,
+        `${generic.label.toLowerCase()} contractors`,
+        `${generic.label.toLowerCase()} builders`,
+        `${generic.label.toLowerCase()} renovation`,
+        `${generic.label.toLowerCase()} experts`
+      ],
+
+      alternates: {
+        canonical: pageUrl,
+      },
+
+      robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+          "max-video-preview": -1,
+        },
+      },
+
+      openGraph: {
+        type: "website",
+        url: pageUrl,
+        title: generic.label,
+        description: `Premium ${generic.label.toLowerCase()} services across Sydney and Canberra.`,
+        siteName: generic.businessName,
+        locale: "en_AU",
+        images: [
+          {
+            url: generic.heroImage,
+            width: 1200,
+            height: 630,
+            alt: generic.label,
+          },
+        ],
+      },
+
+      twitter: {
+        card: "summary_large_image",
+        title: generic.label,
+        description: `Professional ${generic.label.toLowerCase()} services across Sydney and Canberra.`,
+        images: [generic.heroImage],
+      },
+
+      category: "Construction",
+    };
+  }
+
   const parsed = parseServiceSlug(serviceSlug);
 
   if (!parsed) return {};
@@ -129,6 +206,73 @@ export async function generateMetadata({
 export default async function ServicePage({ params }: PageProps) {
 
   const { serviceSlug } = await params;
+
+  const generic =
+    genericServices[serviceSlug as keyof typeof genericServices];
+
+  if (generic) {
+
+    const phone = "(02) 9662 3509";
+
+    return (
+      <main>
+
+        <Hero
+          suburbName="Sydney and Canberra"
+          renovationLabel={generic.label}
+          businessName={generic.businessName}
+          phoneLabel={phone}
+          heroImage={generic.heroImage}
+        />
+
+        <Intro
+          suburbName="Sydney and Canberra"
+          renovationLabel={generic.label}
+          businessName={generic.businessName}
+        />
+
+        <Features
+          suburbName="Sydney and Canberra"
+          renovationLabel={generic.label}
+          businessName={generic.businessName}
+        />
+
+        <WhyChoose
+          suburbName="Sydney and Canberra"
+          renovationLabel={generic.label}
+          businessName={generic.businessName}
+        />
+
+        <RenovationProcess
+          suburbName="Sydney and Canberra"
+          renovationLabel={generic.label}
+          businessName={generic.businessName}
+        />
+
+        <CinematicCTA
+          suburbName="Sydney and Canberra"
+          renovationLabel={generic.label}
+          businessName={generic.businessName}
+        />
+
+        <ProjectsCarousel />
+
+        <FeedbackSection />
+
+        <ContactForm
+          renovationLabel={generic.label}
+          businessName={generic.businessName}
+          phoneLabel={phone}
+          email="info@inhausliving.com.au"
+          locationLabel="Sydney and Canberra"
+        />
+
+        <Footer region="sydney" />
+
+      </main>
+    );
+  }
+
   const parsed = parseServiceSlug(serviceSlug);
 
   if (!parsed) notFound();
