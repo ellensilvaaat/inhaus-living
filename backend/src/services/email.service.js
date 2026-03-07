@@ -28,7 +28,6 @@ export const sendConfirmationEmail = async (formData) => {
 
   const sender = "Inhaus Living <no-reply@inhausliving.com.au>";
 
-  /* EMAIL DO TIME (TESTE) */
   const teamEmail = "ellen@inhausliving.com.au";
 
   /* ===============================
@@ -39,89 +38,77 @@ export const sendConfirmationEmail = async (formData) => {
     from: sender,
     to: email,
     reply_to: "info@inhausliving.com.au",
-    subject: "Your request has been received – Inhaus Living",
+    subject: "We received your request!",
     html: `
     
-<div style="background:#ffffff;padding:40px 20px;font-family:Arial,Helvetica,sans-serif;color:#000;">
+<div style="background:#f5f5f5;padding:40px 0;font-family:Arial,sans-serif;">
 
-<table width="100%" align="center">
+<table width="100%">
 <tr>
 <td align="center">
 
-<table width="600" style="max-width:600px">
+<table width="600" style="background:#ffffff;border-radius:10px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.08);">
 
+<!-- HEADER -->
 <tr>
-<td align="center" style="padding-bottom:30px;">
+<td style="background:#000;padding:35px;text-align:center;">
 <img 
 src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Logo%20(4).png?tr=w-400,f-webp"
-width="160"
-style="display:block"
+width="180"
+style="display:block;margin:auto"
 />
 </td>
 </tr>
 
+<!-- GREETING -->
 <tr>
-<td style="padding-bottom:20px;">
-<h2 style="
-font-size:26px;
-font-weight:400;
-margin:0;
-text-align:center;
-">
-Thank you for contacting us
+<td style="padding:40px 40px 20px 40px;color:#333;">
+
+<h2 style="margin:0 0 10px 0;font-size:22px;">
+Hi ${firstName},
 </h2>
-</td>
-</tr>
 
-<tr>
-<td style="font-size:15px;line-height:1.7;padding-bottom:30px;text-align:center">
-
-Hi ${firstName},<br/><br/>
-
-We’ve received your request and our team will review the details shortly.
-
-One of our specialists will contact you soon to discuss your project.
+<p style="margin:0;font-size:15px;line-height:1.6;">
+Thank you for contacting <strong>Inhaus Living</strong>.
+Our team has received your request and will contact you shortly.
+</p>
 
 </td>
 </tr>
 
+<!-- SUMMARY -->
 <tr>
-<td style="padding-bottom:30px">
+<td style="padding:20px 40px;">
 
-<table width="100%" style="
-border:1px solid #eee;
-border-radius:8px;
-padding:25px;
-">
-
+<table width="100%" style="border:1px solid #eee;border-radius:8px;padding:20px;">
 <tr>
-<td colspan="2" style="padding-bottom:15px;font-weight:600">
-Request Summary
+<td colspan="2" style="padding-bottom:10px;">
+<strong style="font-size:16px;">Summary</strong>
 </td>
 </tr>
 
 <tr>
-<td style="color:#777;padding:6px 0">Service</td>
+<td style="padding:6px 0;color:#777;">Service</td>
 <td>${service}</td>
 </tr>
 
 <tr>
-<td style="color:#777;padding:6px 0">Budget</td>
+<td style="padding:6px 0;color:#777;">Budget</td>
 <td>${budget}</td>
 </tr>
 
 <tr>
-<td style="color:#777;padding:6px 0">Address</td>
+<td style="padding:6px 0;color:#777;">Address</td>
 <td>${address}</td>
 </tr>
 
 <tr>
-<td style="color:#777;padding:6px 0">Mobile</td>
+<td style="padding:6px 0;color:#777;">Mobile</td>
 <td>${mobile}</td>
 </tr>
 
 <tr>
-<td style="color:#777;padding:6px 0">Installation Date</td>
+<td style="padding:6px 0;color:#777;">Installation Date</td>
 <td>${safeInstallationDate}</td>
 </tr>
 
@@ -134,12 +121,16 @@ ${
   safeMessage
     ? `
 <tr>
-<td style="padding-bottom:30px">
+<td style="padding:0 40px 20px 40px;">
+<p style="font-size:14px;color:#777;margin-bottom:5px;">
+Your message
+</p>
+
 <div style="
+background:#fafafa;
 border-left:3px solid #F67C0B;
 padding:15px;
-background:#fafafa;
-font-size:14px;
+border-radius:4px;
 ">
 ${safeMessage}
 </div>
@@ -149,37 +140,29 @@ ${safeMessage}
     : ""
 }
 
+<!-- CTA -->
 <tr>
-<td align="center" style="padding-bottom:40px">
-
+<td align="center" style="padding:30px;">
 <a href="https://www.inhausliving.com.au"
 style="
 background:#F67C0B;
 color:#fff;
-padding:14px 30px;
-border-radius:4px;
-font-size:14px;
 text-decoration:none;
+padding:14px 28px;
+border-radius:6px;
+font-size:14px;
 display:inline-block;
 ">
-Visit our website
+Visit Our Website
 </a>
-
 </td>
 </tr>
 
+<!-- FOOTER -->
 <tr>
-<td style="
-font-size:12px;
-color:#777;
-text-align:center;
-border-top:1px solid #eee;
-padding-top:20px;
-">
-
-Inhaus Living<br/>
+<td style="background:#fafafa;padding:25px;text-align:center;font-size:12px;color:#777;">
+<strong>Inhaus Living</strong><br/>
 www.inhausliving.com.au
-
 </td>
 </tr>
 
@@ -255,7 +238,6 @@ ${safeMessage}
 </table>
 
 </div>
-
 `,
   };
 
