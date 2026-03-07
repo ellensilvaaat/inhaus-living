@@ -553,6 +553,9 @@
     display: none;
   }
 
+  .mp-hero__trust {
+    gap: 0.5rem;
+  }
 }
 
 
