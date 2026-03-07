@@ -26,198 +26,237 @@ export const sendConfirmationEmail = async (formData) => {
   const safeSubject = subject || null;
   const safeMessage = message || null;
 
-  const sender =
-    process.env.RESEND_SENDER ||
-    "Inhaus Living <no-reply@inhausliving.com.au>";
+  const sender = "Inhaus Living <no-reply@inhausliving.com.au>";
 
-  // EMAIL DE TESTE PARA O TIME
+  /* EMAIL DO TIME (TESTE) */
   const teamEmail = "ellen@inhausliving.com.au";
 
   /* ===============================
-     EMAIL PREMIUM PARA CLIENTE
+     EMAIL DO CLIENTE
   =============================== */
 
   const confirmationMail = {
     from: sender,
     to: email,
+    reply_to: "info@inhausliving.com.au",
     subject: "Your request has been received – Inhaus Living",
     html: `
-    <div style="background:#f4f4f4;padding:40px 0;font-family:Arial,Helvetica,sans-serif;">
+    
+<div style="background:#ffffff;padding:40px 20px;font-family:Arial,Helvetica,sans-serif;color:#000;">
 
-      <table width="100%">
-        <tr>
-          <td align="center">
+<table width="100%" align="center">
+<tr>
+<td align="center">
 
-            <table width="600" style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.08);">
+<table width="600" style="max-width:600px">
 
-              <tr>
-                <td style="background:#111;color:#fff;padding:30px;text-align:center;">
-                  <h1 style="margin:0;">Inhaus Living</h1>
-                  <p style="margin:6px 0 0;color:#ccc;">
-                    Premium Curtains & Blinds
-                  </p>
-                </td>
-              </tr>
+<tr>
+<td align="center" style="padding-bottom:30px;">
+<img 
+src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/Logo%20(4).png?tr=w-400,f-webp"
+width="160"
+style="display:block"
+/>
+</td>
+</tr>
 
-              <tr>
-                <td style="padding:40px;color:#333;">
-                  <h2>Hi ${firstName},</h2>
+<tr>
+<td style="padding-bottom:20px;">
+<h2 style="
+font-size:26px;
+font-weight:400;
+margin:0;
+text-align:center;
+">
+Thank you for contacting us
+</h2>
+</td>
+</tr>
 
-                  <p>
-                  Thank you for contacting <strong>Inhaus Living</strong>.
-                  Your request has been received and our team will review it shortly.
-                  </p>
+<tr>
+<td style="font-size:15px;line-height:1.7;padding-bottom:30px;text-align:center">
 
-                  <p>
-                  One of our specialists will contact you soon to discuss your project.
-                  </p>
-                </td>
-              </tr>
+Hi ${firstName},<br/><br/>
 
-              <tr>
-                <td style="padding:0 40px 30px 40px;">
+We’ve received your request and our team will review the details shortly.
 
-                  <table width="100%" style="border:1px solid #eee;border-radius:8px;padding:20px;">
-                    <tr>
-                      <td colspan="2"><strong>Request Summary</strong></td>
-                    </tr>
+One of our specialists will contact you soon to discuss your project.
 
-                    <tr>
-                      <td style="color:#777;">Service</td>
-                      <td>${service}</td>
-                    </tr>
+</td>
+</tr>
 
-                    <tr>
-                      <td style="color:#777;">Budget</td>
-                      <td>${budget}</td>
-                    </tr>
+<tr>
+<td style="padding-bottom:30px">
 
-                    <tr>
-                      <td style="color:#777;">Address</td>
-                      <td>${address}</td>
-                    </tr>
+<table width="100%" style="
+border:1px solid #eee;
+border-radius:8px;
+padding:25px;
+">
 
-                    <tr>
-                      <td style="color:#777;">Mobile</td>
-                      <td>${mobile}</td>
-                    </tr>
+<tr>
+<td colspan="2" style="padding-bottom:15px;font-weight:600">
+Request Summary
+</td>
+</tr>
 
-                    <tr>
-                      <td style="color:#777;">Installation Date</td>
-                      <td>${safeInstallationDate}</td>
-                    </tr>
-                  </table>
+<tr>
+<td style="color:#777;padding:6px 0">Service</td>
+<td>${service}</td>
+</tr>
 
-                </td>
-              </tr>
+<tr>
+<td style="color:#777;padding:6px 0">Budget</td>
+<td>${budget}</td>
+</tr>
 
-              ${
-                safeMessage
-                  ? `
-                <tr>
-                  <td style="padding:0 40px 30px 40px;">
-                    <strong>Your message</strong>
-                    <div style="background:#fafafa;border-left:4px solid #111;padding:15px;margin-top:10px;">
-                      ${safeMessage}
-                    </div>
-                  </td>
-                </tr>
-              `
-                  : ""
-              }
+<tr>
+<td style="color:#777;padding:6px 0">Address</td>
+<td>${address}</td>
+</tr>
 
-              <tr>
-                <td align="center" style="padding:30px;">
-                  <a href="https://www.inhausliving.com.au"
-                    style="background:#111;color:#fff;padding:14px 28px;border-radius:6px;text-decoration:none;">
-                    Visit Our Website
-                  </a>
-                </td>
-              </tr>
+<tr>
+<td style="color:#777;padding:6px 0">Mobile</td>
+<td>${mobile}</td>
+</tr>
 
-              <tr>
-                <td style="background:#fafafa;padding:25px;text-align:center;font-size:12px;color:#777;">
-                  <strong>Inhaus Living</strong><br/>
-                  Premium Curtains & Blinds in Australia<br/><br/>
-                  www.inhausliving.com.au
-                </td>
-              </tr>
+<tr>
+<td style="color:#777;padding:6px 0">Installation Date</td>
+<td>${safeInstallationDate}</td>
+</tr>
 
-            </table>
+</table>
 
-          </td>
-        </tr>
-      </table>
+</td>
+</tr>
 
-    </div>
-    `,
+${
+  safeMessage
+    ? `
+<tr>
+<td style="padding-bottom:30px">
+<div style="
+border-left:3px solid #F67C0B;
+padding:15px;
+background:#fafafa;
+font-size:14px;
+">
+${safeMessage}
+</div>
+</td>
+</tr>
+`
+    : ""
+}
+
+<tr>
+<td align="center" style="padding-bottom:40px">
+
+<a href="https://www.inhausliving.com.au"
+style="
+background:#F67C0B;
+color:#fff;
+padding:14px 30px;
+border-radius:4px;
+font-size:14px;
+text-decoration:none;
+display:inline-block;
+">
+Visit our website
+</a>
+
+</td>
+</tr>
+
+<tr>
+<td style="
+font-size:12px;
+color:#777;
+text-align:center;
+border-top:1px solid #eee;
+padding-top:20px;
+">
+
+Inhaus Living<br/>
+www.inhausliving.com.au
+
+</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+
+</div>
+`,
   };
 
   /* ===============================
-     EMAIL PREMIUM PARA O TIME
+     EMAIL DO TIME
   =============================== */
 
   const teamMail = {
     from: sender,
     to: teamEmail,
+    reply_to: email,
     subject: `🔥 New Lead: ${fullName}`,
     html: `
-    <div style="font-family:Arial;padding:30px;background:#f4f4f4;">
+    
+<div style="font-family:Arial;padding:30px;background:#f4f4f4;">
 
-      <table width="600" align="center" style="background:#fff;border-radius:10px;padding:30px;">
+<table width="600" align="center" style="background:#fff;border-radius:10px;padding:30px;">
 
-        <tr>
-          <td>
+<tr>
+<td>
 
-            <h2 style="margin-top:0;">
-              🚀 New Lead Received
-            </h2>
+<h2 style="margin-top:0;">
+New Lead Received
+</h2>
 
-            <p>
-              A new lead has been submitted on the website.
-            </p>
+<hr/>
 
-            <hr/>
+<h3>Customer Details</h3>
 
-            <h3>Customer Details</h3>
+<p><strong>Name:</strong> ${fullName}</p>
+<p><strong>Email:</strong> ${email}</p>
+<p><strong>Mobile:</strong> ${mobile}</p>
+<p><strong>Address:</strong> ${address}</p>
 
-            <p><strong>Name:</strong> ${fullName}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Mobile:</strong> ${mobile}</p>
-            <p><strong>Address:</strong> ${address}</p>
+<hr/>
 
-            <hr/>
+<h3>Project Details</h3>
 
-            <h3>Project Details</h3>
+<p><strong>Service:</strong> ${service}</p>
+<p><strong>Budget:</strong> ${budget}</p>
+<p><strong>Installation Date:</strong> ${safeInstallationDate}</p>
 
-            <p><strong>Service:</strong> ${service}</p>
-            <p><strong>Budget:</strong> ${budget}</p>
-            <p><strong>Installation Date:</strong> ${safeInstallationDate}</p>
+${
+  safeSubject
+    ? `<p><strong>Subject:</strong> ${safeSubject}</p>`
+    : ""
+}
 
-            ${
-              safeSubject
-                ? `<p><strong>Subject:</strong> ${safeSubject}</p>`
-                : ""
-            }
+${
+  safeMessage
+    ? `
+<p><strong>Message:</strong></p>
+<div style="background:#fafafa;padding:15px;border-left:4px solid #F67C0B;">
+${safeMessage}
+</div>
+`
+    : ""
+}
 
-            ${
-              safeMessage
-                ? `
-                <p><strong>Message:</strong></p>
-                <div style="background:#fafafa;padding:15px;border-left:4px solid #111;">
-                ${safeMessage}
-                </div>
-              `
-                : ""
-            }
+</td>
+</tr>
 
-          </td>
-        </tr>
+</table>
 
-      </table>
+</div>
 
-    </div>
-    `,
+`,
   };
 
   try {
