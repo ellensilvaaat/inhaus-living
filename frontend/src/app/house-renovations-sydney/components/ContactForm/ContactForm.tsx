@@ -1,16 +1,32 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import "./ContactForm.css";
+
+declare global {
+  interface Window {
+    google: any;
+  }
+}
 
 export default function ContactForm() {
   const router = useRouter();
   const formLoadedAt = useRef(Date.now());
+  const addressRef = useRef<HTMLInputElement | null>(null);
 
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+
+  const [errors, setErrors] = useState({
+    fullName: false,
+    email: false,
+    mobile: false,
+    address: false,
+    budget: false,
+    service: false,
+  });
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -43,35 +59,164 @@ export default function ContactForm() {
     "Construction & Additions",
   ];
 
+  /* ================= GOOGLE AUTOCOMPLETE ================= */
+
+  useEffect(() => {
+    if (!window.google || !addressRef.current) return;
+
+    const autocomplete = new window.google.maps.places.Autocomplete(
+      addressRef.current,
+      {
+        componentRestrictions: { country: "au" },
+        fields: ["formatted_address"],
+      }
+    );
+
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+
+      if (place?.formatted_address) {
+        setFormData((prev) => ({
+          ...prev,
+          address: place.formatted_address,
+        }));
+
+        setErrors((prev) => ({
+          ...prev,
+          address: false,
+        }));
+      }
+    });
+  }, []);
+
+  /* ================= ADDRESS VALIDATION ================= */
+
+  function validateAddress(value: string) {
+    const text = value.toLowerCase().trim();
+
+    const hasStreet =
+      text.includes("street") ||
+      text.includes("st ") ||
+      text.includes(" road") ||
+      text.includes(" rd") ||
+      text.includes(" avenue") ||
+      text.includes(" ave") ||
+      text.includes(" drive") ||
+      text.includes(" dr");
+
+    const words = text.split(/\s+/);
+
+    return words.length >= 2 && hasStreet;
+  }
+
+  /* ================= CHANGE ================= */
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) => {
+
     const { name, value } = e.target;
+
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (name === "fullName") {
+      setErrors((prev) => ({
+        ...prev,
+        fullName: value.trim().length < 3,
+      }));
+    }
+
+    if (name === "email") {
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+      setErrors((prev) => ({
+        ...prev,
+        email: !valid,
+      }));
+    }
+
+    if (name === "mobile") {
+      const valid = /^[0-9+\s]{8,15}$/.test(value);
+
+      setErrors((prev) => ({
+        ...prev,
+        mobile: !valid,
+      }));
+    }
+
+    if (name === "address") {
+      const valid = validateAddress(value);
+
+      setErrors((prev) => ({
+        ...prev,
+        address: !valid,
+      }));
+    }
+
+    if (name === "budget") {
+      setErrors((prev) => ({
+        ...prev,
+        budget: value === "",
+      }));
+    }
+
+    if (name === "service") {
+      setErrors((prev) => ({
+        ...prev,
+        service: value === "",
+      }));
+    }
+
   };
 
-  const validateStep1 = () =>
-    formData.fullName.trim() &&
-    formData.email.trim() &&
-    formData.mobile.trim() &&
-    formData.address.trim();
+  /* ================= VALIDATION ================= */
 
-  const validateStep2 = () =>
-    formData.budget.trim() &&
-    formData.service.trim() &&
-    formData.message.trim();
+  const validateStep1 = () => {
+
+    const newErrors = {
+      fullName: formData.fullName.trim().length < 3,
+      email: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email),
+      mobile: !/^[0-9+\s]{8,15}$/.test(formData.mobile),
+      address: !validateAddress(formData.address),
+      budget: false,
+      service: false,
+    };
+
+    setErrors((prev) => ({ ...prev, ...newErrors }));
+
+    return !Object.values(newErrors).some(Boolean);
+
+  };
+
+  const validateStep2 = () => {
+
+    const newErrors = {
+      ...errors,
+      budget: formData.budget === "",
+      service: formData.service === "",
+    };
+
+    setErrors(newErrors);
+
+    return !newErrors.budget && !newErrors.service && formData.message.trim() !== "";
+
+  };
 
   const nextStep = () => {
     if (step === 1 && !validateStep1()) return;
     if (step === 2 && !validateStep2()) return;
+
     setStep((prev) => Math.min(prev + 1, 3));
   };
 
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
 
+  /* ================= SUBMIT ================= */
+
   const handleSubmit = async (e: React.FormEvent) => {
+
     e.preventDefault();
 
     setIsSubmitting(true);
@@ -82,7 +227,6 @@ export default function ContactForm() {
     const payload = {
       ...formData,
 
-      // LANDING FIXED CONTEXT
       service_key: "apartment-renovation",
       service_label: "Apartment Renovations Sydney",
       suburb: "sydney",
@@ -93,6 +237,7 @@ export default function ContactForm() {
     };
 
     try {
+
       const res = await fetch(`${apiBase}/api/landing`, {
         method: "POST",
         headers: {
@@ -110,11 +255,15 @@ export default function ContactForm() {
 
       setSubmitError(data?.message || "Submission failed.");
       setIsSubmitting(false);
+
     } catch (err) {
+
       console.error(err);
       setSubmitError("⚠️ Could not connect to the server.");
       setIsSubmitting(false);
+
     }
+
   };
 
   const progressPercent = (step / 3) * 100;
@@ -123,8 +272,8 @@ export default function ContactForm() {
     <section className="premium-form" aria-labelledby="premium-form-heading">
       <div className="premium-form__container">
 
-        {/* LEFT SIDE */}
         <div className="premium-form__info">
+
           <h2 id="premium-form-heading">
             Start Your <span>Renovation Journey</span>
           </h2>
@@ -143,6 +292,7 @@ export default function ContactForm() {
           </div>
 
           <div className="premium-form__steps" aria-label="Form progress">
+
             <div className={`step-pill ${step === 1 ? "active" : ""}`}>
               01 Details
             </div>
@@ -154,10 +304,11 @@ export default function ContactForm() {
             <div className={`step-pill ${step === 3 ? "active" : ""}`}>
               03 Submit
             </div>
+
           </div>
+
         </div>
 
-        {/* FORM */}
         <form className="premium-form__form" onSubmit={handleSubmit}>
 
           <div className="progress-wrapper">
@@ -167,13 +318,14 @@ export default function ContactForm() {
             />
           </div>
 
-          {/* STEP 1 */}
           {step === 1 && (
+
             <div className="form-step">
 
               <div className="form-grid">
 
-                <div className="form-group">
+                <div className={`form-group ${errors.fullName ? "invalid" : ""}`}>
+
                   <input
                     name="fullName"
                     value={formData.fullName}
@@ -182,10 +334,19 @@ export default function ContactForm() {
                     placeholder=" "
                     autoComplete="name"
                   />
-                  <label>Full Name</label>
+
+                  <label>Full Name *</label>
+
+                  {errors.fullName && (
+                    <span className="field-error">
+                      Please enter your full name
+                    </span>
+                  )}
+
                 </div>
 
-                <div className="form-group">
+                <div className={`form-group ${errors.email ? "invalid" : ""}`}>
+
                   <input
                     type="email"
                     name="email"
@@ -195,10 +356,19 @@ export default function ContactForm() {
                     placeholder=" "
                     autoComplete="email"
                   />
-                  <label>Email</label>
+
+                  <label>Email *</label>
+
+                  {errors.email && (
+                    <span className="field-error">
+                      Please enter a valid email
+                    </span>
+                  )}
+
                 </div>
 
-                <div className="form-group">
+                <div className={`form-group ${errors.mobile ? "invalid" : ""}`}>
+
                   <input
                     name="mobile"
                     value={formData.mobile}
@@ -207,11 +377,21 @@ export default function ContactForm() {
                     placeholder=" "
                     autoComplete="tel"
                   />
-                  <label>Mobile</label>
+
+                  <label>Mobile *</label>
+
+                  {errors.mobile && (
+                    <span className="field-error">
+                      Please enter a valid phone number
+                    </span>
+                  )}
+
                 </div>
 
-                <div className="form-group">
+                <div className={`form-group ${errors.address ? "invalid" : ""}`}>
+
                   <input
+                    ref={addressRef}
                     name="address"
                     value={formData.address}
                     onChange={handleChange}
@@ -219,33 +399,46 @@ export default function ContactForm() {
                     placeholder=" "
                     autoComplete="street-address"
                   />
-                  <label>Suburb / Address</label>
+
+                  <label>Suburb / Address *</label>
+
+                  {errors.address && (
+                    <span className="field-error">
+                      Please enter a valid address (street and suburb)
+                    </span>
+                  )}
+
                 </div>
 
               </div>
 
               <div className="step-actions single">
+
                 <button type="button" onClick={nextStep} className="next-btn">
                   Next →
                 </button>
+
               </div>
 
             </div>
+
           )}
 
-          {/* STEP 2 */}
           {step === 2 && (
+
             <div className="form-step">
 
               <div className="form-grid">
 
-                <div className="form-group full">
+                <div className={`form-group full ${errors.budget ? "invalid" : ""}`}>
+
                   <select
                     name="budget"
                     value={formData.budget}
                     onChange={handleChange}
                     required
                   >
+
                     <option value=""></option>
 
                     {budgetOptions.map((opt) => (
@@ -253,16 +446,26 @@ export default function ContactForm() {
                     ))}
 
                   </select>
-                  <label>Budget</label>
+
+                  <label>Budget *</label>
+
+                  {errors.budget && (
+                    <span className="field-error">
+                      Please select your budget
+                    </span>
+                  )}
+
                 </div>
 
-                <div className="form-group full">
+                <div className={`form-group full ${errors.service ? "invalid" : ""}`}>
+
                   <select
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
                     required
                   >
+
                     <option value=""></option>
 
                     {serviceOptions.map((opt) => (
@@ -270,10 +473,19 @@ export default function ContactForm() {
                     ))}
 
                   </select>
-                  <label>Service Interested In</label>
+
+                  <label>Service Interested In *</label>
+
+                  {errors.service && (
+                    <span className="field-error">
+                      Please select a service
+                    </span>
+                  )}
+
                 </div>
 
                 <div className="form-group full">
+
                   <textarea
                     name="message"
                     value={formData.message}
@@ -282,7 +494,9 @@ export default function ContactForm() {
                     required
                     placeholder=" "
                   />
-                  <label>Tell us about your project</label>
+
+                  <label>Tell us about your project *</label>
+
                 </div>
 
               </div>
@@ -308,10 +522,11 @@ export default function ContactForm() {
               </div>
 
             </div>
+
           )}
 
-          {/* STEP 3 */}
           {step === 3 && (
+
             <div className="form-step">
 
               {submitError && (
@@ -333,6 +548,7 @@ export default function ContactForm() {
                   className="submit-btn"
                   disabled={isSubmitting}
                 >
+
                   {isSubmitting ? (
                     <>
                       <span className="spinner" />
@@ -341,11 +557,13 @@ export default function ContactForm() {
                   ) : (
                     "Start My Renovation"
                   )}
+
                 </button>
 
               </div>
 
             </div>
+
           )}
 
         </form>

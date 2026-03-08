@@ -4,10 +4,17 @@ import React, { useState, useEffect, useRef } from "react";
 import "./ContactPage.css";
 import { useRouter } from "next/navigation";
 
+declare global {
+  interface Window {
+    google: any;
+  }
+}
+
 export default function ContactUsPage() {
   const router = useRouter();
 
   const formLoadedAt = useRef<number>(Date.now());
+  const addressRef = useRef<HTMLInputElement | null>(null);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
@@ -29,6 +36,57 @@ export default function ContactUsPage() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, []);
+
+  /* ================= GOOGLE ADDRESS AUTOCOMPLETE ================= */
+
+  useEffect(() => {
+    if (!window.google || !addressRef.current) return;
+
+    const autocomplete = new window.google.maps.places.Autocomplete(
+      addressRef.current,
+      {
+        componentRestrictions: { country: "au" },
+        fields: ["formatted_address"],
+      }
+    );
+
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+
+      if (place?.formatted_address) {
+        setFormData((prev) => ({
+          ...prev,
+          address: place.formatted_address,
+        }));
+
+        setErrors((prev) => {
+          const updated = { ...prev };
+          delete updated.address;
+          return updated;
+        });
+      }
+    });
+  }, []);
+
+  /* ================= ADDRESS VALIDATION ================= */
+
+  const validateAddress = (value: string) => {
+    const text = value.toLowerCase().trim();
+
+    const hasStreet =
+      text.includes("street") ||
+      text.includes("st ") ||
+      text.includes(" road") ||
+      text.includes(" rd") ||
+      text.includes(" avenue") ||
+      text.includes(" ave") ||
+      text.includes(" drive") ||
+      text.includes(" dr");
+
+    const words = text.split(/\s+/);
+
+    return words.length >= 2 && hasStreet;
+  };
 
   const budgetOptions = [
     "$25,000 - $50,000",
@@ -64,8 +122,9 @@ export default function ContactUsPage() {
       newErrors.email = "Please enter a valid email.";
     }
 
-    if (!data.address.trim()) {
-      newErrors.address = "Address is required.";
+    if (!data.address.trim() || !validateAddress(data.address)) {
+      newErrors.address =
+        "Please enter a valid address (street and suburb required).";
     }
 
     if (!data.mobile.trim()) {
@@ -245,7 +304,7 @@ export default function ContactUsPage() {
 
           <div className="two-columns">
             <div className="form-group">
-              <label htmlFor="fullName">Full Name</label>
+              <label htmlFor="fullName">Full Name *</label>
 
               <input
                 type="text"
@@ -263,7 +322,7 @@ export default function ContactUsPage() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Email *</label>
 
               <input
                 type="email"
@@ -283,9 +342,10 @@ export default function ContactUsPage() {
 
           <div className="two-columns">
             <div className="form-group">
-              <label htmlFor="address">Address</label>
+              <label htmlFor="address">Address *</label>
 
               <input
+                ref={addressRef}
                 type="text"
                 id="address"
                 name="address"
@@ -301,7 +361,7 @@ export default function ContactUsPage() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="mobile">Mobile</label>
+              <label htmlFor="mobile">Mobile *</label>
 
               <input
                 type="text"
@@ -321,7 +381,7 @@ export default function ContactUsPage() {
 
           <div className="two-columns">
             <div className="form-group">
-              <label htmlFor="budget">Budget</label>
+              <label htmlFor="budget">Budget *</label>
 
               <select
                 id="budget"
@@ -346,7 +406,7 @@ export default function ContactUsPage() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="service">Interested Service</label>
+              <label htmlFor="service">Interested Service *</label>
 
               <select
                 id="service"
@@ -374,7 +434,7 @@ export default function ContactUsPage() {
           <div className="two-columns">
             <div className="form-group">
               <label htmlFor="installationDate">
-                Ideal Installation Date
+                Ideal Installation Date *
               </label>
 
               <input

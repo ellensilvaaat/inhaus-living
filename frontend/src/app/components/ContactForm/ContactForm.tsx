@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import "./ContactForm.css";
 
@@ -10,6 +10,12 @@ interface ContactFormProps {
   phoneLabel: string;
   email: string;
   locationLabel: string;
+}
+
+declare global {
+  interface Window {
+    google: any;
+  }
 }
 
 export default function ContactForm({
@@ -22,8 +28,8 @@ export default function ContactForm({
   const router = useRouter();
   const params = useParams();
   const formLoadedAt = useRef(Date.now());
+  const addressRef = useRef<HTMLInputElement | null>(null);
 
-  // capturar service e slug dinamicamente
   const serviceKey = params?.service as string | undefined;
   const slug = params?.slug as string | undefined;
 
@@ -50,6 +56,14 @@ export default function ContactForm({
     message: "",
   });
 
+  const [errors, setErrors] = useState({
+    fullName: false,
+    email: false,
+    mobile: false,
+    address: false,
+    budget: false,
+  });
+
   const budgetOptions = [
     "$10,000 - $25,000",
     "$25,000 - $50,000",
@@ -58,31 +72,144 @@ export default function ContactForm({
     "$100,000 +",
   ];
 
+  /* ================= GOOGLE AUTOCOMPLETE ================= */
+
+  useEffect(() => {
+    if (!window.google || !addressRef.current) return;
+
+    const autocomplete = new window.google.maps.places.Autocomplete(
+      addressRef.current,
+      {
+        componentRestrictions: { country: "au" },
+        fields: ["formatted_address"],
+      }
+    );
+
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+
+      if (place?.formatted_address) {
+        setFormData((prev) => ({
+          ...prev,
+          address: place.formatted_address,
+        }));
+
+        setErrors((prev) => ({
+          ...prev,
+          address: false,
+        }));
+      }
+    });
+  }, []);
+
+  /* ================= ADDRESS VALIDATION ================= */
+
+  function validateAddress(value: string) {
+    const text = value.toLowerCase().trim();
+
+    const hasStreet =
+      text.includes("street") ||
+      text.includes("st ") ||
+      text.includes(" road") ||
+      text.includes(" rd") ||
+      text.includes(" avenue") ||
+      text.includes(" ave") ||
+      text.includes(" drive") ||
+      text.includes(" dr");
+
+    const words = text.split(/\s+/);
+
+    return words.length >= 2 && hasStreet;
+  }
+
+  /* ================= CHANGE HANDLER ================= */
+
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (name === "fullName") {
+      setErrors((prev) => ({
+        ...prev,
+        fullName: value.trim().length < 3,
+      }));
+    }
+
+    if (name === "email") {
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      setErrors((prev) => ({
+        ...prev,
+        email: !valid,
+      }));
+    }
+
+    if (name === "mobile") {
+      const valid = /^[0-9+\s]{8,15}$/.test(value);
+      setErrors((prev) => ({
+        ...prev,
+        mobile: !valid,
+      }));
+    }
+
+    if (name === "address") {
+      const valid = validateAddress(value);
+
+      setErrors((prev) => ({
+        ...prev,
+        address: !valid,
+      }));
+    }
+
+    if (name === "budget") {
+      setErrors((prev) => ({
+        ...prev,
+        budget: value === "",
+      }));
+    }
   };
 
-  const validateStep1 = () =>
-    formData.fullName.trim() &&
-    formData.email.trim() &&
-    formData.mobile.trim() &&
-    formData.address.trim();
+  /* ================= VALIDATION ================= */
 
-  const validateStep2 = () =>
-    formData.budget.trim() && formData.message.trim();
+  const validateStep1 = () => {
+    const newErrors = {
+      fullName: formData.fullName.trim().length < 3,
+      email: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email),
+      mobile: !/^[0-9+\s]{8,15}$/.test(formData.mobile),
+      address: !validateAddress(formData.address),
+      budget: false,
+    };
+
+    setErrors((prev) => ({ ...prev, ...newErrors }));
+
+    return !Object.values(newErrors).some(Boolean);
+  };
+
+  const validateStep2 = () => {
+    const budgetError = formData.budget === "";
+
+    setErrors((prev) => ({
+      ...prev,
+      budget: budgetError,
+    }));
+
+    return !budgetError;
+  };
+
+  /* ================= STEPS ================= */
 
   const nextStep = () => {
     if (step === 1 && !validateStep1()) return;
     if (step === 2 && !validateStep2()) return;
+
     setStep((prev) => Math.min(prev + 1, 3));
   };
 
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
+
+  /* ================= SUBMIT ================= */
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -140,7 +267,6 @@ export default function ContactForm({
     >
       <div className="bathroom-form__container">
 
-        {/* LEFT */}
         <div className="bathroom-form__info">
           <h2 id="renovation-form-heading">
             Start Your <span>{renovationLabel} in {locationLabel}</span>
@@ -157,7 +283,7 @@ export default function ContactForm({
             <a href={`mailto:${email}`}>{email}</a>
           </div>
 
-          <div className="bathroom-form__steps" aria-label="Form progress">
+          <div className="bathroom-form__steps">
             <div className={`step-pill ${step === 1 ? "active" : ""}`}>
               01 Details
             </div>
@@ -172,7 +298,6 @@ export default function ContactForm({
           </div>
         </div>
 
-        {/* FORM */}
         <form className="bathroom-form__form" onSubmit={handleSubmit}>
 
           <div className="progress-wrapper">
@@ -187,19 +312,23 @@ export default function ContactForm({
 
               <div className="form-grid">
 
-                <div className="form-group">
+                <div className={`form-group ${errors.fullName ? "invalid" : ""}`}>
                   <input
                     name="fullName"
                     value={formData.fullName}
                     onChange={handleChange}
                     required
                     placeholder=" "
-                    autoComplete="name"
                   />
-                  <label>Full Name</label>
+                  <label>Full Name *</label>
+                  {errors.fullName && (
+                    <span className="field-error">
+                      Please enter your full name
+                    </span>
+                  )}
                 </div>
 
-                <div className="form-group">
+                <div className={`form-group ${errors.email ? "invalid" : ""}`}>
                   <input
                     type="email"
                     name="email"
@@ -207,25 +336,34 @@ export default function ContactForm({
                     onChange={handleChange}
                     required
                     placeholder=" "
-                    autoComplete="email"
                   />
-                  <label>Email</label>
+                  <label>Email *</label>
+                  {errors.email && (
+                    <span className="field-error">
+                      Please enter a valid email
+                    </span>
+                  )}
                 </div>
 
-                <div className="form-group">
+                <div className={`form-group ${errors.mobile ? "invalid" : ""}`}>
                   <input
                     name="mobile"
                     value={formData.mobile}
                     onChange={handleChange}
                     required
                     placeholder=" "
-                    autoComplete="tel"
                   />
-                  <label>Mobile</label>
+                  <label>Mobile *</label>
+                  {errors.mobile && (
+                    <span className="field-error">
+                      Please enter a valid phone number
+                    </span>
+                  )}
                 </div>
 
-                <div className="form-group">
+                <div className={`form-group ${errors.address ? "invalid" : ""}`}>
                   <input
+                    ref={addressRef}
                     name="address"
                     value={formData.address}
                     onChange={handleChange}
@@ -233,7 +371,12 @@ export default function ContactForm({
                     placeholder=" "
                     autoComplete="street-address"
                   />
-                  <label>Suburb / Address</label>
+                  <label>Street Address *</label>
+                  {errors.address && (
+                    <span className="field-error">
+                      Please enter a valid address (street and suburb)
+                    </span>
+                  )}
                 </div>
 
               </div>
@@ -252,7 +395,7 @@ export default function ContactForm({
 
               <div className="form-grid">
 
-                <div className="form-group full">
+                <div className={`form-group full ${errors.budget ? "invalid" : ""}`}>
                   <select
                     name="budget"
                     value={formData.budget}
@@ -266,7 +409,15 @@ export default function ContactForm({
                     ))}
 
                   </select>
-                  <label>Budget</label>
+
+                  <label>Budget *</label>
+
+                  {errors.budget && (
+                    <span className="field-error">
+                      Please select your budget
+                    </span>
+                  )}
+
                 </div>
 
                 <div className="form-group full">

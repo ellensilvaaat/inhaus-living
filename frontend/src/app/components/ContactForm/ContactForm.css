@@ -310,6 +310,18 @@
   }
 }
 
+.form-group.invalid input{
+  border-color:#ff4d4d;
+  box-shadow:0 0 0 4px rgba(255,77,77,0.15);
+}
+
+.field-error{
+  color:#ff4d4d;
+  font-size:1.2rem;
+  margin-top:6px;
+  display:block;
+}
+
 /* =====================================================
    RESPONSIVE
 ===================================================== */
