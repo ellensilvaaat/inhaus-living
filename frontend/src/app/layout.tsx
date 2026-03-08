@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Be_Vietnam_Pro } from "next/font/google";
 import Script from "next/script";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const siteUrl = "https://www.inhausliving.com.au";
 
@@ -347,6 +348,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <ClientLayoutWrapper>
           <main>{children}</main>
         </ClientLayoutWrapper>
+        <SpeedInsights />
       </body>
     </html>
   );
