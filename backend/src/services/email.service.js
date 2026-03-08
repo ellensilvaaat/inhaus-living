@@ -28,7 +28,10 @@ export const sendConfirmationEmail = async (formData) => {
 
   const sender = "Inhaus Living <no-reply@inhausliving.com.au>";
 
-  const teamEmail = "info@inhausliving.com.au";
+const teamEmails = [
+  "info@inhausliving.com.au",
+  "dora@inhausliving.com.au"
+];
 
   /* ===============================
      EMAIL DO CLIENTE
@@ -182,7 +185,7 @@ www.inhausliving.com.au
 
   const teamMail = {
     from: sender,
-    to: teamEmail,
+    to: teamEmails,
     reply_to: email,
     subject: `🔥 New Lead: ${fullName}`,
     html: `
