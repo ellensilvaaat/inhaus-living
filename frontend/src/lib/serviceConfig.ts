@@ -7,7 +7,7 @@ export const services = {
     suburbs: [
       // CANBERRA (apenas 1 página)
       "canberra-act",
-      "moore-park-nsw",
+      "moore-park",
       "taren-point-nsw",
       "caringbah-nsw",
     ],
@@ -43,6 +43,7 @@ export const services = {
 
       // CANBERRA
       "canberra-act",
+      "canberra",
     ],
   },
 
