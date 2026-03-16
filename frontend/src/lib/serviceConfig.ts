@@ -10,6 +10,7 @@ export const services = {
       "moore-park",
       "taren-point-nsw",
       "caringbah-nsw",
+      "red-hill",
     ],
   },
 
@@ -92,6 +93,7 @@ export const services = {
       "canberra-act",
       "moore-park-nsw",
       "taren-point-nsw",
+      "taren-point",
     ],
   },
 
@@ -103,11 +105,14 @@ export const services = {
     suburbs: [
       // SYDNEY
       "taren-point-nsw",
+      "taren-point",
       "caringbah-nsw",
       "moore-park-nsw",
 
       // CANBERRA
       "canberra-act",
+      "fyshwick",
+      "canberra",
     ],
   },
 
@@ -122,6 +127,17 @@ export const services = {
       "taren-point-nsw",
       "moore-park-nsw",
       "caringbah-nsw",
+      "fyshwick",
+    ],
+  },
+
+    "construction-additions": {
+    label: "Construction and Additions",
+    businessName: "Inhaus Living",
+    heroImage:
+      "https://ik.imagekit.io/ijsd2xvnc/Inhaus/caroline-badran-eroVX2UFNK4-unsplash.jpg",
+    suburbs: [
+      "sydney",
     ],
   },
 };

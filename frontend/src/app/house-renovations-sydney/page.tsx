@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title:
-    "House Renovations Sydney | Home Renovators | Inhaus Living",
+    "House Renovations Sydney | Home Renovators",
 
   description:
     "House renovations in Sydney by licensed builders. Full home transformations, extensions and design-led renovations tailored to your lifestyle.",

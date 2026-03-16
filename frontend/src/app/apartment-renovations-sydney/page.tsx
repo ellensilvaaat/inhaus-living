@@ -17,10 +17,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title:
-    "Apartment Renovations Sydney | Luxury Strata Renovators | Inhaus Living",
+    "Apartment Renovations Sydney | Luxury Strata Renovators",
 
   description:
-    "Premium apartment renovations in Sydney by licensed strata renovation specialists with 20+ years experience. Strata-compliant kitchen, bathroom and full apartment transformations delivered with precision and design excellencePremium apartment renovations in Sydney by licensed strata specialists. Kitchen, bathroom and full apartment transformations delivered with precision.",
+    "Premium apartment renovations in Sydney by licensed strata specialists. Kitchen, bathroom and full apartment transformations with precision.",
 
   keywords: [
   "apartment renovations sydney",

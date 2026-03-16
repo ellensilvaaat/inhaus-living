@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title:
-    "Bathroom Renovations Sydney | Luxury Bathroom Renovators | Inhaus Living",
+    "Bathroom Renovations Sydney | Luxury Bathroom Renovators",
 
   description:
     "Premium bathroom renovations in Sydney by licensed builders with 20+ years experience. Custom bathroom design, waterproofing compliance and luxury finishes.",

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title:
-    "Home Extensions Sydney | Construction & Additions Specialists | Inhaus Living",
+    "Home Extensions Sydney | Construction & Additions Specialists",
 
   description:
     "Premium home extensions and construction in Sydney. Licensed builders delivering second storey additions and ground floor extensions across NSW.",

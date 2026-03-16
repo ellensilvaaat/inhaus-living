@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title:
-    "Kitchen Renovations Sydney | Kitchen Renovators | Inhaus Living",
+    "Kitchen Renovations Sydney | Kitchen Renovators",
 
   description:
     "Premium kitchen renovations in Sydney by licensed builders with 20+ years experience. Custom luxury kitchens designed for performance and elegance.",

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title:
-    "Flooring Installation Sydney | Timber, Engineered & Hybrid Flooring Specialists | Inhaus Living",
+    "Flooring Installation Sydney | Timber, Engineered & Hybrid Flooring Specialists",
 
   description:
     "Premium flooring installation in Sydney, NSW. Timber, engineered and hybrid floors installed by licensed specialists with precision craftsmanship.",
