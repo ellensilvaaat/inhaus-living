@@ -139,6 +139,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
   const schemaData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -277,6 +278,23 @@ export default function RootLayout({
       className={`${theSeasons.variable} ${beVietnam.variable}`}
     >
       <head>
+
+        {/* NOVO GOOGLE TAG MANAGER */}
+
+        <Script
+          id="gtm-new"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id=GTM-W2LTBPCP'+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W2LTBPCP');`,
+          }}
+        />
+
+        {/* FACEBOOK PIXEL */}
+
         <Script
           id="facebook-pixel"
           strategy="beforeInteractive"
@@ -304,16 +322,20 @@ fbq('track', 'PageView');
       </head>
 
       <body>
+
+        {/* NOVO GTM NOSCRIPT */}
+
         <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: "none" }}
-            src="https://www.facebook.com/tr?id=517158583507495&ev=PageView&noscript=1"
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-W2LTBPCP"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
 
-        {/* GOOGLE TAG MANAGER NOSCRIPT */}
+        {/* GTM ANTIGO NOSCRIPT */}
+
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-TXGF3XC"
@@ -323,7 +345,8 @@ fbq('track', 'PageView');
           />
         </noscript>
 
-        {/* GOOGLE TAG MANAGER SCRIPT */}
+        {/* GTM ANTIGO SCRIPT */}
+
         <Script
           id="gtm-script"
           strategy="beforeInteractive"
@@ -348,7 +371,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <ClientLayoutWrapper>
           <main>{children}</main>
         </ClientLayoutWrapper>
+
         <SpeedInsights />
+
       </body>
     </html>
   );
