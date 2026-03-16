@@ -128,8 +128,12 @@ export const metadata: Metadata = {
   },
 
   verification: {
-    google: "COLE_SEU_CODIGO_AQUI",
+  google: "SEU_CODIGO_DO_GOOGLE",
+  other: {
+    "msvalidate.01": "8CF3E35311143DE6042699FD6D2CAFCF",
   },
+},
+
 };
 
 /* ================= LAYOUT ================= */
