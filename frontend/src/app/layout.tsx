@@ -128,7 +128,7 @@ export const metadata: Metadata = {
   },
 
   verification: {
-  google: "SEU_CODIGO_DO_GOOGLE",
+  google: "5kM9dBMvY4shdk59hapks-KCN2F4Q5W9krbqg6KuGe0",
   other: {
     "msvalidate.01": "8CF3E35311143DE6042699FD6D2CAFCF",
   },
