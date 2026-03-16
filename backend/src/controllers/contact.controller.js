@@ -1,5 +1,6 @@
 import { supabase } from "../services/supabase.service.js";
 import { sendConfirmationEmail } from "../services/email.service.js";
+import { sendLeadToMonday } from "../services/monday.service.js";
 import { validateEmail, validatePhone } from "../utils/validators.js";
 import logger from "../utils/logger.js";
 
@@ -9,8 +10,13 @@ export const submitContactForm = async (req, res) => {
   try {
     const data = req.body;
 
+    /* =========================
+       BOT PROTECTION
+    ========================== */
+
     if (typeof data.formStartedAt === "undefined") {
       logger.warn("Contact form missing formStartedAt");
+
       return res.status(400).json({
         success: false,
         message: "Invalid form submission.",
@@ -21,11 +27,16 @@ export const submitContactForm = async (req, res) => {
 
     if (timeTaken < MIN_SUBMIT_TIME) {
       logger.warn("Bot blocked - submitted too fast", { timeTaken });
+
       return res.status(429).json({
         success: false,
         message: "Submission too fast.",
       });
     }
+
+    /* =========================
+       VALIDATION
+    ========================== */
 
     if (
       !data.fullName ||
@@ -39,6 +50,10 @@ export const submitContactForm = async (req, res) => {
         message: "Invalid form data.",
       });
     }
+
+    /* =========================
+       DATABASE PAYLOAD
+    ========================== */
 
     const payload = {
       full_name: data.fullName,
@@ -54,30 +69,67 @@ export const submitContactForm = async (req, res) => {
       status: "new",
     };
 
+    /* =========================
+       INSERT INTO SUPABASE
+    ========================== */
+
     const { error } = await supabase
       .from("contact_forms")
       .insert([payload]);
 
     if (error) {
       logger.error("Contact form DB error", { error });
+
       return res.status(400).json({
         success: false,
         message: error.message,
       });
     }
 
-    logger.info("Contact form submitted", { email: data.email });
+    logger.info("Contact form submitted", {
+      email: data.email,
+      service: data.service,
+    });
+
+    /* =========================
+       SUCCESS RESPONSE
+    ========================== */
 
     res.status(201).json({
       success: true,
       message: "Form submitted successfully",
     });
 
+    /* =========================
+       SEND EMAIL (NON BLOCKING)
+    ========================== */
+
     sendConfirmationEmail(data).catch((err) => {
-      logger.warn("Email send failed (non-blocking)", { err });
+      logger.warn("Email send failed (non-blocking)", {
+        error: err.message,
+      });
+    });
+
+    /* =========================
+       SEND TO MONDAY (NON BLOCKING)
+    ========================== */
+
+    sendLeadToMonday({
+      fullName: data.fullName,
+      email: data.email,
+      mobile: data.mobile,
+      address: data.address,
+      budget: data.budget,
+      service: data.service,
+      message: data.message,
+    }).catch((err) => {
+      logger.warn("Monday lead send failed", {
+        error: err.message,
+      });
     });
 
   } catch (err) {
+
     logger.error("Contact controller unexpected error", {
       message: err.message,
       stack: err.stack,
@@ -87,6 +139,6 @@ export const submitContactForm = async (req, res) => {
       success: false,
       message: "Internal Server Error",
     });
+
   }
 };
-
