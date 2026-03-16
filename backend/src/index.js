@@ -14,6 +14,8 @@ import landingRoutes from "./routes/landing.routes.js";
 import { apiLimiter } from "./middlewares/rateLimit.middleware.js";
 import logger from "./utils/logger.js";
 
+import "./jobs/newsletterCron.job.js";
+
 dotenv.config();
 
 const app = express();

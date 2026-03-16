@@ -16,6 +16,11 @@ import woollahra from "./wallaroy-crescent-woollahra.json";
 import paddington from "./house-extension-paddington.json";
 import wollstonecraft from "./river-road-townhouse.json";
 import Paddington from "./dillon-street-residence.json";
+import sagars from "./bathroom-and-kitchen-renovation-sagars-road-dural.json";
+import sandringhamDuplex1 from "./duplex-clareville-ave-duplex-1-sandringham.json";
+import maclaey from "./apartment-renovation-maclaey-street-elizabeth-bay.json";
+import newBeachRoad from "./bathroom-and-kitchen-renovation-new-beach-road-darling-point.json";
+import sandringhamDuplex2 from "./clareville-ave-duplex-2-sandringham.json";
 
 export const projectsData = [
   Paddington,
@@ -36,4 +41,9 @@ export const projectsData = [
   rosehill,
   venetia,
   churchPoint,
+  sagars,
+  sandringhamDuplex1,
+  maclaey,
+  newBeachRoad,
+  sandringhamDuplex2
 ];

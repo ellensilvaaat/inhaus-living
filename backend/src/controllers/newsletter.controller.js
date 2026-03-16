@@ -2,11 +2,12 @@ import { supabase } from "../services/supabase.service.js";
 import { validateEmail, validateRequiredFields } from "../utils/validators.js";
 import logger from "../utils/logger.js";
 
+import { subscribeUser } from "../services/newsletterSequence.service.js";
+
 export const subscribeToNewsletter = async (req, res) => {
   try {
     const { name, email } = req.body;
 
-    // validar campos obrigatórios
     if (!validateRequiredFields([name, email])) {
       logger.warn("Newsletter validation failed - missing fields", {
         body: req.body,
@@ -18,7 +19,6 @@ export const subscribeToNewsletter = async (req, res) => {
       });
     }
 
-    // validar email
     if (!validateEmail(email)) {
       logger.warn("Newsletter invalid email format", { email });
 
@@ -30,7 +30,9 @@ export const subscribeToNewsletter = async (req, res) => {
 
     const normalizedEmail = email.toLowerCase().trim();
 
-    // salvar no supabase
+    /*
+      salvar no Supabase
+    */
     const { error } = await supabase
       .from("newsletter_subscribers")
       .insert([
@@ -52,6 +54,13 @@ export const subscribeToNewsletter = async (req, res) => {
     logger.info("Newsletter subscription saved", {
       email: normalizedEmail,
     });
+
+    /*
+      disparar welcome email + iniciar sequência
+    */
+    const firstName = name.split(" ")[0];
+
+    await subscribeUser(normalizedEmail, firstName);
 
     return res.status(201).json({
       success: true,
