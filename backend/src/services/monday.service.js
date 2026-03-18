@@ -2,79 +2,121 @@ import fetch from "node-fetch";
 
 const MONDAY_API_KEY = process.env.MONDAY_API_KEY;
 const BOARD_ID = process.env.MONDAY_BOARD_ID;
+const GOOGLE_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
 /**
- * Format date to YYYY-MM-DD (required by Monday)
+ * 🛠 SERVICE MAP (FRONT → MONDAY)
  */
-const formatDate = (date) => {
-  if (!date) return null;
-  return new Date(date).toISOString().split("T")[0];
+const enquiryMap = {
+  "Kitchen Renovation": "Kitchen Renovations",
+  "Bathroom Renovation": "Bathroom Renovations",
+  "Home Renovation": "Home Renovation",
+  "Apartment Renovation": "Apartment Renovations",
+  "Flooring Services": "Flooring Services",
+  "Construction & Additions": "Construction & Additions",
 };
 
+/**
+ * 💰 FORMAT BUDGET (ROBUSTO)
+ */
+const formatBudget = (budget) => {
+  if (!budget) return "$25,000-$50,000";
+
+  const normalized = budget.replace(/\s*-\s*/g, "-");
+
+  // 🔥 valores que NÃO existem no Monday
+  if (
+    normalized.includes("1.5 million") ||
+    normalized.includes("2 million")
+  ) {
+    return "$1 million +";
+  }
+
+  return normalized;
+};
+
+/**
+ * 📍 GOOGLE GEOCODE
+ */
+const getCoordinates = async (address) => {
+  try {
+    if (!address) return null;
+
+    const res = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+        address
+      )}&key=${GOOGLE_API_KEY}`
+    );
+
+    const data = await res.json();
+
+    if (!data.results || !data.results.length) return null;
+
+    const { lat, lng } = data.results[0].geometry.location;
+
+    return { lat, lng, address };
+
+  } catch (err) {
+    console.error("Geocode error:", err.message);
+    return null;
+  }
+};
+
+/**
+ * 🚀 SEND TO MONDAY
+ */
 export const sendLeadToMonday = async (lead) => {
   try {
-    let columnValues = {
-      // 📧 Email
+    // 🔒 validação mínima
+    if (!lead?.email || !lead?.fullName) return;
+
+    const locationData = await getCoordinates(lead.address);
+
+    const columnValues = {
+      // 📧 EMAIL
       lead_email: {
         email: lead.email,
         text: lead.email,
       },
 
-      // 📞 Phone
+      // 📞 PHONE
       lead_phone: {
         phone: lead.mobile || "",
         countryShortName: "AU",
       },
 
-      // 📍 Address
-      location5: lead.address
-        ? { address: lead.address }
-        : undefined,
+      // 📍 LOCATION
+      location5: locationData || undefined,
 
-      // 📝 Subject
-      text_mkmmp75w: lead.subject || undefined,
+      // 🛠 SERVICE
+      status_1_mkmmfkyh: {
+        label: enquiryMap[lead.service] || "Home Renovation",
+      },
 
-      // 💬 Message
+      // 💬 MESSAGE
       long_text: lead.message
         ? { text: lead.message }
         : undefined,
 
-      // 📅 Installation Date
-      date_mkmmn5w0: lead.installation_date
-        ? { date: formatDate(lead.installation_date) }
-        : undefined,
-
-      // 🛠 Service (Status column)
-      single_select_mkmm1y2g: lead.service
-        ? { label: lead.service }
-        : undefined,
-
-      // 💰 Budget (Status column)
-      status_1_mkmmgnw0: lead.budget
-        ? { label: lead.budget }
-        : undefined,
-
-      // 🔎 Found Us (Status column)
-      single_select_mkmmpqqn: lead.found_us
-        ? { label: lead.found_us }
-        : undefined,
+      // 💰 BUDGET
+      status_1_mkmmgnw0: {
+        label: formatBudget(lead.budget),
+      },
     };
 
-    /**
-     * Remove undefined / null values
-     */
+    // remove undefined
     Object.keys(columnValues).forEach((key) => {
-      if (!columnValues[key]) {
-        delete columnValues[key];
-      }
+      if (!columnValues[key]) delete columnValues[key];
     });
 
+    const stringifiedValues = JSON.stringify(columnValues).replace(/"/g, '\\"');
+
     const query = `
-      mutation ($columnValues: JSON!) {
+      mutation {
         create_item(
           board_id: ${BOARD_ID},
-          item_name: "${lead.fullName || "New Lead"}",
-          column_values: $columnValues
+          item_name: "${lead.fullName}",
+          column_values: "${stringifiedValues}"
         ) {
           id
         }
@@ -87,16 +129,14 @@ export const sendLeadToMonday = async (lead) => {
         Authorization: MONDAY_API_KEY,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        query,
-        variables: { columnValues },
-      }),
+      body: JSON.stringify({ query }),
     });
 
     const result = await response.json();
 
-    // 🔍 Debug (pode remover depois)
-    console.log("MONDAY RESULT:", JSON.stringify(result, null, 2));
+    if (result.errors) {
+      console.error("Monday error:", JSON.stringify(result.errors));
+    }
 
     return result;
 
