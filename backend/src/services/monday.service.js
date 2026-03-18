@@ -1,30 +1,80 @@
 import fetch from "node-fetch";
-import logger from "../utils/logger.js";
 
 const MONDAY_API_KEY = process.env.MONDAY_API_KEY;
 const BOARD_ID = process.env.MONDAY_BOARD_ID;
 
+/**
+ * Format date to YYYY-MM-DD (required by Monday)
+ */
+const formatDate = (date) => {
+  if (!date) return null;
+  return new Date(date).toISOString().split("T")[0];
+};
+
 export const sendLeadToMonday = async (lead) => {
   try {
-
-    const columnValues = JSON.stringify({
-      email: {
+    let columnValues = {
+      // 📧 Email
+      lead_email: {
         email: lead.email,
         text: lead.email,
       },
-      phone: lead.mobile || "",
-      address: lead.address || "",
-      text0: lead.service || lead.service_label || "",
-      text1: lead.budget || "",
-      long_text: lead.message || "",
-    }).replace(/"/g, '\\"');
+
+      // 📞 Phone
+      lead_phone: {
+        phone: lead.mobile || "",
+        countryShortName: "AU",
+      },
+
+      // 📍 Address
+      location5: lead.address
+        ? { address: lead.address }
+        : undefined,
+
+      // 📝 Subject
+      text_mkmmp75w: lead.subject || undefined,
+
+      // 💬 Message
+      long_text: lead.message
+        ? { text: lead.message }
+        : undefined,
+
+      // 📅 Installation Date
+      date_mkmmn5w0: lead.installation_date
+        ? { date: formatDate(lead.installation_date) }
+        : undefined,
+
+      // 🛠 Service (Status column)
+      single_select_mkmm1y2g: lead.service
+        ? { label: lead.service }
+        : undefined,
+
+      // 💰 Budget (Status column)
+      status_1_mkmmgnw0: lead.budget
+        ? { label: lead.budget }
+        : undefined,
+
+      // 🔎 Found Us (Status column)
+      single_select_mkmmpqqn: lead.found_us
+        ? { label: lead.found_us }
+        : undefined,
+    };
+
+    /**
+     * Remove undefined / null values
+     */
+    Object.keys(columnValues).forEach((key) => {
+      if (!columnValues[key]) {
+        delete columnValues[key];
+      }
+    });
 
     const query = `
-      mutation {
+      mutation ($columnValues: JSON!) {
         create_item(
           board_id: ${BOARD_ID},
-          item_name: "${lead.fullName}",
-          column_values: "${columnValues}"
+          item_name: "${lead.fullName || "New Lead"}",
+          column_values: $columnValues
         ) {
           id
         }
@@ -37,20 +87,20 @@ export const sendLeadToMonday = async (lead) => {
         Authorization: MONDAY_API_KEY,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({
+        query,
+        variables: { columnValues },
+      }),
     });
 
     const result = await response.json();
 
-    logger.info("Lead sent to Monday", { lead: lead.email });
+    // 🔍 Debug (pode remover depois)
+    console.log("MONDAY RESULT:", JSON.stringify(result, null, 2));
 
     return result;
 
   } catch (error) {
-
-    logger.error("Monday integration failed", {
-      message: error.message,
-    });
-
+    console.error("Monday integration failed:", error.message);
   }
 };
