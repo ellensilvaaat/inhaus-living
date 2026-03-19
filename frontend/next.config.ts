@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 
+
 const nextConfig = {
   reactStrictMode: true,
 
@@ -17,13 +18,16 @@ const nextConfig = {
         protocol: "https",
         hostname: "ik.imagekit.io",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
     formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1400, 1600, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
 
-  /* Security headers */
   async headers() {
     return [
       {
@@ -41,5 +45,6 @@ const nextConfig = {
     ];
   },
 };
+
 
 export default nextConfig;
