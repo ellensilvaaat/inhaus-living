@@ -336,7 +336,7 @@ const guides: Guide[] = [
   title: "Joinery and Cabinetry Care",
   eyebrow: "Care Library",
   description:
-    "Joinery plays a key role in both the function and aesthetic of your home. With care cabinetry and custom joinery can maintain their finish, structure and appearance over time.",
+    "Joinery is essential to both the function and aesthetic of your home. With proper care, it will maintain its finish and integrity over time.",
   coverImage:
     "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/bilal-mansuri-PkepZpGteGQ-unsplash.jpg?updatedAt=1767842583019",
   pdfUrl: "/care-hub/joinery-cabinetry-care.pdf",
@@ -429,7 +429,7 @@ const guides: Guide[] = [
   title: "Appliances Care",
   eyebrow: "Care Library",
   description:
-    "Appliances are integral to the performance and functionality of your home. With correct use, regular maintenance and manufacturer-approved care methods, appliances can operate efficiently and maintain their appearance over time.",
+    "Appliances are central to your home's performance. With proper care, they will remain efficient and visually refined over time.",
   coverImage:
     "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/project4.jpg?updatedAt=1767743441731",
   pdfUrl: "/care-hub/appliances-care.pdf",
