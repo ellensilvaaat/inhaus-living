@@ -12,7 +12,10 @@ type GuideSection = {
   products?: string[];
   warning?: string;
   tip?: string;
-  tips?: string[];
+  tips?: {
+  text: string;
+  icon: string;
+}[];
   disclaimer?: string;
 };
 
