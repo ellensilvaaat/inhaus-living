@@ -57,7 +57,7 @@
   },
   {
     "id": 8,
-    "title": "Case Study: Renovating A Two-Storey Home On Venetia St, Sylvania",
+    "title": "Case Study: Renovating A Two Storey Home On Venetia St, Sylvania",
     "description": "A detailed case study showcasing the renovation of a two-storey home in Sylvania, highlighting design strategy, construction expertise and results.",
     "date": "2024-07-22",
     "heroImage": "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/brian-zajac-lE7pmNZZ3Fw-unsplash.jpg",
@@ -81,7 +81,7 @@
   },
   {
     "id": 11,
-    "title": "Do This 15-Point Checklist Before Starting Your Bathroom Renovation In Sydney",
+    "title": "Do This 15 Point Checklist Before Starting Your Bathroom Renovation In Sydney",
     "description": "Planning a bathroom renovation in Sydney? Use this essential 15-point checklist to avoid costly mistakes and ensure a smooth renovation process.",
     "date": "2024-03-01",
     "heroImage": "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/process-step1.png?updatedAt=1767743468912",
@@ -105,7 +105,7 @@
   },
   {
     "id": 14,
-    "title": "Embarking On A Home Renovation In Sydney? Here’s Your 10-Point Checklist",
+    "title": "Embarking On A Home Renovation In Sydney? Here’s Your 10 Point Checklist",
     "description": "Starting a home renovation in Sydney? Follow this practical 10-point checklist to stay organised, on budget and on schedule.",
     "date": "2023-12-04",
     "heroImage": "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/bilal-mansuri-Az9uF9Q85qc-unsplash.jpg",
@@ -409,7 +409,7 @@
   },
   {
     "id": 52,
-    "title": "Why Inhaus Living Is Fyshwick’s Go-To Team For Kitchen Renovations",
+    "title": "Why Inhaus Living Is Fyshwick’s Go To Team For Kitchen Renovations",
     "description": "Discover why Fyshwick homeowners trust Inhaus Living for high-quality kitchen renovations and personalised design expertise.",
     "date": "2025-06-09",
     "heroImage": "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/asr-design-studio-CwnPmtA2NHc-unsplash.jpg",
@@ -454,5 +454,13 @@
     "date": "2024-07-05",
     "heroImage": "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/andre-francois-mckenzie-sZ5CteK2r6E-unsplash.jpg",
     "slug": "your-guide-to-luxury-kitchen-remodelling-makeover-tips-that-wont-cost-a-fortune"
-  }
+  },
+  {
+  "id": 58,
+  "title": "Small Kitchen Renovation Sydney: Ideas to Maximise Space and Function",
+  "description": "Upgrade your kitchen with luxury remodelling ideas that balance high-end design, smart budgeting and long-term value for Australian homes.",
+  "date": "2026-3-20",
+  "heroImage": "https://ik.imagekit.io/ijsd2xvnc/Inhaus/public/alex-tyson-3rlykfO41Dg-unsplash.jpg",
+  "slug": "small-kitchen-renovation-sydney-maximise-space-function"
+}
 ]

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import Link from "next/link";
 import "./BlogPost.css";
 import CommentsSection from "../CommentsSection/CommentsSection";
 import postsMeta from "@/content/posts/postsMeta.json";
@@ -120,11 +121,10 @@ export default function BlogPost({ slug, content }: Props) {
   /* ================= CLEAN MARKDOWN ================= */
 
   const cleanedContent = useMemo(() => {
-    return content
-      .replace(/\*\*\[Home\][\s\S]*?\n/g, "")
-      .replace(/^- \[.*?\]\(#.*?\)\n/gm, "")
-      .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
-  }, [content]);
+  return content
+    .replace(/\*\*\[Home\][\s\S]*?\n/g, "")
+    .replace(/^- \[.*?\]\(#.*?\)\n/gm, "");
+}, [content]);
 
   /* ================= TOC ================= */
 
@@ -366,7 +366,38 @@ export default function BlogPost({ slug, content }: Props) {
                     </strong>
                   ),
 
-                  a: () => null,
+                  a: ({ href = "", children }) => {
+  const isInternal =
+    href.startsWith("/") ||
+    href.includes("inhausliving.com.au");
+
+  if (isInternal) {
+    const cleanHref = href.replace(
+      "https://www.inhausliving.com.au",
+      ""
+    );
+
+    return (
+      <Link
+        href={cleanHref}
+        className="blog-post__link"
+      >
+        {children}
+      </Link>
+    );
+  }
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="blog-post__link"
+    >
+      {children}
+    </a>
+  );
+},
                 }}
               >
                 {cleanedContent}
