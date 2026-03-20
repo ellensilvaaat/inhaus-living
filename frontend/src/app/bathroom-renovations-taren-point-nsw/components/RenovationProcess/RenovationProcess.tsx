@@ -146,7 +146,7 @@ export default function RenovationProcess() {
             clarity, waterproofing compliance and premium results.
           </p>
 
-          <a href="/contact" className="bathroom-process-cta">
+          <a href="#contact-form" className="bathroom-process-cta">
             Start My Bathroom Renovation
           </a>
         </header>

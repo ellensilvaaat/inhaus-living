@@ -111,41 +111,51 @@ export const submitLandingLead = async (req, res) => {
     });
 
     /* =========================
-       SEND EMAIL (ASYNC)
+       SEND EMAIL (ASYNC SAFE)
     ========================== */
 
-    sendConfirmationEmail({
-      ...data,
-      installationDate: data.installationDate || null,
-      subject: data.subject || null,
-    }).catch((err) => {
-
-      logger.warn("Landing email send failed", {
-        error: err.message,
+    setImmediate(() => {
+      sendConfirmationEmail({
+        ...data,
+        installationDate: data.installationDate || null,
+        subject: data.subject || null,
+      }).catch((err) => {
+        logger.warn("Landing email send failed", {
+          error: err.message,
+        });
       });
-
     });
 
     /* =========================
-       SEND TO MONDAY (ASYNC)
+       SEND TO MONDAY (FIXED)
     ========================== */
 
-    sendLeadToMonday({
-      fullName: data.fullName,
-      email: data.email,
-      mobile: data.mobile,
-      address: data.address,
-      budget: data.budget,
-      service: data.service_label || data.service,
-      message: data.message,
-      suburb: data.suburb,
-      region: data.region,
-      page: data.page_path
-    }).catch((err) => {
+    setImmediate(() => {
 
-      logger.warn("Monday landing lead failed", {
-        error: err.message,
-      });
+      const serviceToSend = data.service || data.service_label;
+
+      console.log("🔥 LP SERVICE:", serviceToSend);
+
+      sendLeadToMonday({
+        fullName: data.fullName,
+        email: data.email,
+        mobile: data.mobile,
+        address: data.address,
+        budget: data.budget,
+        service: serviceToSend,
+        message: data.message,
+        suburb: data.suburb,
+        region: data.region,
+        page: data.page_path
+      })
+        .then((result) => {
+          console.log("✅ MONDAY RESULT:", result);
+        })
+        .catch((err) => {
+          logger.warn("Monday landing lead failed", {
+            error: err.message,
+          });
+        });
 
     });
 

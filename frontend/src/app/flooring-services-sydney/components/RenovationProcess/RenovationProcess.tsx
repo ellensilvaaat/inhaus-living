@@ -141,7 +141,7 @@ export default function FlooringProcess() {
           </p>
 
           <a
-            href="/contact"
+            href="#contact-form"
             className="flooring-process-cta"
           >
             Start My Flooring Project

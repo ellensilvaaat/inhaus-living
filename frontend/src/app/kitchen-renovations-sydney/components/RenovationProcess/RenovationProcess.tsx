@@ -140,7 +140,7 @@ export default function RenovationProcess() {
             efficiency and premium craftsmanship across Sydney.
           </p>
 
-          <a href="/contact" className="kitchen-process-cta">
+          <a href="#contact-form" className="kitchen-process-cta">
             Start My Kitchen Renovation
           </a>
         </header>

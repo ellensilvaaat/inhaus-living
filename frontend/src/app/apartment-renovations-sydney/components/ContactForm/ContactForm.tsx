@@ -14,6 +14,7 @@ export default function ContactForm() {
   const router = useRouter();
   const formLoadedAt = useRef(Date.now());
   const addressRef = useRef<HTMLInputElement | null>(null);
+  const addressSelectedRef = useRef(false);
 
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -59,55 +60,49 @@ export default function ContactForm() {
     "Construction & Additions",
   ];
 
-  /* ================= GOOGLE AUTOCOMPLETE ================= */
+  /* ================= GOOGLE AUTOCOMPLETE FIX ================= */
 
   useEffect(() => {
-    if (!window.google || !addressRef.current) return;
+    if (!addressRef.current) return;
 
-    const autocomplete = new window.google.maps.places.Autocomplete(
-      addressRef.current,
-      {
+    const input = addressRef.current;
+
+    const init = () => {
+      if (!window.google?.maps?.places) return;
+
+      const autocomplete = new window.google.maps.places.Autocomplete(input, {
         componentRestrictions: { country: "au" },
-        fields: ["formatted_address"],
-      }
-    );
+        fields: ["formatted_address", "place_id"],
+        types: ["address"],
+      });
 
-    autocomplete.addListener("place_changed", () => {
-      const place = autocomplete.getPlace();
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        const formatted = place?.formatted_address || "";
 
-      if (place?.formatted_address) {
+        if (!formatted) return;
+
+        addressSelectedRef.current = true;
+
+        if (addressRef.current) {
+          addressRef.current.value = formatted;
+        }
+
         setFormData((prev) => ({
           ...prev,
-          address: place.formatted_address,
+          address: formatted,
         }));
 
         setErrors((prev) => ({
           ...prev,
           address: false,
         }));
-      }
-    });
+      });
+    };
+
+    const timeout = setTimeout(init, 300);
+    return () => clearTimeout(timeout);
   }, []);
-
-  /* ================= ADDRESS VALIDATION ================= */
-
-  function validateAddress(value: string) {
-    const text = value.toLowerCase().trim();
-
-    const hasStreet =
-      text.includes("street") ||
-      text.includes("st ") ||
-      text.includes(" road") ||
-      text.includes(" rd") ||
-      text.includes(" avenue") ||
-      text.includes(" ave") ||
-      text.includes(" drive") ||
-      text.includes(" dr");
-
-    const words = text.split(/\s+/);
-
-    return words.length >= 2 && hasStreet;
-  }
 
   /* ================= CHANGE ================= */
 
@@ -120,6 +115,12 @@ export default function ContactForm() {
     const { name, value } = e.target;
 
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (name === "address") {
+      addressSelectedRef.current = false;
+      setErrors((prev) => ({ ...prev, address: false }));
+      return;
+    }
 
     if (name === "fullName") {
       setErrors((prev) => ({
@@ -143,15 +144,6 @@ export default function ContactForm() {
       setErrors((prev) => ({
         ...prev,
         mobile: !valid,
-      }));
-    }
-
-    if (name === "address") {
-      const valid = validateAddress(value);
-
-      setErrors((prev) => ({
-        ...prev,
-        address: !valid,
       }));
     }
 
@@ -179,7 +171,7 @@ export default function ContactForm() {
       fullName: formData.fullName.trim().length < 3,
       email: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email),
       mobile: !/^[0-9+\s]{8,15}$/.test(formData.mobile),
-      address: !validateAddress(formData.address),
+      address: !addressSelectedRef.current,
       budget: false,
       service: false,
     };
@@ -218,6 +210,11 @@ export default function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
 
     e.preventDefault();
+
+    if (!addressSelectedRef.current) {
+      setErrors((prev) => ({ ...prev, address: true }));
+      return;
+    }
 
     setIsSubmitting(true);
     setSubmitError("");
@@ -269,7 +266,7 @@ export default function ContactForm() {
   const progressPercent = (step / 3) * 100;
 
   return (
-    <section className="premium-form" aria-labelledby="premium-form-heading">
+    <section id="contact-form" className="premium-form" aria-labelledby="premium-form-heading">
       <div className="premium-form__container">
 
         <div className="premium-form__info">

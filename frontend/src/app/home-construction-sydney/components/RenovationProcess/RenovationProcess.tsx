@@ -141,7 +141,7 @@ export default function ConstructionProcess() {
           </p>
 
           <a
-            href="/contact"
+            href="#contact-form"
             className="construction-process-cta"
           >
             Start My Home Extension Project

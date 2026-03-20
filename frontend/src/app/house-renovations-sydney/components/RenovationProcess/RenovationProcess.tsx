@@ -140,7 +140,7 @@ export default function RenovationProcess() {
             clarity, compliance and premium craftsmanship across Sydney.
           </p>
 
-          <a href="/contact" className="house-process-cta">
+          <a href="#contact-form" className="house-process-cta">
             Start My Home Renovation Journey
           </a>
         </header>

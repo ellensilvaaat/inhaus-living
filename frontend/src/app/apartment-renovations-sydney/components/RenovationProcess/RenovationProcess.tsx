@@ -142,7 +142,7 @@ export default function RenovationProcess() {
             final quality checks.
           </p>
 
-          <a href="/contact" className="process-cta">
+          <a href="#contact-form" className="process-cta">
             Start My Renovation Journey
           </a>
         </header>
