@@ -8,7 +8,7 @@ export default function Invite() {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const API_URL = process.env.NEXT_PUBLIC_API_BASE;
 
   const handleChange = (field: "name" | "email", value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
