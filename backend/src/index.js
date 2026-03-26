@@ -10,6 +10,10 @@ import commentsRoutes from "./routes/comments.routes.js";
 import newsletterRoutes from "./routes/newsletter.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 import landingRoutes from "./routes/landing.routes.js";
+import visitsRoutes from "./routes/visits.routes.js";
+import inviteRoutes from "./routes/invite.routes.js";
+import confirmRoutes from "./routes/confirm.routes.js";
+import cancelRoutes from "./routes/cancel.routes.js";
 
 import { apiLimiter } from "./middlewares/rateLimit.middleware.js";
 import logger from "./utils/logger.js";
@@ -116,6 +120,10 @@ app.use("/api/feedbacks", feedbackRoutes);
 app.use("/api/comments", commentsRoutes);
 app.use("/api/newsletter", newsletterRoutes);
 app.use("/api/landing", landingRoutes);
+app.use("/api", visitsRoutes);
+app.use("/api", inviteRoutes);
+app.use("/api", confirmRoutes);
+app.use("/api", cancelRoutes);
 
 /*
   🔐 ADMIN ROUTES

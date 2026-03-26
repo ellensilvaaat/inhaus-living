@@ -28,6 +28,9 @@ export default function ClientLayoutWrapper({
   normalizedPath?.startsWith("/home-extensions") ||
   normalizedPath?.startsWith("/construction-renovations") ||
   normalizedPath?.startsWith("/care-hub") ||
+  normalizedPath?.startsWith("/showroom-moore-park") ||
+  normalizedPath?.startsWith("/showroom-taren-point") ||
+  normalizedPath?.startsWith("/showroom-belrose") ||
   normalizedPath?.startsWith("/home-renovation");
 
   return (

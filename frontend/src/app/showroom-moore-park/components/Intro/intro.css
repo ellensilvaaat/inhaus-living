@@ -1,0 +1,202 @@
+.showroom-intro {
+  position: relative;
+  padding: clamp(100px, 10vw, 160px) 0;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(246, 124, 11, 0.06), transparent 40%),
+    linear-gradient(180deg, #ffffff 0%, #f6f6f6 100%);
+  overflow: hidden;
+}
+
+/* CONTAINER */
+.showroom-intro__container {
+  width: min(1400px, calc(100% - 64px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 40px;
+}
+
+/* IMAGE */
+.showroom-intro__media {
+  position: relative;
+}
+
+.showroom-intro__image {
+  width: 75%;
+  max-width: 640px;
+  border-radius: 28px;
+  box-shadow:
+    0 60px 140px rgba(0, 0, 0, 0.18),
+    0 20px 40px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 2;
+}
+
+/* GLOW */
+.showroom-intro__imageGlow {
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(246, 124, 11, 0.25), transparent 70%);
+  filter: blur(80px);
+  bottom: -10%;
+  left: 10%;
+  z-index: 1;
+}
+
+/* ACCENT */
+.showroom-intro__imageAccent {
+  position: absolute;
+  width: 90%;
+  height: 100%;
+  border-radius: 28px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transform: translate(20px, 20px);
+  z-index: 0;
+}
+
+/* CONTENT */
+.showroom-intro__content {
+  display: flex;
+  align-items: center;
+}
+
+/* CARD */
+.showroom-intro__card {
+  margin-left: -80px;
+  padding: clamp(32px, 3vw, 48px);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 40px 100px rgba(0, 0, 0, 0.1),
+    0 10px 30px rgba(0, 0, 0, 0.06);
+  max-width: 520px;
+}
+
+/* TYPOGRAPHY */
+.showroom-intro__kicker {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #888;
+}
+
+.showroom-intro__title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.3rem, 3vw, 3.1rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.showroom-intro__text {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.75;
+  color: #222;
+}
+
+.showroom-intro__text + .showroom-intro__text {
+  margin-top: 16px;
+}
+
+.showroom-intro__highlight {
+  color: #f67c0b;
+  font-weight: 600;
+}
+
+
+/* ===============================
+   MOBILE (até 600px)
+=================================*/
+@media (max-width: 600px) {
+  .showroom-intro {
+    padding: 72px 16px;
+  }
+
+  .showroom-intro__container {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .showroom-intro__image {
+    width: 80%;
+    margin: auto;
+    max-width: 100%;
+  }
+
+  .showroom-intro__imageAccent {
+    display: none;
+  }
+
+  .showroom-intro__card {
+    margin-left: 0;
+    margin-top: -40px; /* leve overlap */
+    padding: 22px;
+    border-radius: 22px;
+  }
+
+  .showroom-intro__title {
+    font-size: 2rem;
+  }
+
+  .showroom-intro__text {
+    font-size: 1.3rem;
+    line-height: 1.65;
+  }
+}
+
+
+/* ===============================
+   TABLET (601px até 728px)
+=================================*/
+@media (min-width: 601px) and (max-width: 728px) {
+  .showroom-intro__container {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .showroom-intro__image {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .showroom-intro__card {
+    margin-left: 0;
+    margin-top: -60px;
+    padding: 28px;
+  }
+
+  .showroom-intro__title {
+    font-size: 2.3rem;
+  }
+
+  .showroom-intro__text {
+    font-size: 1rem;
+  }
+}
+
+
+/* ===============================
+   DESKTOP (729px até 1100px)
+=================================*/
+@media (min-width: 729px) and (max-width: 1100px) {
+  .showroom-intro__container {
+    grid-template-columns: 1fr;
+  }
+
+  .showroom-intro__image {
+    margin: 0 auto;
+  }
+
+  .showroom-intro__card {
+    margin-left: 0;
+    margin-top: -60px;
+  }
+}

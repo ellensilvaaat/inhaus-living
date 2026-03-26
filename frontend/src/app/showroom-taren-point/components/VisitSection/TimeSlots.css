@@ -1,0 +1,101 @@
+.timeslots-container {
+  margin-top: 28px;
+}
+
+/* ================= TITLE ================= */
+
+.timeslots-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 12px;
+}
+
+/* ================= GRID ================= */
+
+.timeslots-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/* ================= SLOT ================= */
+
+.slot {
+  position: relative;
+  height: 48px;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75));
+  backdrop-filter: blur(8px);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #111;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border 0.2s ease,
+    background 0.2s ease;
+}
+
+/* subtle hover */
+.slot:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: rgba(246,124,11,0.5);
+  box-shadow:
+    0 8px 18px rgba(0,0,0,0.06),
+    0 4px 10px rgba(246,124,11,0.12);
+}
+
+/* click feedback */
+.slot:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+/* ================= ACTIVE ================= */
+
+.slot.active {
+  background: linear-gradient(135deg, #f67c0b, #ff9a3c);
+  border-color: transparent;
+  color: white;
+
+  box-shadow:
+    0 10px 26px rgba(246,124,11,0.35);
+}
+
+/* ================= BOOKED ================= */
+
+.slot.booked {
+  opacity: 0.35;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+/* ================= EMPTY ================= */
+
+.no-slots {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 0.9rem;
+  color: rgba(0,0,0,0.5);
+  padding: 12px 0;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+  .timeslots-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .slot {
+    height: 52px;
+    font-size: 1.4rem;
+  }
+
+  .timeslots-title{
+    font-size: 1.7rem;
+  }
+}

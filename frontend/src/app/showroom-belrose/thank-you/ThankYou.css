@@ -1,0 +1,233 @@
+:root {
+  --color-accent: #F67C0B;
+  --font-title: "The Seasons", serif;
+  --font-primary: "Be Vietnam Pro", sans-serif;
+}
+
+.thankyou {
+  position: relative;
+  min-height: 100vh;
+  background: #050505;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  overflow: hidden;
+}
+
+/* GLOW */
+
+.thankyou-glow {
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(
+    circle,
+    rgba(246,124,11,0.25),
+    transparent 70%
+  );
+  filter: blur(140px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* CONTENT */
+
+.thankyou-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+}
+
+/* TEXT */
+
+.thankyou-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 20px;
+}
+
+.thankyou h1 {
+  font-family: var(--font-title);
+  font-size: 3.2rem;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.thankyou-description {
+  opacity: 0.7;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+/* DIVIDER */
+
+.thankyou-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--color-accent);
+  margin: 40px auto;
+  opacity: 0.6;
+}
+
+/* NOTE */
+
+.thankyou-note {
+  font-size: 0.95rem;
+  opacity: 0.6;
+  margin-bottom: 20px;
+}
+
+/* LINK */
+
+.thankyou-link {
+  color: var(--color-accent);
+  text-decoration: none;
+  position: relative;
+  font-size: 0.95rem;
+}
+
+.thankyou-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 1px;
+  background: var(--color-accent);
+  opacity: 0.6;
+}
+
+/* RESPONSIVE */
+
+/* =========================
+   ≤ 550px (mobile pequeno)
+========================= */
+@media (max-width: 550px) {
+  .thankyou {
+    padding: 60px 20px;
+  }
+
+  .thankyou-inner {
+    max-width: 100%;
+  }
+
+  .thankyou-eyebrow {
+    font-size: 0.85rem;
+    letter-spacing: 1.6px;
+  }
+
+  .thankyou h1 {
+    font-size: 2.4rem;
+    line-height: 1.2;
+  }
+
+  .thankyou-description {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .thankyou-note {
+    font-size: 1rem;
+  }
+
+  .thankyou-link {
+    font-size: 1rem;
+  }
+
+  .thankyou-glow {
+    width: 500px;
+    height: 500px;
+  }
+}
+
+
+/* =========================
+   551px → 768px (mobile grande / tablet)
+========================= */
+@media (min-width: 551px) and (max-width: 768px) {
+  .thankyou {
+    padding: 80px 24px;
+  }
+
+  .thankyou h1 {
+    font-size: 2.8rem;
+  }
+
+  .thankyou-description {
+    font-size: 1.3rem;
+    line-height: 1.75;
+  }
+
+  .thankyou-note,
+  .thankyou-link {
+    font-size: 1.05rem;
+  }
+}
+
+
+/* =========================
+   769px → 992px (tablet)
+========================= */
+@media (min-width: 769px) and (max-width: 992px) {
+  .thankyou h1 {
+    font-size: 3rem;
+  }
+
+  .thankyou-description {
+    font-size: 1.25rem;
+  }
+}
+
+
+/* =========================
+   993px → 1200px (laptop)
+========================= */
+@media (min-width: 993px) and (max-width: 1200px) {
+  .thankyou h1 {
+    font-size: 3.1rem;
+  }
+
+  .thankyou-inner {
+    max-width: 650px;
+  }
+}
+
+
+/* =========================
+   ≥1500px (ultra wide)
+========================= */
+@media (min-width: 1500px) {
+  .thankyou {
+    padding: 100px 20px;
+  }
+
+  .thankyou-inner {
+    max-width: 900px;
+  }
+
+  .thankyou h1 {
+    font-size: 4.5rem;
+  }
+
+  .thankyou-description {
+    font-size: 1.5rem;
+    line-height: 1.9;
+  }
+
+  .thankyou-note,
+  .thankyou-link {
+    font-size: 1.1rem;
+  }
+
+  .thankyou-glow {
+    width: 900px;
+    height: 900px;
+  }
+}

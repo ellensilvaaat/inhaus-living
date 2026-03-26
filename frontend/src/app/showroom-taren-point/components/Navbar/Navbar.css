@@ -1,0 +1,153 @@
+/* ================= NAVBAR ================= */
+
+.showroom-navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: clamp(16px, 2.5vw, 28px) clamp(20px, 4vw, 60px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 20;
+}
+
+/* LOGO */
+
+.showroom-navbar__logoWrap {
+  display: flex;
+  align-items: center;
+}
+
+.showroom-navbar__logo {
+  height: clamp(2.2rem, 3.5vw, 4.2rem);
+  object-fit: contain;
+  filter:
+    drop-shadow(0 6px 18px rgba(0, 0, 0, 0.35))
+    brightness(1.05);
+  transition: transform 0.25s ease;
+}
+
+.showroom-navbar__logoWrap:hover .showroom-navbar__logo {
+  transform: scale(1.03);
+}
+
+/* RIGHT */
+
+.showroom-navbar__right {
+  display: flex;
+  align-items: center;
+}
+
+/* CTA */
+
+.showroom-navbar__call {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #1a0e04;
+  text-decoration: none;
+
+  background:
+    linear-gradient(180deg, #ffc28c 0%, #f67c0b 100%);
+  box-shadow:
+    0 14px 30px rgba(246, 124, 11, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+}
+
+.showroom-navbar__call:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 20px 40px rgba(246, 124, 11, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  filter: brightness(1.05);
+}
+
+.showroom-navbar__call::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle at 30% 20%,
+    rgba(255, 255, 255, 0.25),
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+
+/* ================= MOBILE (até 600px) ================= */
+
+@media (max-width: 600px) {
+  .showroom-navbar {
+    padding: 14px 16px;
+  }
+
+  .showroom-navbar__logo {
+    height: 4rem;
+  }
+
+  .showroom-navbar__call {
+    min-height: 40px;
+    padding: 0 14px;
+    font-size: 1.1rem;
+  }
+}
+
+
+/* ================= TABLET (601px até 728px) ================= */
+
+@media (min-width: 601px) and (max-width: 728px) {
+  .showroom-navbar {
+    padding: 16px 20px;
+  }
+
+  .showroom-navbar__logo {
+    height: 2.4rem;
+  }
+
+  .showroom-navbar__call {
+    min-height: 44px;
+    padding: 0 18px;
+    font-size: 0.9rem;
+  }
+}
+
+
+/* ================= DESKTOP (729px+) ================= */
+
+@media (min-width: 729px) {
+  /* mantém comportamento base */
+}
+
+
+/* ================= ULTRA LARGE ================= */
+
+@media (min-width: 1700px) {
+  .showroom-navbar {
+    padding: 32px 100px;
+  }
+
+  .showroom-navbar__logo {
+    height: 4.5rem;
+  }
+
+  .showroom-navbar__call {
+    min-height: 56px;
+    padding: 0 28px;
+    font-size: 1.05rem;
+  }
+}
