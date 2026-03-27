@@ -62,7 +62,7 @@ export default function Invite() {
   };
 
   return (
-    <section className="invite">
+    <section className="invite" id="early-access">
       <div className="invite-glow" />
 
       <div className="invite-inner">

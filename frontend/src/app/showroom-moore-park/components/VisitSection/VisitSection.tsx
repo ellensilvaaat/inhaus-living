@@ -160,7 +160,7 @@ export default function VisitSection() {
         throw new Error("Failed request");
       }
 
-      window.location.href = "/thank-you";
+      window.location.href = "/showroom-moore-park/thank-you";
     } catch {
       alert("Failed request");
     } finally {

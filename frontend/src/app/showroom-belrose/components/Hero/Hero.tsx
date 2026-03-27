@@ -130,10 +130,6 @@ export default function Hero() {
           <a href="#early-access" className="showroom-hero__button showroom-hero__button--primary">
             Get early access
           </a>
-
-          <a href="#storytelling" className="showroom-hero__button showroom-hero__button--secondary">
-            Discover the experience
-          </a>
         </div>
 
         <div className="showroom-hero__footer-note">
