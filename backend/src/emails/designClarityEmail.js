@@ -1,4 +1,4 @@
-export const designClarityEmail = (firstName = "") => `
+export const designClarityEmail = (firstName = "", email = "") => `
 <div style="
 background:#f1f0ee;
 padding:70px 0;
@@ -88,7 +88,6 @@ margin-bottom:24px;
 When design is rushed or treated as a secondary step, projects often face unexpected costs, delays, and results that fall short of the original vision.
 </p>
 
-<!-- DIVIDER -->
 <div style="
 height:1px;
 background:#eeeeee;
@@ -183,11 +182,8 @@ font-size:14px;
 ">
 
 <a href="https://www.linkedin.com/company/inhausliving" style="margin:0 12px;color:#555;text-decoration:none;">LinkedIn</a>
-
 <a href="https://au.pinterest.com/inhausliving" style="margin:0 12px;color:#555;text-decoration:none;">Pinterest</a>
-
 <a href="https://www.instagram.com/inhaus_living" style="margin:0 12px;color:#555;text-decoration:none;">Instagram</a>
-
 <a href="https://www.facebook.com/inhausliving.com.au" style="margin:0 12px;color:#555;text-decoration:none;">Facebook</a>
 
 </td>
@@ -206,6 +202,19 @@ color:#777;
 Design-led renovations & interiors<br/><br/>
 
 © ${new Date().getFullYear()} INHAUS LIVING. ALL RIGHTS RESERVED.
+
+<br/><br/>
+
+<p style="font-size:12px;color:#999;">
+You are receiving this email because you subscribed to Inhaus Living.
+
+<br/><br/>
+
+<a href="${process.env.API_URL}/api/unsubscribe?email=${encodeURIComponent(email)}" 
+style="color:#999;text-decoration:underline;">
+Unsubscribe
+</a>
+</p>
 
 </td>
 </tr>

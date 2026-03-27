@@ -14,6 +14,7 @@ import visitsRoutes from "./routes/visits.routes.js";
 import inviteRoutes from "./routes/invite.routes.js";
 import confirmRoutes from "./routes/confirm.routes.js";
 import cancelRoutes from "./routes/cancel.routes.js";
+import unsubscribeRoutes from "./routes/unsubscribe.routes.js";
 
 import { apiLimiter } from "./middlewares/rateLimit.middleware.js";
 import logger from "./utils/logger.js";
@@ -124,6 +125,7 @@ app.use("/api", visitsRoutes);
 app.use("/api", inviteRoutes);
 app.use("/api", confirmRoutes);
 app.use("/api", cancelRoutes);
+app.use("/api", unsubscribeRoutes);
 
 /*
   🔐 ADMIN ROUTES

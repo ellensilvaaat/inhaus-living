@@ -1,0 +1,127 @@
+/* FULL PAGE */
+.thankyou-section {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #F67C0B, #1A1A1A);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  animation: fadeIn 0.9s ease forwards;
+}
+
+/* LOGO */
+.thankyou-logo {
+  width: 190px;
+  margin-bottom: 4rem;
+  opacity: 0;
+  animation: slideDown 1s ease forwards;
+}
+
+/* CONTENT BOX */
+.thankyou-box {
+  text-align: center;
+  color: white;
+  max-width: 450px;
+  padding: 2rem 2.5rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.25);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: riseUp 1s ease 0.4s forwards;
+}
+
+/* CHECK ANIMATED */
+.checkmark {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #fff;
+  color: #F67C0B;
+  font-size: 2.8rem;
+  font-weight: bold;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 1.3rem auto;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  
+  opacity: 0;
+  animation: popIn 0.6s ease 0.2s forwards;
+}
+
+/* TITLE */
+.thankyou-box h1 {
+  font-size: 2.5rem;
+  font-family: var(--font-title);
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+/* TEXT */
+.thankyou-box p {
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+/* BUTTON */
+.back-btn {
+  padding: 0.9rem 2.4rem;
+  background: white;
+  color: #F67C0B;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: 0.3s ease;
+  display: inline-block;
+}
+
+.back-btn:hover {
+  background: #ffe5d1;
+  transform: translateY(-3px);
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes riseUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.4); opacity: 0; }
+  80% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* RESPONSIVE */
+@media (max-width: 500px) {
+  .thankyou-box {
+    padding: 1.8rem 1.5rem;
+  }
+
+  .thankyou-logo {
+    width: 120px;
+  }
+
+  .checkmark {
+    width: 70px;
+    height: 70px;
+    font-size: 2.3rem;
+  }
+}

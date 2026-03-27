@@ -1,4 +1,4 @@
-export const renovationTipsEmail = (firstName = "") => `
+export const renovationTipsEmail = (firstName = "", email = "") => `
 <div style="
 background:#f1f0ee;
 padding:70px 0;
@@ -95,7 +95,6 @@ margin-bottom:28px;
 
 </ul>
 
-<!-- DIVIDER -->
 <div style="
 height:1px;
 background:#eeeeee;
@@ -160,7 +159,7 @@ Best regards,<br/>
 <tr>
 <td align="center" style="padding:0 70px 70px 70px;">
 
-<a href="https://www.inhausliving.com.au/blog/renovation-guide"
+<a href="https://www.inhausliving.com.au/blog/renovation-tips-steer-clear-of-these-5-common-mistakes/"
 style="
 display:inline-block;
 padding:18px 42px;
@@ -190,11 +189,8 @@ font-size:14px;
 ">
 
 <a href="https://www.linkedin.com/company/inhausliving" style="margin:0 12px;color:#555;text-decoration:none;">LinkedIn</a>
-
 <a href="https://au.pinterest.com/inhausliving" style="margin:0 12px;color:#555;text-decoration:none;">Pinterest</a>
-
 <a href="https://www.instagram.com/inhaus_living" style="margin:0 12px;color:#555;text-decoration:none;">Instagram</a>
-
 <a href="https://www.facebook.com/inhausliving.com.au" style="margin:0 12px;color:#555;text-decoration:none;">Facebook</a>
 
 </td>
@@ -213,6 +209,19 @@ color:#777;
 Design-led renovations & interiors<br/><br/>
 
 © ${new Date().getFullYear()} INHAUS LIVING. ALL RIGHTS RESERVED.
+
+<br/><br/>
+
+<p style="font-size:12px;color:#999;">
+You are receiving this email because you subscribed to Inhaus Living.
+
+<br/><br/>
+
+<a href="${process.env.API_URL}/api/unsubscribe?email=${encodeURIComponent(email)}" 
+style="color:#999;text-decoration:underline;">
+Unsubscribe
+</a>
+</p>
 
 </td>
 </tr>

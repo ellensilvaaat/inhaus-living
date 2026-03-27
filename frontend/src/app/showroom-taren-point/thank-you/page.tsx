@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import ThankYou from "./ThankYou";
+import ThankYou from "./thank-you";
 
 export const metadata: Metadata = {
-  title: "You're on the list | Belrose Showroom Opening Soon",
+  title: "Visit Confirmed | Taren Point Showroom",
   description:
-    "Thanks for your interest in our Belrose showroom. Be first to visit and get early access to custom kitchens and interiors in Sydney.",
+    "Your visit to our Taren Point showroom has been confirmed. We look forward to welcoming you and discussing your project.",
   robots: {
     index: false,
     follow: false,
@@ -18,6 +18,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
+export default function ThankYouTarenPointPage() {
   return <ThankYou />;
 }

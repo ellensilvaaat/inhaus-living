@@ -1,4 +1,4 @@
-export const projectStoryEmail = (firstName = "") => `
+export const projectStoryEmail = (firstName = "", email = "") => `
 <div style="
 background:#f1f0ee;
 padding:70px 0;
@@ -37,7 +37,7 @@ style="display:block;margin:auto"
 <tr>
 <td>
 <img
-src="https://images.unsplash.com/photo-1617806118233-18e1de247200"
+src="https://ik.imagekit.io/ijsd2xvnc/Inhaus/projects/Paddington%202/0Q8A2646.jpg?updatedAt=1769569857242"
 width="100%"
 style="display:block;border:none"
 />
@@ -88,7 +88,6 @@ margin-bottom:24px;
 Through close collaboration, thoughtful design and our end-to-end delivery approach, we reimagined the layout, refined the material palette and created spaces that flow naturally from one room to the next.
 </p>
 
-<!-- DIVIDER -->
 <div style="
 height:1px;
 background:#eeeeee;
@@ -130,7 +129,7 @@ Best regards,<br/>
 <tr>
 <td align="center" style="padding:0 70px 70px 70px;">
 
-<a href="https://www.inhausliving.com.au/projects"
+<a href="https://www.inhausliving.com.au/projects/renovation-dillon-street-residence/"
 style="
 display:inline-block;
 padding:18px 42px;
@@ -160,11 +159,8 @@ font-size:14px;
 ">
 
 <a href="https://www.linkedin.com/company/inhausliving" style="margin:0 12px;color:#555;text-decoration:none;">LinkedIn</a>
-
 <a href="https://au.pinterest.com/inhausliving" style="margin:0 12px;color:#555;text-decoration:none;">Pinterest</a>
-
 <a href="https://www.instagram.com/inhaus_living" style="margin:0 12px;color:#555;text-decoration:none;">Instagram</a>
-
 <a href="https://www.facebook.com/inhausliving.com.au" style="margin:0 12px;color:#555;text-decoration:none;">Facebook</a>
 
 </td>
@@ -183,6 +179,19 @@ color:#777;
 Design-led renovations & interiors<br/><br/>
 
 © ${new Date().getFullYear()} INHAUS LIVING. ALL RIGHTS RESERVED.
+
+<br/><br/>
+
+<p style="font-size:12px;color:#999;">
+You are receiving this email because you subscribed to Inhaus Living.
+
+<br/><br/>
+
+<a href="${process.env.API_URL}/api/unsubscribe?email=${encodeURIComponent(email)}" 
+style="color:#999;text-decoration:underline;">
+Unsubscribe
+</a>
+</p>
 
 </td>
 </tr>

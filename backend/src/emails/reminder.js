@@ -20,8 +20,8 @@ export const sendReminderEmail = async (booking) => {
   const showroomLabel =
     showroom === "mp" ? "Moore Park" : "Taren Point";
 
-  const confirmUrl = `${process.env.FRONT_URL}/api/confirm-booking?id=${id}`;
-  const cancelUrl = `${process.env.FRONT_URL}/api/cancel-booking?id=${id}`;
+  const confirmUrl = `${process.env.API_URL}/api/confirm-booking?id=${id}`;
+  const cancelUrl = `${process.env.API_URL}/api/cancel-booking?id=${id}`;
 
   const mail = {
     from: "Inhaus Living <no-reply@inhausliving.com.au>",
