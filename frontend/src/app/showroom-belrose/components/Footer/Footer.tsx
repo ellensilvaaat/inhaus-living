@@ -22,7 +22,7 @@ export default function Footer() {
 
           <div className="footer-brand">
             <h3>Inhaus Living</h3>
-            <p>Architecture. Renovation. Alignment.</p>
+            <p>Design. Renovate. build.</p>
           </div>
 
           <div className="footer-links">

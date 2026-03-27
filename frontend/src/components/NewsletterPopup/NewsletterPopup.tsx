@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import "./NewsletterPopup.css";
 
 const STORAGE_KEY = "inhaus_popup_closed";
-const EXPIRATION_DAYS = 7; // popup reaparece após 7 dias
+const EXPIRATION_DAYS = 7;
 
 export default function NewsletterPopup() {
   const [showPopup, setShowPopup] = useState(false);
@@ -15,22 +16,31 @@ export default function NewsletterPopup() {
   });
   const [loading, setLoading] = useState(false);
 
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "";
 
   /* =====================================================
-     POPUP TRIGGER LOGIC
+     POPUP TRIGGER (SCROLL 50% + HOME ONLY)
   ===================================================== */
 
   useEffect(() => {
+    if (!isHome) return;
+
     const stored = localStorage.getItem(STORAGE_KEY);
 
     if (stored) {
-      const { timestamp } = JSON.parse(stored);
-      const now = Date.now();
-      const daysPassed =
-        (now - timestamp) / (1000 * 60 * 60 * 24);
+      try {
+        const { timestamp } = JSON.parse(stored);
+        const now = Date.now();
+        const daysPassed =
+          (now - timestamp) / (1000 * 60 * 60 * 24);
 
-      if (daysPassed < EXPIRATION_DAYS) return;
+        if (daysPassed < EXPIRATION_DAYS) return;
+      } catch {
+        localStorage.removeItem(STORAGE_KEY);
+      }
     }
 
     let triggered = false;
@@ -53,24 +63,22 @@ export default function NewsletterPopup() {
       const scrollPercent =
         (scrollTop / docHeight) * 100;
 
-      if (scrollPercent >= 25) {
+      if (scrollPercent >= 50) {
         show();
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-
-    // Fallback: mostra após 10 segundos
-    const timer = setTimeout(show, 10000);
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      clearTimeout(timer);
     };
-  }, []);
+  }, [isHome]);
 
   /* =====================================================
-     CLOSE POPUP
+     CLOSE POPUP (SALVA NO LOCALSTORAGE)
   ===================================================== */
 
   const closePopup = () => {
@@ -121,32 +129,25 @@ export default function NewsletterPopup() {
 
       if (!response.ok) {
         const err = await response.json();
-        alert(
-          err.message || "Something went wrong."
-        );
+        alert(err.message || "Something went wrong.");
         return;
       }
 
       setSubmitted(true);
       setFormData({ name: "", email: "" });
 
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify({
-          timestamp: Date.now(),
-        })
-      );
+      // ❌ NÃO salva no localStorage aqui
+      // (UX melhor — deixa aparecer novamente no futuro)
+
     } catch (error) {
       console.error("Newsletter error:", error);
-      alert(
-        "Error sending. Please try again later."
-      );
+      alert("Error sending. Please try again later.");
     } finally {
       setLoading(false);
     }
   };
 
-  if (!showPopup) return null;
+   if (!showPopup) return null;
 
   /* =====================================================
      RENDER

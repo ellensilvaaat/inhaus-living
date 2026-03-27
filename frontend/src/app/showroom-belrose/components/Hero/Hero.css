@@ -279,13 +279,12 @@
 
 .showroom-hero__footer-note {
   display: grid;
-  grid-template-columns: 72px minmax(0, 1fr);
+  grid-template-columns: 50px minmax(0, 1fr);
   align-items: start;
-  gap: 18px;
-  max-width: 720px;
   opacity: 0;
   transform: translateY(22px);
   transition: opacity 0.9s ease 1s, transform 0.9s ease 1s;
+  margin-bottom: 50px;
 }
 
 .showroom-hero.is-loaded .showroom-hero__footer-note {
@@ -295,7 +294,7 @@
 
 .showroom-hero__footer-line {
   display: block;
-  width: 100%;
+  width: 50%;
   height: 1px;
   margin-top: 0.85em;
   background: linear-gradient(90deg, rgba(255,255,255,0.7), rgba(255,255,255,0.08));
@@ -303,7 +302,7 @@
 
 .showroom-hero__footer-note p {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.22rem;
   line-height: 1.8;
   color: var(--hero-soft);
 }

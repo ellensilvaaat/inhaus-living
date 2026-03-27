@@ -196,7 +196,7 @@
 .intro-cinematic__body p {
   margin: 0;
   font-family: var(--font-primary);
-  font-size: clamp(1rem, 1.25vw, 1.3rem);
+  font-size: clamp(1rem, 1.25vw, 1.4rem);
   line-height: 1.85;
   color: var(--intro-muted);
 }

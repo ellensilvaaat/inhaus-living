@@ -1,3 +1,146 @@
+.topbar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 12px 20px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(12, 9, 7, 0.85),
+      rgba(12, 9, 7, 0.35)
+    );
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+
+  z-index: 1200;
+  overflow: hidden;
+}
+
+/* glow sutil premium */
+.topbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(246,124,11,0.12),
+    transparent 60%
+  );
+
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* GLOW BACKGROUND */
+
+.topbar__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(246,124,11,0.12),
+    transparent 70%
+  );
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* INNER */
+
+.topbar__inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+
+/* LINK */
+
+.topbar__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: white;
+  font-family: var(--font-primary);
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  transition: all 0.35s ease;
+  position: relative;
+}
+
+/* PILL */
+
+.topbar__pill {
+  background: rgba(246,124,11,0.12);
+  color: var(--color-accent);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* TEXT */
+
+.topbar__text {
+  opacity: 0.85;
+}
+
+/* DIVIDER */
+
+.topbar__divider {
+  width: 1px;
+  height: 14px;
+  background: rgba(255,255,255,0.2);
+}
+
+/* CTA */
+
+.topbar__cta {
+  color: var(--color-accent);
+  font-weight: 500;
+  position: relative;
+}
+
+/* ARROW */
+
+.topbar__arrow {
+  transition: transform 0.3s ease;
+}
+
+/* HOVER */
+
+.topbar__link:hover {
+  opacity: 0.9;
+}
+
+.topbar__link:hover .topbar__arrow {
+  transform: translateX(4px);
+}
+
+/* SUBTLE ANIMATION */
+
+.topbar__link::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background: var(--color-accent);
+  transition: width 0.35s ease;
+}
+
+.topbar__link:hover::after {
+  width: 100%;
+}
+
 .navbar {
         position: absolute;
         top: 0;

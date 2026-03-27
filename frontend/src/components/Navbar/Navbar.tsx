@@ -19,6 +19,8 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  const isHome = pathname === "/";
+
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "auto";
     return () => {
@@ -31,7 +33,36 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="navbar">
+      {/* 🔥 TOPBAR SÓ NA HOME */}
+      {isHome && (
+        <div className="topbar">
+          <div className="topbar__inner">
+            <Link href="/showroom-belrose" className="topbar__link">
+              <span className="topbar__pill">New</span>
+
+              <span className="topbar__text">
+                Belrose showroom opening soon
+              </span>
+
+              <span className="topbar__divider" />
+
+              <span className="topbar__cta">
+                Get early access
+              </span>
+
+              <span className="topbar__arrow">→</span>
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {/* 🔥 NAVBAR */}
+      <header
+        className="navbar"
+        style={{
+          top: isHome ? "40px" : "0px", // 👈 aqui resolve TUDO
+        }}
+      >
         <div className="navbar__container">
           <Link href="/" className="navbar__logo" onClick={closeMenu}>
             <Image
@@ -50,12 +81,12 @@ export default function Navbar() {
                 <li key={link.name} className="navbar__item">
                   <Link
                     href={link.path}
-                   className={
-                  pathname === link.path ||
-                  (link.path !== "/" && pathname.startsWith(link.path))
-                  ? "navbar__link navbar__link--active"
-                  : "navbar__link"
-                  }
+                    className={
+                      pathname === link.path ||
+                      (link.path !== "/" && pathname.startsWith(link.path))
+                        ? "navbar__link navbar__link--active"
+                        : "navbar__link"
+                    }
                   >
                     {link.name}
                   </Link>
@@ -84,7 +115,6 @@ export default function Navbar() {
             <button
               className="mobile-menu__close"
               onClick={closeMenu}
-              aria-label="Close menu"
             >
               &times;
             </button>
