@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import "./ThankYou.css";
+import "./thank-you.css";
 
 export default function ThankYou() {
   return (
